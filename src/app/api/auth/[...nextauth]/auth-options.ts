@@ -1,6 +1,7 @@
 import { env } from '@/env.mjs';
+import { IJWT } from '@/types';
 import getAccessToken from '@/utils/axios/getAccessToken';
-import { asiaSportBackendUrl } from '@/utils/axios/getAxios';
+import { lighthouseBackendUrl } from '@/utils/axios/getAxios';
 import getRandomString from '@/utils/get-random-string';
 import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -12,20 +13,119 @@ export const authOptions: NextAuthOptions = {
   pages: {
     ...pagesOptions,
   },
+  providers: [
+    CredentialsProvider({
+      id: 'credentials',
+      name: 'Credentials',
+      credentials: {},
+      async authorize(credentials: any) {
+        // const cookies = cookie.parse(req.headers.cookie);
+        // Admin Login
+        if (credentials?.adminLogin === 'true') {
+          try {
+            const { data } = await lighthouseBackendUrl.post(
+              '/api/admin/login',
+              {
+                email: credentials?.email,
+                password: credentials?.password,
+              }
+            );
+
+            if (data?.status === false) {
+              throw new Error(data?.message);
+            } else {
+              const user = data?.data;
+              return user; // return the user's data
+            }
+          } catch (err: any) {
+            console.log(err.message);
+            throw new Error(err.message);
+          }
+        } else {
+          // User Otp Verify & Sign In
+          const user = JSON.parse(credentials.userData);
+          return user; // userData come from otp verify
+
+          // ========== (Skip It) ========== //
+          // if (credentials?.signUp === 'true') {
+          //   try {
+          //     const { data } = await lighthouseBackendUrl.post(
+          //       '/api/user/verify-email',
+          //       { otp: credentials?.otp },
+          //       {
+          //         headers: {
+          //           token: cookies?._temp,
+          //         },
+          //       }
+          //     );
+
+          //     if (data.status === false) {
+          //       throw new Error(data?.message);
+          //     }
+
+          //     const user = data?.data;
+
+          //     return user; // return the user's data
+          //   } catch (err) {
+          //     throw new Error(err.message);
+          //   }
+          // } else {
+          //   try {
+          //     // User Sign In
+
+          //     const { data } = await lighthouseBackendUrl.post(
+          //       '/api/user/login',
+          //       {
+          //         email: credentials?.email,
+          //         password: credentials?.password,
+          //         provider: 'email',
+          //       }
+          //     );
+
+          //     if (data?.status === false) {
+          //       throw new Error(data?.message);
+          //     } else {
+          //       const user = data?.data;
+          //       return user; // return the user's data
+          //     }
+          //   } catch (err) {
+          //     throw new Error(err.message);
+          //   }
+          // }
+
+          // After verified otp by firebase
+          // try {
+          //   const { data } = await lighthouseBackendUrl.post(
+          //     '/api/user/login-with-phone',
+          //     { phone: credentials?.phone, country: credentials?.country }
+          //   );
+
+          //   if (data.status === false) {
+          //     throw new Error(data?.message);
+          //   }
+
+          //   const user = data?.data;
+
+          //   return user; // return the user's data
+          // } catch (err) {
+          //   console.log(err);
+          //   throw new Error(err.message);
+          // }
+        }
+      },
+    }),
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID || '',
+      clientSecret: env.GOOGLE_CLIENT_SECRET || '',
+      allowDangerousEmailAccountLinking: true,
+    }),
+  ],
   session: {
     strategy: 'jwt',
     maxAge: 60 * 60 * 24 * 30, // Expire in 30 Days
   },
   callbacks: {
-    async jwt({
-      token,
-      user,
-      account,
-    }: {
-      token: any;
-      user: any;
-      account: any;
-    }) {
+    async jwt({ token, user, account }: IJWT) {
       if (account?.provider === 'credentials') {
         if (user) {
           return {
@@ -35,7 +135,7 @@ export const authOptions: NextAuthOptions = {
         }
       }
 
-      // Handle Social Auth
+      // ========== Handle Social Auth (Skip) ========== //
       if (account?.provider === 'google' || account?.provider === 'apple') {
         const values = {
           name: user?.name,
@@ -44,7 +144,7 @@ export const authOptions: NextAuthOptions = {
           image: user?.image,
           provider: account?.provider,
         };
-        const { data } = await asiaSportBackendUrl.post(
+        const { data } = await lighthouseBackendUrl.post(
           '/api/user/register',
           values
         );
@@ -74,110 +174,4 @@ export const authOptions: NextAuthOptions = {
       };
     },
   },
-  providers: [
-    CredentialsProvider({
-      id: 'credentials',
-      name: 'Credentials',
-      credentials: {},
-      async authorize(credentials: any) {
-        // const cookies = cookie.parse(req.headers.cookie);
-        // Admin Login
-        if (credentials?.adminLogin === 'true') {
-          try {
-            const { data } = await asiaSportBackendUrl.post(
-              '/api/admin/login',
-              {
-                email: credentials?.email,
-                password: credentials?.password,
-              }
-            );
-
-            if (data?.status === false) {
-              throw new Error(data?.message);
-            } else {
-              const user = data?.data;
-              return user; // return the user's data
-            }
-          } catch (err: any) {
-            console.log(err.message);
-            throw new Error(err.message);
-          }
-        } else {
-          // User Otp Verify & Sign In
-          const user = JSON.parse(credentials.userData);
-          return user; // userData come from otp verify
-
-          // if (credentials?.signUp === 'true') {
-          //   try {
-          //     const { data } = await asiaSportBackendUrl.post(
-          //       '/api/user/verify-email',
-          //       { otp: credentials?.otp },
-          //       {
-          //         headers: {
-          //           token: cookies?._temp,
-          //         },
-          //       }
-          //     );
-
-          //     if (data.status === false) {
-          //       throw new Error(data?.message);
-          //     }
-
-          //     const user = data?.data;
-
-          //     return user; // return the user's data
-          //   } catch (err) {
-          //     throw new Error(err.message);
-          //   }
-          // } else {
-          //   try {
-          //     // User Sign In
-
-          //     const { data } = await asiaSportBackendUrl.post(
-          //       '/api/user/login',
-          //       {
-          //         email: credentials?.email,
-          //         password: credentials?.password,
-          //         provider: 'email',
-          //       }
-          //     );
-
-          //     if (data?.status === false) {
-          //       throw new Error(data?.message);
-          //     } else {
-          //       const user = data?.data;
-          //       return user; // return the user's data
-          //     }
-          //   } catch (err) {
-          //     throw new Error(err.message);
-          //   }
-          // }
-
-          // After verified otp by firebase
-          // try {
-          //   const { data } = await asiaSportBackendUrl.post(
-          //     '/api/user/login-with-phone',
-          //     { phone: credentials?.phone, country: credentials?.country }
-          //   );
-
-          //   if (data.status === false) {
-          //     throw new Error(data?.message);
-          //   }
-
-          //   const user = data?.data;
-
-          //   return user; // return the user's data
-          // } catch (err) {
-          //   console.log(err);
-          //   throw new Error(err.message);
-          // }
-        }
-      },
-    }),
-    GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID || '',
-      clientSecret: env.GOOGLE_CLIENT_SECRET || '',
-      allowDangerousEmailAccountLinking: true,
-    }),
-  ],
 };

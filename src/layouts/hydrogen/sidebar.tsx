@@ -5,7 +5,6 @@ import { Collapse } from '@/components/ui/collapse';
 import SimpleBar from '@/components/ui/simplebar';
 import { Title } from '@/components/ui/text';
 import cn from '@/utils/class-names';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Fragment } from 'react';
@@ -17,16 +16,16 @@ export default function Sidebar({ className }: { className?: string }) {
   return (
     <aside
       className={cn(
-        'fixed bottom-0 start-0 z-50 h-full w-[270px] border-e-2 border-gray-100 bg-white 2xl:w-72 dark:bg-gray-100/50',
+        'fixed bottom-0 start-0 z-50 h-full w-[270px] border-e-2 border-gray-100 bg-white dark:bg-gray-100/50 2xl:w-72',
         className
       )}
     >
-      <div className="sticky top-0 z-40 bg-gray-0/10 px-6 pb-2 pt-2 2xl:px-6 2xl:pt-2 dark:bg-gray-100/5">
+      <div className="sticky top-0 z-40 bg-gray-0/10 px-6 pb-2 pt-2 dark:bg-gray-100/5 2xl:px-6 2xl:pt-2">
         <Link href={'/'} aria-label="Site Logo">
-          <Image
-            src="/images/banner-logo.png"
-            width={200}
-            height={20}
+          <img
+            className="m-auto"
+            src="/images/logo.png"
+            width={80}
             alt="logo"
           />
         </Link>

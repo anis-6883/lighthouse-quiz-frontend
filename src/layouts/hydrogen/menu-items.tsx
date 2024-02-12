@@ -1,9 +1,15 @@
 import { routes } from '@/config/routes';
-import { BiSolidCricketBall, BiVideoRecording } from 'react-icons/bi';
+import { BiVideoRecording } from 'react-icons/bi';
+import { BsStackOverflow } from 'react-icons/bs';
 import { FaCogs } from 'react-icons/fa';
-import { IoCalendarOutline } from 'react-icons/io5';
-import { LuLayoutDashboard, LuUserCog, LuUsers } from 'react-icons/lu';
-import { PiSoccerBallFill, PiTelevisionFill } from 'react-icons/pi';
+import { IoBarChart, IoCalendarOutline } from 'react-icons/io5';
+import { LuLayoutDashboard, LuUserCog, LuUserX, LuUsers } from 'react-icons/lu';
+import {
+  PiBellRingingBold,
+  PiChalkboardTeacherBold,
+  PiConfettiBold,
+  PiQuestionBold,
+} from 'react-icons/pi';
 
 // Note: do not add href in the label object, it is rendering as label
 export const menuItems = [
@@ -18,50 +24,51 @@ export const menuItems = [
     icon: <LuLayoutDashboard />,
   },
   {
-    name: 'Manage Live',
+    name: 'Question Bank',
     href: routes.manageLive.home,
-    icon: <BiVideoRecording />,
+    icon: <BsStackOverflow />,
     // badge: 'New',
   },
   {
-    name: 'Fixtures',
-    href: '#',
+    name: 'Daily Quizzes',
+    href: routes.manageLive.home,
     icon: <IoCalendarOutline />,
+    // badge: 'New',
+  },
+  {
+    name: 'Live Quizzes',
+    href: routes.manageLive.home,
+    icon: <PiChalkboardTeacherBold />,
+  },
+  {
+    name: 'Reports',
+    href: '#',
+    icon: <IoBarChart />,
     dropdownItems: [
       {
-        name: 'Football',
+        name: 'Daily Quizzes',
         href: routes.fixture.football,
       },
       {
-        name: 'Cricket',
+        name: 'Live Quizzes',
         href: routes.fixture.cricket,
       },
     ],
   },
   {
-    name: 'Highlights',
-    href: '#',
-    icon: <PiTelevisionFill />,
-    dropdownItems: [
-      {
-        name: 'Football',
-        href: routes.highlights.football.home,
-      },
-      {
-        name: 'Cricket',
-        href: routes.highlights.cricket.home,
-      },
-    ],
+    name: 'FAQ',
+    href: routes.manageUser,
+    icon: <PiQuestionBold />,
   },
   {
-    name: 'Football Popular Entity',
-    href: routes.popularFootballEntity,
-    icon: <PiSoccerBallFill />,
+    name: 'Upcoming Features',
+    href: routes.manageUser,
+    icon: <PiConfettiBold />,
   },
   {
-    name: 'Cricket Popular Entity',
-    href: routes.popularCricketEntity,
-    icon: <BiSolidCricketBall />,
+    name: 'Notifications',
+    href: routes.manageUser,
+    icon: <PiBellRingingBold />,
   },
   {
     name: 'Manage Users',
@@ -72,6 +79,17 @@ export const menuItems = [
     name: 'Manage Admins',
     href: routes.manageAdmin,
     icon: <LuUserCog />,
+  },
+  {
+    name: 'Delete Account',
+    href: routes.manageAdmin,
+    icon: <LuUserX />,
+  },
+  {
+    name: 'Manage Live',
+    href: routes.manageLive.home,
+    icon: <BiVideoRecording />,
+    // badge: 'New',
   },
   {
     name: 'General Settings',

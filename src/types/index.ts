@@ -1,5 +1,11 @@
 import { CouponType } from '@/config/enums';
 
+export interface IJWT {
+  token: any;
+  user: any;
+  account: any;
+}
+
 export interface LeagueStats {
   leagueId: string;
   leagueImage: string;

@@ -1,8 +1,8 @@
-import { asiaSportBackendUrl } from './getAxios';
+import { lighthouseBackendUrl } from './getAxios';
 
 const refreshAccessToken = async (url: string, token: any) => {
   try {
-    const { data } = await asiaSportBackendUrl.get(url, {
+    const { data } = await lighthouseBackendUrl.get(url, {
       headers: {
         Authorization: `Refresh ${token.refreshToken}`,
       },
@@ -17,7 +17,7 @@ const refreshAccessToken = async (url: string, token: any) => {
       };
     }
   } catch (error) {
-    console.error('Something went wrong on refreshToken!');
+    console.error('Something went wrong on refresh token!');
   }
 };
 

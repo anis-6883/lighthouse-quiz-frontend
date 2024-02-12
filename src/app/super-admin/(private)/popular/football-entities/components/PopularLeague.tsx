@@ -45,7 +45,7 @@ export default function PopularLeague() {
 
   // const selectPointTableHandler = async (id) => {
   //   try {
-  //       const { data } = await asiaSportBackendUrl.post(
+  //       const { data } = await lighthouseBackendUrl.post(
   //         '/api/admin/popular-leagues/update/select-point-table',
   //         {
   //           id: id,
@@ -103,7 +103,7 @@ export default function PopularLeague() {
 
       try {
         // setIsSorting(true);
-        // const { data } = await asiaSportBackendUrl.post(
+        // const { data } = await lighthouseBackendUrl.post(
         //   '/api/admin/popular-leagues/sort',
         //   leagueIdWithPosition,
         //   {

@@ -9,7 +9,7 @@ enum MODE {
 }
 
 export const siteConfig = {
-  title: 'MahaScore',
+  title: 'Lighthouse Quiz',
   description: `Isomorphic the ultimate React TypeScript Admin Template. Streamline your admin dashboard development with our feature-rich, responsive, and highly customizable solution. Boost productivity and create stunning admin interfaces effortlessly.`,
   logo: logo,
   icon: logo,
@@ -24,10 +24,10 @@ export const metaObject = (
   description: string = siteConfig.description
 ): Metadata => {
   return {
-    title: title ? `${title} - MahaScore` : siteConfig.title,
+    title: title ? `${title} - Lighthouse Quiz` : siteConfig.title,
     description,
     // openGraph: openGraph ?? {
-    //   title: title ? `${title} - MahaScore` : title,
+    //   title: title ? `${title} - Lighthouse Quiz` : title,
     //   description,
     //   url: 'https://isomorphic-furyroad.vercel.app',
     //   siteName: 'AsiaSport', // https://developers.google.com/search/docs/appearance/site-names
