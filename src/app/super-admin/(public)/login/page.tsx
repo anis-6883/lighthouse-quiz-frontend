@@ -1,9 +1,9 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
-import AuthWrapperFour from '@/app/signin/auth-wrapper-four';
 import { routes } from '@/config/routes';
 import { metaObject } from '@/config/site.config';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
+import AuthWrapperFour from './auth-wrapper-four';
 import SignInForm from './sign-in-form';
 
 export const metadata = {

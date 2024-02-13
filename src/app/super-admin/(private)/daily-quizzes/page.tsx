@@ -1,23 +1,22 @@
 import PageHeader from '@/app/shared/page-header';
 import { routes } from '@/config/routes';
 import { metaObject } from '@/config/site.config';
-// import SettingsMainForm from './components/SettingsMainForm';
 
 const pageHeader = {
-  title: 'Popular Cricket Entities',
+  title: 'Daily Quizzes',
   breadcrumb: [
     {
       href: routes.dashboard,
       name: 'Dashboard',
     },
     {
-      name: 'Popular Cricket Entities',
+      name: 'Daily Quizzes',
     },
   ],
 };
 
 export const metadata = {
-  ...metaObject('Popular Cricket Entities'),
+  ...metaObject('Daily Quizzes'),
 };
 
 export default function Page() {
@@ -27,7 +26,6 @@ export default function Page() {
         title={pageHeader.title}
         breadcrumb={pageHeader.breadcrumb}
       ></PageHeader>
-      {/* <SettingsMainForm /> */}
     </>
   );
 }

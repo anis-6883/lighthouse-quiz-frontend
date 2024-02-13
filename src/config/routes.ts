@@ -5,6 +5,55 @@ export const routes = {
   forgetPassword: '/user/forget-password',
   adminLogin: '/super-admin/login',
   dashboard: '/super-admin/dashboard',
+  questionsBank: {
+    home: '/super-admin/questions-bank',
+    create: '/super-admin/questions-bank/create',
+    edit: (id: string) => `/super-admin/questions-bank/update/${id}`,
+  },
+  dailyQuizzes: {
+    home: '/super-admin/daily-quizzes',
+    create: '/super-admin/daily-quizzes/create',
+    edit: (id: string) => `/super-admin/daily-quizzes/update/${id}`,
+  },
+  liveQuizzes: {
+    home: '/super-admin/live-quizzes',
+    create: '/super-admin/live-quizzes/create',
+    edit: (id: string) => `/super-admin/live-quizzes/update/${id}`,
+  },
+  reports: {
+    dailyQuiz: '/super-admin/reports/daily-quiz',
+    liveQuiz: '/super-admin/reports/live-quiz',
+  },
+  faqs: {
+    home: '/super-admin/faqs',
+    create: '/super-admin/faqs/create',
+    edit: (id: string) => `/super-admin/faqs/update/${id}`,
+  },
+  upcomingFeatures: {
+    home: '/super-admin/upcoming-features',
+    create: '/super-admin/upcoming-features/create',
+    edit: (id: string) => `/super-admin/upcoming-features/update/${id}`,
+  },
+  notifications: {
+    home: '/super-admin/notifications',
+    create: '/super-admin/notifications/create',
+    edit: (id: string) => `/super-admin/notifications/update/${id}`,
+  },
+  manageUsers: {
+    home: '/super-admin/manage-users',
+    create: '/super-admin/manage-users/create',
+    edit: (id: string) => `/super-admin/manage-users/update/${id}`,
+  },
+  manageAdmins: {
+    home: '/super-admin/manage-admins',
+    create: '/super-admin/manage-admins/create',
+    edit: (id: string) => `/super-admin/manage-admins/update/${id}`,
+  },
+  deleteAccounts: '/super-admin/delete-accounts',
+  generalSettings: '/super-admin/general-settings',
+
+  // Skip others routes for now...
+
   manageLive: {
     home: '/super-admin/manage-live-matches',
     create: '/super-admin/manage-live-matches/create',
@@ -15,9 +64,6 @@ export const routes = {
     football: '/super-admin/fixtures/football',
     cricket: '/super-admin/fixtures/cricket',
   },
-  manageUser: '/super-admin/manage-users',
-  manageAdmin: '/super-admin/manage-admins',
-  generalSettings: '/super-admin/general-settings',
   highlights: {
     football: {
       home: '/super-admin/highlights/football',

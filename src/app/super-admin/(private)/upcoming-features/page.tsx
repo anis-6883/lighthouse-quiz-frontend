@@ -1,24 +1,22 @@
 import PageHeader from '@/app/shared/page-header';
 import { routes } from '@/config/routes';
 import { metaObject } from '@/config/site.config';
-import FootballEntitiesContainer from './components/FootballEntitiesContainer';
-// import SettingsMainForm from './components/SettingsMainForm';
 
 const pageHeader = {
-  title: 'Popular Football Entities',
+  title: 'Upcoming Features',
   breadcrumb: [
     {
       href: routes.dashboard,
       name: 'Dashboard',
     },
     {
-      name: 'Popular Football Entities',
+      name: 'Upcoming Features',
     },
   ],
 };
 
 export const metadata = {
-  ...metaObject('Popular Football Entities'),
+  ...metaObject('Upcoming Features'),
 };
 
 export default function Page() {
@@ -28,7 +26,6 @@ export default function Page() {
         title={pageHeader.title}
         breadcrumb={pageHeader.breadcrumb}
       ></PageHeader>
-      <FootballEntitiesContainer />
     </>
   );
 }

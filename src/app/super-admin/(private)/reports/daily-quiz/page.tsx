@@ -3,23 +3,23 @@ import { routes } from '@/config/routes';
 import { metaObject } from '@/config/site.config';
 
 const pageHeader = {
-  title: 'Fixtures',
+  title: 'Daily Quiz Reports',
   breadcrumb: [
     {
       href: routes.dashboard,
       name: 'Dashboard',
     },
     {
-      name: 'Fixtures',
+      name: 'Reports',
     },
     {
-      name: 'Cricket',
+      name: 'Daily Quiz',
     },
   ],
 };
 
 export const metadata = {
-  ...metaObject('Fixtures - Cricket'),
+  ...metaObject('Daily Quiz Reports'),
 };
 
 export default function Page() {

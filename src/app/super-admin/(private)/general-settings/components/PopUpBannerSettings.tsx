@@ -80,17 +80,17 @@ export default function PopUpBannerSettings({
             Pop-Up Banner Image (Ratio: 9:16)
           </span>
         </div>
-        {values?.site_logo ? (
+        {values?.bannerImage ? (
           <div className="flex items-center gap-3">
             <img
-              src={values.site_logo}
+              src={values.bannerImage}
               alt="Uploaded Image"
               className="h-24 w-24 rounded-md border border-gray-200 object-contain p-1"
             />
             <button
               type="button"
               className="rounded bg-red-500 p-1"
-              onClick={() => setFieldValue('site_logo', '')}
+              onClick={() => setFieldValue('bannerImage', '')}
             >
               <FaTrashAlt className="hover:fill-secondary-400 h-5 w-5 fill-white transition-colors" />
             </button>

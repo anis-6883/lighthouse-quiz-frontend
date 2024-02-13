@@ -5,20 +5,20 @@ import Link from 'next/link';
 import { HiPlus } from 'react-icons/hi2';
 
 const pageHeader = {
-  title: 'Manage Users',
+  title: 'Manage Admins',
   breadcrumb: [
     {
       href: routes.dashboard,
       name: 'Dashboard',
     },
     {
-      name: 'Manage Users',
+      name: 'Manage Admins',
     },
   ],
 };
 
 export const metadata = {
-  ...metaObject('Manage Users'),
+  ...metaObject('Manage Admins'),
 };
 
 export default function Page() {
@@ -26,13 +26,13 @@ export default function Page() {
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
         <Link
-          href={routes.manageUsers.create}
+          href={routes.manageAdmins.create}
           className="btn btn-primary btn-sm text-white"
         >
-          <HiPlus className="text-lg" /> Add New User
+          <HiPlus className="text-lg" /> Add New Admin
         </Link>
       </PageHeader>
-      {/* <ManageUserIndex /> */}
+      {/* <ManageAdminsIndex /> */}
     </>
   );
 }
