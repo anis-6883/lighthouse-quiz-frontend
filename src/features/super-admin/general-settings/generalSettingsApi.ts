@@ -9,7 +9,7 @@ export const generalSettingsApi = apiSlice.injectEndpoints({
       query: (data) => {
         return {
           url: `/api/admin/administration-settings/update`,
-          method: 'POST',
+          method: 'PUT',
           body: data,
           // credentials: 'include',
         };

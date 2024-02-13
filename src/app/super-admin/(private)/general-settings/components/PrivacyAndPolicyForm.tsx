@@ -28,7 +28,8 @@ export default function PrivacyAndPolicyForm({
           value={values.policy}
           onChange={handleChange}
           label=""
-          className="col-span-full [&_.ql-editor]:min-h-[100px]"
+          className="h-[250px]"
+          // className="col-span-full [&_.ql-editor]:min-h-[100px]"
           labelClassName="font-medium text-gray-700 dark:text-gray-600 mb-1.5"
         />
       </div>

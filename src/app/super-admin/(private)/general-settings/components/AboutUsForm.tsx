@@ -7,7 +7,7 @@ const QuillEditor = dynamic(() => import('../../components/QuillEditor'), {
   loading: () => <QuillLoader className="col-span-full h-[143px]" />,
 });
 
-export default function TermsAndConditionForm({
+export default function AboutUsForm({
   values,
   setFieldValue,
 }: {
@@ -16,14 +16,16 @@ export default function TermsAndConditionForm({
 }) {
   const handleChange = (input: string) => {
     const removeHtmlTags = input.replace(/<[^>]*>/g, '');
-    removeHtmlTags ? setFieldValue('terms', input) : setFieldValue('terms', '');
+    removeHtmlTags
+      ? setFieldValue('aboutUs', input)
+      : setFieldValue('aboutUs', '');
   };
 
   return (
-    <FormBlockWrapper title="Terms and Conditions">
+    <FormBlockWrapper title="About Us">
       <div className="grid grid-cols-1 gap-y-2">
         <QuillEditor
-          value={values.terms}
+          value={values.aboutUs}
           onChange={handleChange}
           label=""
           className="h-[250px]"

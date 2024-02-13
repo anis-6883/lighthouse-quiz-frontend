@@ -1,8 +1,6 @@
 import timeZoneData from '@/utils/get-timezone-list';
 import { Field } from 'formik';
-import es from 'react-phone-input-2/lang/es.json';
 import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
 import FormBlockWrapper from '../../components/FormBlockWrapper';
 
 export default function GeneralSettingsForm({
@@ -12,13 +10,10 @@ export default function GeneralSettingsForm({
   setFieldValue: any;
   values: any;
 }) {
-  const animatedComponents = makeAnimated();
-  const convertedData = convertDataToObject(es);
-
   return (
     <FormBlockWrapper title="Main Information">
       <div className="grid grid-cols-1 gap-x-4 gap-y-2 md:grid-cols-3">
-        <Field name="company_name">
+        <Field name="companyName">
           {({ field, meta }: { field: any; meta: any }) => (
             <>
               <label className="form-control w-full">
@@ -26,7 +21,6 @@ export default function GeneralSettingsForm({
                   <span className="label-text font-semibold">
                     Company Name{' '}
                     <span className="text-red-600">
-                      *{' '}
                       {meta.touched && meta.error && (
                         <span>({meta.error})</span>
                       )}
@@ -43,7 +37,7 @@ export default function GeneralSettingsForm({
           )}
         </Field>
 
-        <Field name="site_title">
+        <Field name="siteTitle">
           {({ field, meta }: { field: any; meta: any }) => (
             <>
               <label className="form-control w-full">
@@ -51,7 +45,6 @@ export default function GeneralSettingsForm({
                   <span className="label-text font-semibold">
                     Site Title{' '}
                     <span className="text-red-600">
-                      *{' '}
                       {meta.touched && meta.error && (
                         <span>({meta.error})</span>
                       )}
@@ -76,7 +69,7 @@ export default function GeneralSettingsForm({
                   <span className="label-text font-semibold">
                     Time Zone{' '}
                     <span className="text-red-600">
-                      * {meta.touched && meta.error && <span>(Required!)</span>}
+                      {meta.touched && meta.error && <span>(Required!)</span>}
                     </span>
                   </span>
                 </div>
@@ -95,60 +88,37 @@ export default function GeneralSettingsForm({
         </Field>
       </div>
 
-      <div className="grid grid-cols-1 gap-x-4 gap-y-2">
-        <Field name="allowed_country">
-          {({ field }: { field: any; meta: any }) => (
-            <>
-              <label className="form-control w-full">
-                <div className="label">
-                  <span className="label-text font-semibold">
-                    Allowed Countries (User Sign In)
-                  </span>
-                </div>
-                <Select
-                  closeMenuOnSelect={false}
-                  components={animatedComponents}
-                  isMulti
-                  name="Country"
-                  onChange={(allowedCountry) => {
-                    setFieldValue('allowed_country', allowedCountry);
-                  }}
-                  options={convertedData}
-                  value={values?.allowed_country}
-                />
-              </label>
-            </>
-          )}
-        </Field>
-      </div>
-
       <div className="grid grid-cols-1 gap-x-4 gap-y-2 md:grid-cols-2">
-        <Field name="qpsms_appkey">
+        <Field name="appInReview">
           {({ field, meta }: { field: any; meta: any }) => (
             <>
               <label className="form-control w-full">
                 <div className="label">
                   <span className="label-text font-semibold">
-                    QP SMS App Key (OTP)
+                    App In Review?
                   </span>
                 </div>
-                <input
-                  type="text"
-                  className="input input-bordered w-full"
-                  {...field}
-                />
+                <select className="select select-bordered w-full" {...field}>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
               </label>
             </>
           )}
         </Field>
 
-        <Field name="qpsms_secretkey">
+        <Field name="contactEmail">
           {({ field, meta }: { field: any; meta: any }) => (
             <>
               <label className="form-control w-full">
                 <div className="label">
                   <span className="label-text font-semibold">
-                    QP SMS Secret Key (OTP)
+                    Contact Email{' '}
+                    <span className="text-red-600">
+                      {meta.touched && meta.error && (
+                        <span>({meta.error})</span>
+                      )}
+                    </span>
                   </span>
                 </div>
                 <input
@@ -163,19 +133,4 @@ export default function GeneralSettingsForm({
       </div>
     </FormBlockWrapper>
   );
-}
-
-function convertDataToObject(inputData: any) {
-  const dataArray = [];
-
-  for (const key in inputData) {
-    if (Object.prototype.hasOwnProperty.call(inputData, key)) {
-      dataArray.push({
-        value: key,
-        label: inputData[key],
-      });
-    }
-  }
-
-  return dataArray;
 }

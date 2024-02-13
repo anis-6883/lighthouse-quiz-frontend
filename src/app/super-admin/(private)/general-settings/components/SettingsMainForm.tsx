@@ -10,11 +10,15 @@ import toast from 'react-hot-toast';
 import { FiCheckCircle } from 'react-icons/fi';
 import { PiSpinnerLight } from 'react-icons/pi';
 import * as Yup from 'yup';
+import AboutUsForm from './AboutUsForm';
+import AppVersionControlForm from './AppVersionControlForm';
 import CloudinaryForm from './CloudinaryForm';
 import GeneralSettingsForm from './GeneralSettingsForm';
 import LogoAndIconForm from './LogoAndIconForm';
+import NotificationSettingsForm from './NotificationSettingsForm';
+import PopUpBannerSettings from './PopUpBannerSettings';
 import PrivacyAndPolicyForm from './PrivacyAndPolicyForm';
-import SocialLinksForm from './SocialLinksForm';
+import SmsSettingsForm from './SmsSettingsForm';
 import TabButtonItem from './TabButtonItem';
 import TermsAndConditionForm from './TermsAndConditionForm';
 
@@ -33,27 +37,59 @@ export default function SettingsMainForm() {
   const [currentTab, setCurrentTab] = useState(0);
   const [siteLogo, setSiteLogo] = useState(null);
   const [siteIcon, setSiteIcon] = useState(null);
+  const [bannerImage, setBannerImage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [initialValues, setInitialValues] = useState({
-    company_name: '',
-    site_title: '',
+    companyName: '',
+    siteTitle: '',
     timezone: {},
-    allowed_country: [],
-    qpsms_appkey: '',
-    qpsms_secretkey: '',
-    facebook: 'https://www.facebook.com/',
-    youtube: 'https://www.youtube.com/',
-    instagram: 'https://www.instagram.com/',
-    site_logo: '',
-    site_icon: '',
+    appInReview: '1',
+    contactEmail: '',
+    siteLogo: '',
+    siteIcon: '',
+    bannerImage: '',
     terms: '',
     policy: '',
-    cloudinary_cloud_name: '',
-    cloudinary_api_key: '',
-    cloudinary_app_secret: '',
-    android_download_link: '',
-    ios_download_link: '',
+    aboutUs: '',
+
+    twilioAccountSID: '',
+    twilioAuthToken: '',
+    twilioServiceId: '',
+    msg91AuthKey: '',
+    msg91OtpToken: '',
+    msg91WidgetId: '',
+    msg91OtpDefault: '0',
+
+    cloudinaryRootFolderName: '',
+    cloudinaryCloudName: '',
+    cloudinaryApiKey: '',
+    cloudinaryAppSecret: '',
+
+    notificationType: 'fcm',
+    firebaseServerKey: '',
+    firebaseTopics: '',
+    oneSignalAppId: '',
+    oneSignalApiKey: '',
+
+    iosAppLink: '',
+    androidAppLink: '',
+    iosVersionName: '',
+    iosVersionCode: '',
+    iosForceUpdate: '1',
+    iosAppUrl: '',
+    iosButtonText: '',
+    iosDescription: '',
+    androidVersionName: '',
+    androidVersionCode: '',
+    androidForceUpdate: '1',
+    androidAppUrl: '',
+    androidButtonText: '',
+    androidDescription: '',
+
+    appLink: '',
+    refreshNumber: '5',
+    runningStatus: '0',
   });
 
   useEffect(() => {
@@ -85,11 +121,15 @@ export default function SettingsMainForm() {
 
   const tabs = [
     'General Settings',
-    'Apps & Social Links',
+    'SMS Settings',
+    'Notification Settings',
+    'Cloudinary Settings',
+    'App Version Control',
+    'Pop Up Banner Settings',
     'Logo & Icon',
     'Terms and Condition',
     'Privacy and Policy',
-    'Cloudinary',
+    'About Us',
   ];
 
   const handleTabChange = (tab: number) => {
@@ -97,12 +137,13 @@ export default function SettingsMainForm() {
   };
 
   const validationSchema = Yup.object().shape({
-    company_name: Yup.string().required('Required!'),
-    site_title: Yup.string().required('Required!'),
-    timezone: Yup.object().shape({
-      label: Yup.string().required('Required!'),
-      value: Yup.string().required('Required!'),
-    }),
+    // companyName: Yup.string().required('Required!'),
+    // siteTitle: Yup.string().required('Required!'),
+    contactEmail: Yup.string().email('Invalid Email!'),
+    // timezone: Yup.object().shape({
+    //   label: Yup.string().required('Required!'),
+    //   value: Yup.string().required('Required!'),
+    // }),
   });
 
   // Submit Handler
@@ -112,27 +153,60 @@ export default function SettingsMainForm() {
     var formBody = new FormData();
 
     const fieldsToAppend = [
-      'company_name',
-      'site_title',
+      'companyName',
+      'siteTitle',
       'timezone',
-      'allowed_country',
-      'facebook',
-      'youtube',
-      'instagram',
+      'appInReview',
+      'contactEmail',
+      'siteLogo',
+      'siteIcon',
+      'bannerImage',
       'terms',
       'policy',
-      'android_download_link',
-      'ios_download_link',
-      'cloudinary_cloud_name',
-      'cloudinary_api_key',
-      'cloudinary_app_secret',
-      'qpsms_appkey',
-      'qpsms_secretkey',
+      'aboutUs',
+
+      'twilioAccountSID',
+      'twilioAuthToken',
+      'twilioServiceId',
+      'msg91AuthKey',
+      'msg91OtpToken',
+      'msg91WidgetId',
+      'msg91OtpDefault',
+
+      'cloudinaryRootFolderName',
+      'cloudinaryCloudName',
+      'cloudinaryApiKey',
+      'cloudinaryAppSecret',
+
+      'notificationType',
+      'firebaseServerKey',
+      'firebaseTopics',
+      'oneSignalAppId',
+      'oneSignalApiKey',
+
+      'iosAppLink',
+      'androidAppLink',
+      'iosVersionName',
+      'iosVersionCode',
+      'iosForceUpdate',
+      'iosAppUrl',
+      'iosButtonText',
+      'iosDescription',
+      'androidVersionName',
+      'androidVersionCode',
+      'androidForceUpdate',
+      'androidAppUrl',
+      'androidButtonText',
+      'androidDescription',
+
+      'appLink',
+      'refreshNumber',
+      'runningStatus',
     ];
 
     fieldsToAppend.forEach((field) => {
       if (values[field] !== undefined) {
-        if (field === 'timezone' || field === 'allowed_country') {
+        if (field === 'timezone') {
           formBody.append(field, JSON.stringify(values[field]));
         } else {
           formBody.append(field, values[field]);
@@ -140,8 +214,9 @@ export default function SettingsMainForm() {
       }
     });
 
-    if (siteLogo) formBody.append('site_logo', siteLogo);
-    if (siteIcon) formBody.append('site_icon', siteIcon);
+    if (siteLogo) formBody.append('siteLogo', siteLogo);
+    if (siteIcon) formBody.append('siteIcon', siteIcon);
+    if (bannerImage) formBody.append('bannerImage', bannerImage);
 
     updateSettings(formBody);
   };
@@ -176,10 +251,31 @@ export default function SettingsMainForm() {
                 </div>
 
                 <div hidden={currentTab === 1 ? false : true}>
-                  <SocialLinksForm />
+                  <SmsSettingsForm />
                 </div>
 
                 <div hidden={currentTab === 2 ? false : true}>
+                  <NotificationSettingsForm values={values} />
+                </div>
+
+                <div hidden={currentTab === 3 ? false : true}>
+                  <CloudinaryForm />
+                </div>
+
+                <div hidden={currentTab === 4 ? false : true}>
+                  <AppVersionControlForm />
+                </div>
+
+                <div hidden={currentTab === 5 ? false : true}>
+                  <PopUpBannerSettings
+                    setFieldValue={setFieldValue}
+                    values={values}
+                    bannerImage={bannerImage}
+                    setBannerImage={setBannerImage}
+                  />
+                </div>
+
+                <div hidden={currentTab === 6 ? false : true}>
                   <LogoAndIconForm
                     values={values}
                     setFieldValue={setFieldValue}
@@ -190,22 +286,22 @@ export default function SettingsMainForm() {
                   />
                 </div>
 
-                <div hidden={currentTab === 3 ? false : true}>
+                <div hidden={currentTab === 7 ? false : true}>
                   <TermsAndConditionForm
                     values={values}
                     setFieldValue={setFieldValue}
                   />
                 </div>
 
-                <div hidden={currentTab === 4 ? false : true}>
+                <div hidden={currentTab === 8 ? false : true}>
                   <PrivacyAndPolicyForm
                     values={values}
                     setFieldValue={setFieldValue}
                   />
                 </div>
 
-                <div hidden={currentTab === 5 ? false : true}>
-                  <CloudinaryForm />
+                <div hidden={currentTab === 9 ? false : true}>
+                  <AboutUsForm values={values} setFieldValue={setFieldValue} />
                 </div>
               </div>
             </div>

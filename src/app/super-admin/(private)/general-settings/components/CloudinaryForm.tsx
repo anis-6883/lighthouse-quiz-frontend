@@ -4,8 +4,8 @@ import FormBlockWrapper from '../../components/FormBlockWrapper';
 export default function CloudinaryForm() {
   return (
     <FormBlockWrapper title="Cloudinary Credentials">
-      <div className="grid grid-cols-1 gap-x-4 gap-y-2">
-        <Field name="cloudinary_cloud_name">
+      <div className="grid grid-cols-1 gap-x-4 gap-y-2 md:grid-cols-2">
+        <Field name="cloudinaryCloudName">
           {({ field, meta }: { field: any; meta: any }) => (
             <>
               <label className="form-control w-full">
@@ -26,7 +26,7 @@ export default function CloudinaryForm() {
           )}
         </Field>
 
-        <Field name="cloudinary_api_key">
+        <Field name="cloudinaryApiKey">
           {({ field, meta }: { field: any; meta: any }) => (
             <>
               <label className="form-control w-full">
@@ -47,13 +47,34 @@ export default function CloudinaryForm() {
           )}
         </Field>
 
-        <Field name="cloudinary_app_secret">
+        <Field name="cloudinaryAppSecret">
           {({ field, meta }: { field: any; meta: any }) => (
             <>
               <label className="form-control w-full">
                 <div className="label">
                   <span className="label-text font-semibold">
                     Cloudinary App Secret
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  className={`input input-bordered w-full ${
+                    meta.touched && meta.error && 'input-error'
+                  }`}
+                  {...field}
+                />
+              </label>
+            </>
+          )}
+        </Field>
+
+        <Field name="cloudinaryRootFolderName">
+          {({ field, meta }: { field: any; meta: any }) => (
+            <>
+              <label className="form-control w-full">
+                <div className="label">
+                  <span className="label-text font-semibold">
+                    Cloudinary Root Folder Name
                   </span>
                 </div>
                 <input
