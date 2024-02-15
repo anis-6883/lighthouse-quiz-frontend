@@ -4,15 +4,13 @@ export default async function deleteData(path: string, id: string) {
   try {
     let response: any = await fetch(`${base}/api/admin/${path}/${id}`, {
       headers: {
-        'x-api-key': process.env.API_KEY ?? process.env.NEXT_PUBLIC_API_KEY,
+        'x-api-key': process.env.API_KEY ?? process.env.NEXT_PUBLIC_API_KEY
       } as HeadersInit,
       method: 'DELETE',
-      cache: 'no-store',
+      cache: 'no-store'
     });
 
-    response = await response.json();
-
-    if (response) return response;
+    return await response.json();
   } catch (e) {
     console.error(e);
   }

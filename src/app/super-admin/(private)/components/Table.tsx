@@ -1,10 +1,6 @@
 import { useMemo } from 'react';
-import Action, { Option } from './Actions';
-import {
-  MantineReactTable,
-  useMantineReactTable,
-  type MRT_ColumnDef,
-} from 'mantine-react-table';
+import Action, { Option } from '@/app/super-admin/(private)/components/Actions';
+import { MantineReactTable, useMantineReactTable, type MRT_ColumnDef } from 'mantine-react-table';
 
 type props = {
   data: any;
@@ -17,8 +13,8 @@ export default function Table({ data, structure, options }: props) {
     ...structure,
     {
       header: 'Actions',
-      Cell: ({ row }) => Action(row.original, options),
-    },
+      Cell: ({ row }) => Action(row.original, options)
+    }
   ];
 
   const columns = useMemo<MRT_ColumnDef[]>(() => structure, [structure]);

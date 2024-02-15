@@ -5,7 +5,7 @@ export default async function getData(path: string) {
     let response: any = await fetch(`${base}/api/admin/${path}`, {
       headers: { 'x-api-key': process.env.API_KEY } as HeadersInit,
       cache: 'no-store',
-      next: { tags: [path] },
+      next: { tags: [path] }
     });
     response = await response.json();
 
