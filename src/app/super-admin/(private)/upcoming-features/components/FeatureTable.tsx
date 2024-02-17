@@ -14,7 +14,7 @@ export default function FeatureTable({ data, edit, formData }: { data: any; edit
       header: 'Image',
       Cell: ({ row }: any) => {
         // eslint-disable-next-line jsx-a11y/alt-text
-        return <img src={row?.original?.image} />;
+        return <img src={row?.original?.image} alt='image' className='h-14 transition-all duration-500 hover:h-40' />;
       }
     },
     {
@@ -30,7 +30,7 @@ export default function FeatureTable({ data, edit, formData }: { data: any; edit
         edit(true);
         formData({
           title: data.title,
-          description: data.description,
+          image: data.image,
           id: data._id
         });
       }
@@ -42,7 +42,7 @@ export default function FeatureTable({ data, edit, formData }: { data: any; edit
 
         toast((t) => {
           popup = t.visible;
-          return AskConfirmation(t, () => deleteData('faq', data._id));
+          return AskConfirmation(t, () => deleteData('features', data._id));
         });
       }
     }

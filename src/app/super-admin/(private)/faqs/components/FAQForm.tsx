@@ -6,6 +6,7 @@ import reload from '@/utils/fetch/reload';
 import updateData from '@/utils/fetch/updateData';
 import { ErrorMessage, Form, Formik } from 'formik';
 import toast from 'react-hot-toast';
+import { RxCross2 } from 'react-icons/rx';
 import { Button, Input, Modal, Textarea } from 'rizzui';
 import * as Yup from 'yup';
 
@@ -50,7 +51,7 @@ export default function FAQForm({ formData, modalState, setModalState }: props) 
       <div className='m-auto px-7 pt-6 pb-8'>
         <div className=' flex items-end justify-end'>
           <button className='text-3xl pl-5' onClick={() => setModalState(false)}>
-            X
+            <RxCross2 size={40} />
           </button>
         </div>
 
@@ -60,7 +61,7 @@ export default function FAQForm({ formData, modalState, setModalState }: props) 
             validationSchema={faqSchema}
             onSubmit={handleQuestion}
           >
-            {({ values, handleChange, handleBlur }) => {
+            {({ values, handleChange, handleBlur, isSubmitting }) => {
               return (
                 <Form>
                   <Input
@@ -85,7 +86,7 @@ export default function FAQForm({ formData, modalState, setModalState }: props) 
 
                   <ErrorMessage name='description' component='p' />
 
-                  <Button type='submit' size='lg' className='col-span-2 mt-2' onClick={() => handleQuestion}>
+                  <Button type='submit' size='lg' className='col-span-2 mt-2' onClick={() => handleQuestion} disabled={isSubmitting}>
                     {formData.id ? 'Update' : 'Add'}
                   </Button>
                 </Form>
