@@ -74,7 +74,7 @@ export default function Page() {
                     name="gender"
                     className="radio-primary radio-xs"
                     value="male"
-                    style={{ boxShadow: 'none' }}
+                    // style={{ boxShadow: 'none' }}
                     // onChange={handleChange}
                   />
                   <span className="text-base capitalize">Male</span>
@@ -85,7 +85,7 @@ export default function Page() {
                     name="gender"
                     className="radio-primary radio-xs"
                     value="female"
-                    style={{ boxShadow: 'none' }}
+                    // style={{ boxShadow: 'none' }}
                     // onChange={handleChange}
                   />
                   <span className="text-base capitalize">Female</span>
@@ -122,7 +122,7 @@ export default function Page() {
                     type="radio"
                     name="language"
                     className="radio-primary radio-xs"
-                    style={{ boxShadow: 'none' }}
+                    // style={{ boxShadow: 'none' }}
                     // value="english"
                     // onChange={handleChange}
                   />
@@ -133,7 +133,7 @@ export default function Page() {
                     type="radio"
                     name="language"
                     className="radio-primary radio-xs"
-                    style={{ boxShadow: 'none' }}
+                    // style={{ boxShadow: 'none' }}
                     // value="tamil"
                     // onChange={handleChange}
                   />
@@ -144,7 +144,7 @@ export default function Page() {
                     type="radio"
                     name="language"
                     className="radio-primary radio-xs"
-                    style={{ boxShadow: 'none' }}
+                    // style={{ boxShadow: 'none' }}
                     // value="both"
                     // onChange={handleChange}
                   />
@@ -201,7 +201,7 @@ export default function Page() {
 									{errors.checkbox && errors.checkbox}
 								</p> */}
             <Button
-              //   type="submit"
+              type="submit"
               // disabled={isSubmitting}
               height={12}
               title="Register"
@@ -214,7 +214,6 @@ export default function Page() {
               className="text-base font-medium capitalize text-[#781970d6] underline"
               href={routes.signIn}
             >
-              {' '}
               Sign In
             </Link>
           </div>

@@ -31,7 +31,7 @@ export default function Page() {
             <span className="label-text text-lg">Keep me Logged in</span>
             {/* </label> */}
           </div>
-          <Button height={12} title="Login" />
+          <Button type="submit" height={12} title="Login" />
           <div className="w-full p-2 text-base">
             Don&apos;t have an Account?
             <Link

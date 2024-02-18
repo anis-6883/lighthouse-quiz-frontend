@@ -1,8 +1,17 @@
 export const routes = {
   home: '/',
+  authHome: '/home',
   register: '/register',
   signIn: '/signin',
   verification: '/verification/otp',
+  settings: {
+    home: '/settings',
+    notification: '/settings/notifications',
+    helpCenter: '/settings/help-center',
+  },
+  user: {
+    profile: 'user/profile',
+  },
   // signIn: '/user/signin',
   forgetPassword: '/user/forget-password',
   adminLogin: '/super-admin/login',
