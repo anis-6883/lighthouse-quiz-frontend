@@ -30,7 +30,7 @@ export default function FeatureForm({ formData, modalState, setModalState }: pro
       existing: formData.image
     };
 
-    const response = formData?.id ? () => updateData('features', payload, formData.id, true) : () => postData('features', payload, true);
+    const response = formData?.id ? () => updateData('features', payload, formData.id) : () => postData('features', payload);
 
     toast.promise(response(), {
       loading: 'Please wait...',
@@ -58,7 +58,7 @@ export default function FeatureForm({ formData, modalState, setModalState }: pro
         </div>
 
         <Formik initialValues={{ title: formData?.title || '', image: formData?.image }} validationSchema={featureSchema} onSubmit={handleFeature}>
-          {({ values, handleChange, handleBlur, isSubmitting }) => {
+          {({ values, handleChange, handleBlur, isSubmitting, isValid }) => {
             return (
               <Form>
                 <Input
@@ -75,7 +75,7 @@ export default function FeatureForm({ formData, modalState, setModalState }: pro
                 <ImageInputField label='Image *' name='image' />
                 <ErrorMessage name='image' component='p' />
 
-                <Button type='submit' size='lg' className='col-span-2 mt-2' onClick={() => handleFeature} disabled={isSubmitting}>
+                <Button type='submit' size='lg' className='col-span-2 mt-2' disabled={isSubmitting}>
                   {formData.id ? 'Update' : 'Add'}
                 </Button>
               </Form>

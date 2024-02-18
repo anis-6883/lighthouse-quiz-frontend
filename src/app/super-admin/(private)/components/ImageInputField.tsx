@@ -1,82 +1,50 @@
 import 'cropperjs/dist/cropper.css';
 import { useFormikContext } from 'formik';
-import { createRef, useEffect, useState } from 'react';
-import { Cropper, ReactCropperElement } from 'react-cropper';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Cropper } from 'react-cropper';
 import Dropzone from 'react-dropzone';
+import toast from 'react-hot-toast';
 import { RxCross2 } from 'react-icons/rx';
-import { Button } from 'rizzui';
 
 export default function ImageInputField({ label, name }: { label: string; name: string }) {
-  const maxSize = 2; //MB
+  const maxSize = 10; //MB
 
   const [preview, setPreview] = useState<any>();
-  const { values, setFieldValue, setFieldError }: any = useFormikContext();
+  const cropperRef = useRef(null);
+  const { values, setFieldValue }: any = useFormikContext();
 
   useEffect(() => {
-    if (values?.image?.lastModified > 0) {
-      const reader = new FileReader();
-      reader.readAsDataURL(values?.image);
-      reader.onloadend = () => setPreview(reader.result); // Converted selected image to base64 string
-      return;
-    }
+    if (values.image) setPreview(values.image);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    if (values?.image !== '') {
-      setPreview(values?.image);
-    }
-  }, [values?.image]);
+  useEffect(() => {
+    console.log(values);
+  }, [values]);
+
+  const debouncedHandleCrop = useCallback(
+    debounce(() => {
+      const cropper = cropperRef.current?.cropper;
+      const croppedImage = cropper.getCroppedCanvas().toDataURL();
+      setFieldValue(name, croppedImage);
+    }, 1000),
+    []
+  );
 
   const handleDrop = (files: any) => {
     const file = files[0];
 
-    if (file.size <= MBToBytes(2)) {
-      setFieldValue(name, file);
+    if (file.size < MBToBytes(maxSize)) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => setPreview(reader.result); // Converted selected image to base64 string
     } else {
-      setFieldError(name, `File size exceeds limit (${maxSize} MB)`);
+      toast.error(`File size exceeds ${maxSize}MB limit`);
     }
-  };
-
-  const [cropData, setCropData] = useState('#');
-  const cropperRef = createRef<ReactCropperElement>();
-
-  // const onChange = (e: any) => {
-  //   e.preventDefault();
-  //   let files;
-  //   if (e.dataTransfer) {
-  //     files = e.dataTransfer.files;
-  //   } else if (e.target) {
-  //     files = e.target.files;
-  //   }
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     setImage(reader.result as any);
-  //   };
-  //   reader.readAsDataURL(files[0]);
-  // };
-
-  const getCropData = (e) => {
-    if (typeof cropperRef.current?.cropper !== 'undefined') {
-      // let files;
-      // if (e.dataTransfer) {
-      //   files = e.dataTransfer.files;
-      // } else if (e.target) {
-      //   files = e.target.files;
-      // }
-      // const reader = new FileReader();
-      // reader.onload = () => {
-      //   setPreview(reader.result as any);
-      // };
-      // reader.readAsDataURL(files[0]);
-      setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
-    }
-    console.log();
   };
 
   return (
     <div className='flex flex-col'>
-      <Button style={{ float: 'right' }} onClick={getCropData}>
-        Crop Image
-      </Button>
-
       <fieldset className='border-2 border-gray-300 p-3 rounded-md my-3'>
         <legend>{label}</legend>
 
@@ -91,34 +59,20 @@ export default function ImageInputField({ label, name }: { label: string; name: 
         </Dropzone>
 
         {/* preview window */}
-        {values?.image && (
+        {preview && (
           <>
-            <div
-              className='relative'
-              onClick={() => {
-                setFieldValue(name, null);
-                setPreview(null);
-              }}
-            >
-              <div className='absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100   transition-opacity duration-300 cursor-pointer bg-gray-500 bg-opacity-50 '>
+            <div className='relative'>
+              <div className='absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer bg-gray-500 bg-opacity-50 '>
                 <RxCross2 size={40} className='opacity-100 m-7 text-white' />
               </div>
 
               <Cropper
                 ref={cropperRef}
-                style={{ height: 400, width: '100%' }}
-                zoomTo={0.5}
-                initialAspectRatio={1}
-                preview='.img-preview'
                 src={preview}
-                viewMode={1}
-                minCropBoxHeight={10}
-                minCropBoxWidth={10}
-                background={false}
-                responsive={true}
-                autoCropArea={1}
-                checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
-                guides={true}
+                style={{ height: 'auto', width: '100%' }}
+                dragMode='none'
+                aspectRatio={1}
+                cropmove={debouncedHandleCrop}
               />
             </div>
           </>
@@ -146,6 +100,25 @@ function Zone({ image }: props) {
       </div>
     );
   }
+}
+
+const debounce = (func: Function, delay: number) => {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  return (...args: any[]) => {
+    clearTimeout(timeoutId!); // Use ! to assert that timeoutId is not null
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+};
+
+function getSizeInMB(base64String: string) {
+  const base64Image = base64String.replace(/^data:image\/(png|jpeg|jpg);base64,/, ''); // Remove data URL prefix
+  const binaryString = atob(base64Image); // Convert base64 to binary data
+  const bytes = binaryString.length; // Get the length of the binary data in bytes
+  const megabytes = bytes / (1024 * 1024); // Convert bytes to megabytes (1 megabyte = 1024 * 1024 bytes)
+  return megabytes;
 }
 
 const MBToBytes = (bytes: number) => {
