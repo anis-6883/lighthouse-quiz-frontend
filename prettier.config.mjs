@@ -1,11 +1,11 @@
 /** @type {import("prettier").Config} */
 const config = {
-  // printWith: 120,
+  printWith: 150,
   singleQuote: true,
-  // semi:false,
+  semi: false,
   trailingComma: 'es5',
   tabWidth: 2,
-  useTabs: false,
-  plugins: ['prettier-plugin-tailwindcss'],
+  useTabs: true,
+  plugins: ['prettier-plugin-tailwindcss']
 };
 export default config;
