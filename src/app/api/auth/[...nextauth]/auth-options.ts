@@ -20,6 +20,7 @@ export const authOptions: NextAuthOptions = {
       credentials: {},
       async authorize(credentials: any) {
         // const cookies = cookie.parse(req.headers.cookie);
+        
         // Admin Login
         if (credentials?.adminLogin === 'true') {
           try {
