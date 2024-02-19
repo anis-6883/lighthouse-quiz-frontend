@@ -1,16 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import FeatureForm from './FeatureForm'
-import FeatureTable from './FeatureTable'
+import AdminForm from './AdminForm'
+import FeatureTable from './AdminTable'
 import AddButton from '../../components/AddButton'
 
-export type Data = {
-  title: string
-  image: string
-}
+export type Admin = {}
 
-export default function PageContent({ data }: { data: Data }) {
+export default function PageContent({ data }: { data: Admin }) {
   const [modalState, setModalState] = useState(false)
   const [formData, setFormData] = useState({})
 
@@ -20,12 +17,12 @@ export default function PageContent({ data }: { data: Data }) {
 
   return (
     <>
-      <FeatureForm
+      <AdminForm
         formData={formData}
         modalState={modalState}
         setModalState={setModalState}
       />
-      <AddButton name="Feature" setModalState={setModalState} />
+      <AddButton name="Admin" setModalState={setModalState} />
       <FeatureTable data={data} edit={setModalState} formData={setFormData} />
     </>
   )

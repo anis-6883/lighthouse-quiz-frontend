@@ -1,38 +1,29 @@
-import PageHeader from '@/app/shared/page-header';
-import { routes } from '@/config/routes';
-import { metaObject } from '@/config/site.config';
-import Link from 'next/link';
-import { HiPlus } from 'react-icons/hi2';
+import PageHeader from '@/app/shared/page-header'
+import { routes } from '@/config/routes'
+import { metaObject } from '@/config/site.config'
+import getData from '@/utils/fetch/getData'
+import Link from 'next/link'
+import { HiPlus } from 'react-icons/hi2'
+import PageContent from './components/PageContent'
 
-const pageHeader = {
-  title: 'Manage Admins',
-  breadcrumb: [
-    {
-      href: routes.dashboard,
-      name: 'Dashboard',
-    },
-    {
-      name: 'Manage Admins',
-    },
-  ],
-};
+const title = 'Manage Admins'
+export const metadata = { ...metaObject(title) }
 
-export const metadata = {
-  ...metaObject('Manage Admins'),
-};
+export default async function Page() {
+	const data = await getData('admin')
 
-export default function Page() {
-  return (
-    <>
-      <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
-        <Link
-          href={routes.manageAdmins.create}
-          className="btn btn-primary btn-sm text-white"
-        >
-          <HiPlus className="text-lg" /> Add New Admin
-        </Link>
-      </PageHeader>
-      {/* <ManageAdminsIndex /> */}
-    </>
-  );
+	const pageHeader = {
+		title,
+		breadcrumb: [
+			{ href: routes.dashboard, name: 'Dashboard' },
+			{ name: title },
+		],
+	}
+
+	return (
+		<>
+			<PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
+			<PageContent data={data} />
+		</>
+	)
 }

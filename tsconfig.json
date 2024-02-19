@@ -35,6 +35,6 @@
     "**/*.mjs",
     ".next/types/**/*.ts",
     "src/app/(frontend)/components/VideoPlayer.tsx"
-  ],
+, "prettier.config.js"  ],
   "exclude": ["node_modules"]
 }
