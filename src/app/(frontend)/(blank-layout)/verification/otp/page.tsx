@@ -26,7 +26,7 @@ export default function Page() {
               s
             </p>
           </div>
-          <Button height={12} title="confirm" />
+          <Button type="submit" height={12} title="confirm" />
           <div className="flex w-full justify-between text-base">
             <span className="p-3">
               Already have an account?{' '}

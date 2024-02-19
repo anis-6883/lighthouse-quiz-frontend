@@ -11,6 +11,15 @@
       - gray/natural colors for texts, borders and disabled elements.
       - If required we can use as background too.
     */
+    /**
+    Bible Quiz Frontend Color Variable
+    **/
+    --full-screen-color: #ebf5fb;
+    --primary-color: #6949ff;
+    --btn-hover-color: #7e63fb;
+    --text-color: #263238;
+    --front-bg-color: #ffffff;
+
     /* For rgb(255 255 255 / <alpha-value>) = #ffffff */
     --gray-0: 255 255 255;
     /* For rgb(250 250 250 / <alpha-value>) = #fafafa */
@@ -111,6 +120,15 @@
 
   /* dark theme */
   [data-theme='dark'] {
+    /**
+    Bible Quiz Frontend Color Variable
+    **/
+    --full-screen-color: #ebf5fb;
+    --primary-color: #6949ff;
+    --btn-hover-color: #7e63fb;
+    --text-color: #263238;
+    --front-bg-color: #ffffff;
+
     /*
       - gray/natural color shades for texts, borders and disabled elements.
       - If required we can use as background too.
@@ -303,6 +321,18 @@
 
 /* ................................................... */
 /** welcome page react Slick slider Custom Dots End **/
+/* ................................................... */
+
+/* ................................................... */
+/** react Tabs Custom Css Start **/
+/* ................................................... */
+.react-tabs__tab--selected {
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  outline: none !important;
+}
+/* ................................................... */
+/** react Tabs Custom Css End **/
 /* ................................................... */
 
 /* ................................................... */
