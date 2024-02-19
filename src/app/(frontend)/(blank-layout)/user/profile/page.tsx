@@ -22,7 +22,9 @@ export default function Page() {
             notification=""
           />
         </div>
+
         <ProfileImage name="John" ImageSrc="" />
+
         <div className="flex w-full flex-col items-center justify-center gap-3 px-4">
           <hr className="my-2 h-[1.5px] w-full bg-[#e0e0e0] " />
           <TextInput
@@ -32,16 +34,19 @@ export default function Page() {
             placeholder="Ex.John Doe"
             requiredStar="*"
           />
+
           <CountryCode
             label="Phone Number"
             placeholder="0846-586335"
             requiredStar="*"
           />
+
           <SelectOption
             label="Country"
             name="country"
             placeholder="select country"
           />
+
           <div className="w-full border-b-2  border-[var(--primary-color)] outline-none">
             <label
               htmlFor="language"
@@ -69,6 +74,7 @@ export default function Page() {
             </div>
           </div>
           {/* select language input */}
+
           <div className="w-full border-b-2  border-[var(--primary-color)] outline-none">
             <label
               htmlFor="language"
@@ -103,6 +109,7 @@ export default function Page() {
               </div>
             </div>
           </div>
+
           <TextInput
             type="number"
             label="Age"
@@ -110,6 +117,7 @@ export default function Page() {
             placeholder="Ex.12"
             requiredStar="*"
           />
+
           <TextInput
             type="email"
             label="Email"
@@ -117,6 +125,7 @@ export default function Page() {
             placeholder="email@example.com"
             requiredStar=" "
           />
+
           <TextInput
             type="text"
             label="Church you Attend"
