@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import Action, { Option } from '@/app/super-admin/(private)/components/Actions';
+import Action, { Option } from '@/app/admin/(private)/components/Actions';
 import { MantineReactTable, useMantineReactTable, type MRT_ColumnDef } from 'mantine-react-table';
 
 type props = {

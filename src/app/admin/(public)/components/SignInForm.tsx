@@ -18,12 +18,12 @@ export default function SignInForm() {
 
   const initialValues = {
     email: '',
-    password: '',
+    password: ''
   };
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email('Invalid Email!').required('Required'),
-    password: Yup.string().required('Required'),
+    password: Yup.string().required('Required')
   });
 
   // Form Submit Handler
@@ -33,32 +33,28 @@ export default function SignInForm() {
 
     signIn('credentials', {
       ...values,
-      redirect: false,
+      redirect: false
     }).then((callback) => {
       if (callback?.error) {
         setLoginFormSubmitted(false);
         toast.error(callback?.error);
       }
       if (callback?.ok && !callback?.error) {
-        replace('/super-admin/dashboard');
+        replace('/admin/dashboard');
         toast.success('Admin Login Successfully!');
       }
     });
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={onSubmit}
-    >
+    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
       {() => {
         return (
           <Form>
-            <div className="form-control mt-5 w-full">
-              <label className="label">
-                <span className="label-text font-bold">
-                  Email<span className="mr-2 text-red-600">*</span>
+            <div className='form-control mt-5 w-full'>
+              <label className='label'>
+                <span className='label-text font-bold'>
+                  Email<span className='mr-2 text-red-600'>*</span>
                   {/* <ErrorMessage
                       name="email"
                       component={({ children }) => (
@@ -69,26 +65,22 @@ export default function SignInForm() {
                     /> */}
                 </span>
               </label>
-              <Field name="email">
+              <Field name='email'>
                 {({ field, meta }: { field: any; meta: any }) => {
                   return (
                     <input
-                      type="email"
-                      className={`${
-                        meta.touched && meta.error
-                          ? 'input-error'
-                          : 'input-neutral'
-                      } input input-bordered w-full`}
+                      type='email'
+                      className={`${meta.touched && meta.error ? 'input-error' : 'input-neutral'} input input-bordered w-full`}
                       {...field}
                     />
                   );
                 }}
               </Field>
             </div>
-            <div className="form-control mt-3 w-full">
-              <label className="label">
-                <span className="label-text font-bold">
-                  Password<span className="mr-2 text-red-600">*</span>
+            <div className='form-control mt-3 w-full'>
+              <label className='label'>
+                <span className='label-text font-bold'>
+                  Password<span className='mr-2 text-red-600'>*</span>
                   {/* <ErrorMessage
                       name="password"
                       component={({ children }) => (
@@ -99,45 +91,33 @@ export default function SignInForm() {
                     /> */}
                 </span>
               </label>
-              <Field name="password">
+              <Field name='password'>
                 {({ field, meta }: { field: any; meta: any }) => {
                   return (
-                    <div className="relative">
+                    <div className='relative'>
                       <input
                         type={showPassword ? 'text' : 'password'}
-                        className={`${
-                          meta.touched && meta.error
-                            ? 'input-error'
-                            : 'input-neutral'
-                        } input input-bordered w-full`}
+                        className={`${meta.touched && meta.error ? 'input-error' : 'input-neutral'} input input-bordered w-full`}
                         {...field}
                       />
                       {showPassword ? (
-                        <BsEye
-                          onClick={() => setShowPassword(false)}
-                          className="absolute right-3 top-3 cursor-pointer text-2xl"
-                        />
+                        <BsEye onClick={() => setShowPassword(false)} className='absolute right-3 top-3 cursor-pointer text-2xl' />
                       ) : (
-                        <BsEyeSlash
-                          onClick={() => setShowPassword(true)}
-                          className="absolute right-3 top-3 cursor-pointer text-2xl"
-                        />
+                        <BsEyeSlash onClick={() => setShowPassword(true)} className='absolute right-3 top-3 cursor-pointer text-2xl' />
                       )}
                     </div>
                   );
                 }}
               </Field>
             </div>
-            <div className="mt-6">
+            <div className='mt-6'>
               <button
-                type="submit"
-                className="btn btn-primary w-full text-white disabled:bg-[#1742b6] disabled:text-[#d9ebff]"
+                type='submit'
+                className='btn btn-primary w-full text-white disabled:bg-[#1742b6] disabled:text-[#d9ebff]'
                 disabled={loginFormSubmitted}
               >
                 {loginFormSubmitted ? 'Requesting...' : 'Login'}
-                {loginFormSubmitted && (
-                  <PiSpinnerLight className="animate-spin" />
-                )}
+                {loginFormSubmitted && <PiSpinnerLight className='animate-spin' />}
               </button>
             </div>
           </Form>

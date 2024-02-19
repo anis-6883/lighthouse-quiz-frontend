@@ -2,8 +2,8 @@
 
 import deleteData from '@/utils/fetch/deleteData';
 import toast from 'react-hot-toast';
-import { Option } from '@/app/super-admin/(private)/components/Actions';
-import AskConfirmation from '@/app/super-admin/(private)/components/AskConfirmation';
+import { Option } from '@/app/admin/(private)/components/Actions';
+import AskConfirmation from '@/app/admin/(private)/components/AskConfirmation';
 import Table from '../../components/Table';
 
 let popup = false;

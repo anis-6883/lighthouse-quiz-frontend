@@ -1,9 +1,6 @@
 'use client';
 
-import {
-  useGetGeneralSettingsQuery,
-  useUpdateGeneralSettingsMutation,
-} from '@/features/super-admin/general-settings/generalSettingsApi';
+import { useGetGeneralSettingsQuery, useUpdateGeneralSettingsMutation } from '@/features/admin/general-settings/generalSettingsApi';
 import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -23,16 +20,9 @@ import TabButtonItem from './TabButtonItem';
 import TermsAndConditionForm from './TermsAndConditionForm';
 
 export default function SettingsMainForm() {
-  const {
-    data: generalSetting,
-    isLoading,
-    isError,
-  } = useGetGeneralSettingsQuery(undefined);
+  const { data: generalSetting, isLoading, isError } = useGetGeneralSettingsQuery(undefined);
 
-  const [
-    updateSettings,
-    { data: updatedData, isSuccess, isError: updatingError },
-  ] = useUpdateGeneralSettingsMutation();
+  const [updateSettings, { data: updatedData, isSuccess, isError: updatingError }] = useUpdateGeneralSettingsMutation();
 
   const [currentTab, setCurrentTab] = useState(0);
   const [siteLogo, setSiteLogo] = useState(null);
@@ -89,7 +79,7 @@ export default function SettingsMainForm() {
 
     appLink: '',
     refreshNumber: '5',
-    runningStatus: '0',
+    runningStatus: '0'
   });
 
   useEffect(() => {
@@ -104,7 +94,7 @@ export default function SettingsMainForm() {
       setIsSubmitting(false);
       setInitialValues((prevValues) => ({
         ...prevValues,
-        ...(updatedData as { data: any }).data,
+        ...(updatedData as { data: any }).data
       }));
       toast.success('General Setting Updated Successfully!');
     }
@@ -114,7 +104,7 @@ export default function SettingsMainForm() {
     if (!isLoading && !isError) {
       setInitialValues((prevValues) => ({
         ...prevValues,
-        ...generalSetting?.data,
+        ...generalSetting?.data
       }));
     }
   }, [generalSetting, isError, isLoading]);
@@ -129,7 +119,7 @@ export default function SettingsMainForm() {
     'Logo & Icon',
     'Terms and Condition',
     'Privacy and Policy',
-    'About Us',
+    'About Us'
   ];
 
   const handleTabChange = (tab: number) => {
@@ -139,7 +129,7 @@ export default function SettingsMainForm() {
   const validationSchema = Yup.object().shape({
     // companyName: Yup.string().required('Required!'),
     // siteTitle: Yup.string().required('Required!'),
-    contactEmail: Yup.string().email('Invalid Email!'),
+    contactEmail: Yup.string().email('Invalid Email!')
     // timezone: Yup.object().shape({
     //   label: Yup.string().required('Required!'),
     //   value: Yup.string().required('Required!'),
@@ -201,7 +191,7 @@ export default function SettingsMainForm() {
 
       'appLink',
       'refreshNumber',
-      'runningStatus',
+      'runningStatus'
     ];
 
     fieldsToAppend.forEach((field) => {
@@ -222,32 +212,19 @@ export default function SettingsMainForm() {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-      enableReinitialize
-    >
+    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit} enableReinitialize>
       {({ values, setFieldValue }) => (
         <Form>
           <div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
-              <div className="col-span-1 flex flex-col md:col-span-3">
+            <div className='grid grid-cols-1 gap-6 md:grid-cols-12'>
+              <div className='col-span-1 flex flex-col md:col-span-3'>
                 {tabs.map((tab, index) => (
-                  <TabButtonItem
-                    key={index}
-                    tab={tab}
-                    onClick={() => handleTabChange(index)}
-                    active={currentTab === index}
-                  />
+                  <TabButtonItem key={index} tab={tab} onClick={() => handleTabChange(index)} active={currentTab === index} />
                 ))}
               </div>
-              <div className="col-span-1 w-full rounded-lg border border-gray-200 bg-white p-5 shadow md:col-span-9">
+              <div className='col-span-1 w-full rounded-lg border border-gray-200 bg-white p-5 shadow md:col-span-9'>
                 <div hidden={currentTab === 0 ? false : true}>
-                  <GeneralSettingsForm
-                    setFieldValue={setFieldValue}
-                    values={values}
-                  />
+                  <GeneralSettingsForm setFieldValue={setFieldValue} values={values} />
                 </div>
 
                 <div hidden={currentTab === 1 ? false : true}>
@@ -267,12 +244,7 @@ export default function SettingsMainForm() {
                 </div>
 
                 <div hidden={currentTab === 5 ? false : true}>
-                  <PopUpBannerSettings
-                    setFieldValue={setFieldValue}
-                    values={values}
-                    bannerImage={bannerImage}
-                    setBannerImage={setBannerImage}
-                  />
+                  <PopUpBannerSettings setFieldValue={setFieldValue} values={values} bannerImage={bannerImage} setBannerImage={setBannerImage} />
                 </div>
 
                 <div hidden={currentTab === 6 ? false : true}>
@@ -287,17 +259,11 @@ export default function SettingsMainForm() {
                 </div>
 
                 <div hidden={currentTab === 7 ? false : true}>
-                  <TermsAndConditionForm
-                    values={values}
-                    setFieldValue={setFieldValue}
-                  />
+                  <TermsAndConditionForm values={values} setFieldValue={setFieldValue} />
                 </div>
 
                 <div hidden={currentTab === 8 ? false : true}>
-                  <PrivacyAndPolicyForm
-                    values={values}
-                    setFieldValue={setFieldValue}
-                  />
+                  <PrivacyAndPolicyForm values={values} setFieldValue={setFieldValue} />
                 </div>
 
                 <div hidden={currentTab === 9 ? false : true}>
@@ -305,18 +271,9 @@ export default function SettingsMainForm() {
                 </div>
               </div>
             </div>
-            <div className="flex w-full justify-end">
-              <button
-                type="submit"
-                className="btn btn-primary btn-sm mt-6 text-white"
-                disabled={isSubmitting}
-              >
-                Submit{' '}
-                {isSubmitting ? (
-                  <PiSpinnerLight className="ml-1 animate-spin" />
-                ) : (
-                  <FiCheckCircle className="ml-1" />
-                )}
+            <div className='flex w-full justify-end'>
+              <button type='submit' className='btn btn-primary btn-sm mt-6 text-white' disabled={isSubmitting}>
+                Submit {isSubmitting ? <PiSpinnerLight className='ml-1 animate-spin' /> : <FiCheckCircle className='ml-1' />}
               </button>
             </div>
           </div>

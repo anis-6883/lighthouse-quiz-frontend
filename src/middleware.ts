@@ -6,7 +6,7 @@ export default withAuth(
   function middleware(req) {
     const userRole = req.nextauth.token?.role;
 
-    if (userRole === 'user' && req.nextUrl.pathname.includes('super-admin')) {
+    if (userRole === 'user' && req.nextUrl.pathname.includes('admin')) {
       return NextResponse.redirect(new URL('/', req.url));
     } else {
       return NextResponse.next();
@@ -14,18 +14,17 @@ export default withAuth(
   },
   {
     callbacks: {
-      authorized: ({ req, token }) =>
-        token?.role === 'user' || token?.role === 'admin', // If there is a token, the user is authenticated
+      authorized: ({ req, token }) => token?.role === 'user' || token?.role === 'admin' // If there is a token, the user is authenticated
     },
     pages: {
       signIn: routes.signIn,
-      error: routes.signIn,
-    },
+      error: routes.signIn
+    }
   }
 );
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|images|icons|favicon.ico|register|signin|home|settings|verification|signup|user|test|super-admin/login|$).*)',
-  ],
+    '/((?!api|_next/static|_next/image|images|icons|favicon.ico|register|signin|home|settings|verification|signup|user|test|admin/login|$).*)'
+  ]
 };

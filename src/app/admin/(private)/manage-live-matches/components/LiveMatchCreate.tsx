@@ -1,11 +1,9 @@
 'use client';
 
 import { routes } from '@/config/routes';
-import {
-  useGetLiveMatchQuery,
-  useGetLiveMatchesQuery,
-  useUpdateLiveMatchMutation,
-} from '@/features/super-admin/live-match/liveMatchApi';
+import { useCreateLiveMatchMutation, useGetLiveMatchesQuery } from '@/features/admin/live-match/liveMatchApi';
+import { IFixtureSearchParams } from '@/types';
+import { generateRandomId } from '@/utils/generate-random-id';
 import getStreamObject from '@/utils/get-stream-object';
 import { Form, Formik } from 'formik';
 import moment from 'moment';
@@ -19,70 +17,48 @@ import MatchInfoForm from './MatchInfoForm';
 import StreamingInfoForm from './StreamingInfoForm';
 import TeamInfoForm from './TeamInfoForm';
 
-export default function LiveMatchUpdate({
-  liveMatchId,
-}: {
-  liveMatchId: number;
-}) {
+export default function LiveMatchCreate({ searchParams }: { searchParams: IFixtureSearchParams }) {
   const router = useRouter();
-  const [updateLiveMatch, { data: response, isSuccess, isError }] =
-    useUpdateLiveMatchMutation();
-  const { data: liveMatch, isLoading } = useGetLiveMatchQuery(liveMatchId);
+  const [createLiveMatch, { data: response, isSuccess, isError }] = useCreateLiveMatchMutation();
   const { refetch } = useGetLiveMatchesQuery(undefined);
   const [teamOneImage, setTeamOneImage] = useState(null);
   const [teamTwoImage, setTeamTwoImage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [initialValues, setInitialValues] = useState({
-    fixture_id: '',
-    match_title: '',
-    time: '',
-    is_hot: '0',
-    sports_type_name: '',
-    status: '1',
-    team_one_name: '',
-    team_two_name: '',
-    team_one_image_type: '',
-    team_two_image_type: '',
-    team_one_image: '',
-    team_two_image: '',
-    streaming_sources: getStreamObject(false),
-  });
 
   useEffect(() => {
-    if (!isLoading) {
-      const matchData = liveMatch?.data;
-      const updatedData = {
-        ...matchData,
-        // team_one_image_type: 'url',
-        // team_two_image_type: 'url',
-        streaming_sources: matchData?.streaming_sources?.map((source: any) => ({
-          ...source,
-          headers: Object.entries(JSON.parse(source?.headers) as any).map(
-            ([key, value]) => ({ key, value })
-          ),
-        })),
-      };
-
-      setInitialValues(updatedData);
-    }
-
     if (isError) {
       setIsSubmitting(false);
       toast.error('Something went wrong!');
     }
     if (isSuccess) {
       setIsSubmitting(false);
-      toast.success('Live match updated successfully!');
+      toast.success('Live match created successfully!');
       refetch();
       router.push(routes.manageLive.home);
     }
-  }, [isError, isLoading, isSuccess, liveMatch, refetch, response, router]);
+  }, [isError, isSuccess, refetch, response, router]);
+
+  const initialValues = {
+    fixture_id: searchParams?.fixture_id || '',
+    match_title: searchParams?.match_title || '',
+    time: searchParams?.time || '',
+    is_hot: '0',
+    sports_type_name: searchParams?.sport_type || 'football',
+    status: '1',
+    team_one_name: searchParams?.t1_name || '',
+    team_two_name: searchParams?.t2_name || '',
+    team_one_image_type: searchParams?.t1_img ? 'url' : '',
+    team_two_image_type: searchParams?.t2_img ? 'url' : '',
+    team_one_image: searchParams?.t1_img || '',
+    team_two_image: searchParams?.t2_img || '',
+    streaming_sources: getStreamObject(false)
+  };
 
   const matchSchema = Yup.object().shape({
     match_title: Yup.string().required('Required!'),
     time: Yup.string().required('Required!'),
     sports_type_name: Yup.string().required('Required!'),
-    fixture_id: Yup.string().nullable(),
+    fixture_id: Yup.string(),
     team_one_name: Yup.string().required('Required!'),
     team_two_name: Yup.string().required('Required!'),
     status: Yup.string(),
@@ -96,17 +72,17 @@ export default function LiveMatchUpdate({
         stream_type: Yup.string().required('Required!'),
         stream_url: Yup.string().when('stream_type', {
           is: (value: string) => ['web', 'm3u8', 'restricted'].includes(value),
-          then: () => Yup.string().required('Required!'),
-        }),
+          then: () => Yup.string().required('Required!')
+        })
       })
-    ),
+    )
   });
 
   // Live Match Create Handler
-  const handleUpdate = async (values: any) => {
+  const handleSubmit = async (values: any) => {
     setIsSubmitting(true);
 
-    // values.id = generateRandomId(15);
+    values.id = generateRandomId(15);
     values.utcTime = moment(values.time).utc().unix();
 
     const liveMatchData = {
@@ -114,15 +90,15 @@ export default function LiveMatchUpdate({
       team_one_image:
         values.team_one_image_type === ''
           ? `${process.env.NEXT_PUBLIC_ASIASPORT_BACKEND_URL}/public/default/team-logo.png`
-          : values.team_one_image_type === 'image' && teamOneImage
+          : values.team_one_image_type === 'image'
           ? teamOneImage
           : values?.team_one_image,
       team_two_image:
         values.team_two_image_type === ''
           ? `${process.env.NEXT_PUBLIC_ASIASPORT_BACKEND_URL}/public/default/team-logo.png`
-          : values.team_two_image_type === 'image' && teamTwoImage
+          : values.team_two_image_type === 'image'
           ? teamTwoImage
-          : values?.team_two_image,
+          : values?.team_two_image
     };
 
     var formBody = new FormData();
@@ -137,66 +113,39 @@ export default function LiveMatchUpdate({
     formBody.append('status', liveMatchData?.status);
     formBody.append('team_one_name', liveMatchData?.team_one_name);
     formBody.append('team_two_name', liveMatchData?.team_two_name);
-    formBody.append(
-      'team_one_image_type',
-      liveMatchData?.team_one_image_type || 'url'
-    );
-    formBody.append(
-      'team_two_image_type',
-      liveMatchData?.team_two_image_type || 'url'
-    );
-    formBody.append(
-      'streaming_sources',
-      JSON.stringify(liveMatchData?.streaming_sources)
-    );
+    formBody.append('team_one_image_type', liveMatchData?.team_one_image_type || 'url');
+    formBody.append('team_two_image_type', liveMatchData?.team_two_image_type || 'url');
+    formBody.append('streaming_sources', JSON.stringify(liveMatchData?.streaming_sources));
 
-    teamOneImage
-      ? formBody.append('team_one_image', teamOneImage)
-      : formBody.append('team_one_image_url', liveMatchData?.team_one_image);
+    teamOneImage ? formBody.append('team_one_image', teamOneImage) : formBody.append('team_one_image_url', liveMatchData?.team_one_image);
 
-    teamTwoImage
-      ? formBody.append('team_two_image', teamTwoImage)
-      : formBody.append('team_two_image_url', liveMatchData?.team_two_image);
+    teamTwoImage ? formBody.append('team_two_image', teamTwoImage) : formBody.append('team_two_image_url', liveMatchData?.team_two_image);
 
-    updateLiveMatch({ id: liveMatchId, data: formBody });
+    createLiveMatch(formBody);
   };
 
   return (
-    <div className="flex-grow pb-10">
-      <div className="grid grid-cols-1 gap-8 @2xl:gap-10 @3xl:gap-12">
-        <Formik
-          initialValues={initialValues}
-          validationSchema={matchSchema}
-          enableReinitialize
-          onSubmit={handleUpdate}
-        >
+    <div className='flex-grow pb-10'>
+      <div className='grid grid-cols-1 gap-8 @2xl:gap-10 @3xl:gap-12'>
+        <Formik initialValues={initialValues} validationSchema={matchSchema} enableReinitialize onSubmit={handleSubmit}>
           {({ values, setFieldValue, errors }) => {
             return (
               <Form>
                 <MatchInfoForm values={values} setFieldValue={setFieldValue} />
-                <div className="my-5 border-b border-dashed border-slate-300"></div>
+                <div className='my-5 border-b border-dashed border-slate-300'></div>
                 <TeamInfoForm
-                  setFieldValue={setFieldValue}
                   values={values}
                   teamOneImage={teamOneImage}
                   setTeamOneImage={setTeamOneImage}
                   teamTwoImage={teamTwoImage}
                   setTeamTwoImage={setTeamTwoImage}
+                  setFieldValue={setFieldValue}
                 />
-                <div className="my-5 border-b border-dashed border-slate-300"></div>
+                <div className='my-5 border-b border-dashed border-slate-300'></div>
                 <StreamingInfoForm values={values} />
-                <div className="fixed bottom-[50px] right-[47px] mt-3 animate-bounce hover:animate-none">
-                  <button
-                    type="submit"
-                    className="btn btn-primary btn-sm rounded-md text-white"
-                    disabled={isSubmitting}
-                  >
-                    Update{' '}
-                    {isSubmitting ? (
-                      <PiSpinnerLight className="ml-1 animate-spin" />
-                    ) : (
-                      <FiCheckCircle className="ml-1" />
-                    )}
+                <div className='fixed bottom-[50px] right-[47px] mt-3 animate-bounce hover:animate-none'>
+                  <button type='submit' className='btn btn-primary btn-sm rounded-md text-white' disabled={isSubmitting}>
+                    Submit {isSubmitting ? <PiSpinnerLight className='ml-1 animate-spin' /> : <FiCheckCircle className='ml-1' />}
                   </button>
                 </div>
               </Form>
