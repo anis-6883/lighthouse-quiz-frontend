@@ -1,8 +1,8 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
 import AuthProvider from '@/app/api/auth/[...nextauth]/auth-provider';
 import { lexendDeca, poppins } from '@/app/fonts';
-import GlobalDrawer from '@/app/shared/drawer-views/container';
-import GlobalModal from '@/app/shared/modal-views/container';
+// import GlobalDrawer from '@/app/shared/drawer-views/container';
+// import GlobalModal from '@/app/shared/modal-views/container';
 import { ThemeProvider } from '@/app/shared/theme-provider';
 import { siteConfig } from '@/config/site.config';
 import ReduxProvider from '@/features/redux-provider';
@@ -52,8 +52,8 @@ export default async function RootLayout({
               <NextProgress />
               {children}
               <Toaster />
-              <GlobalDrawer />
-              <GlobalModal />
+              {/* <GlobalDrawer /> */}
+              {/* <GlobalModal /> */}
             </ThemeProvider>
           </AuthProvider>
         </ReduxProvider>

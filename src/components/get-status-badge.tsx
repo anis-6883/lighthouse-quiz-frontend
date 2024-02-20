@@ -1,8 +1,9 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge';
+// import { Badge } from '@/components/ui/badge';
 import { useLayout } from '@/hooks/use-layout';
 import cn from '@/utils/class-names';
+import { Badge } from 'rizzui';
 
 export default function GetStatusBadge(status: string) {
   const { layout } = useLayout();

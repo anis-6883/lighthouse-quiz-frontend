@@ -2,11 +2,6 @@
 
 import { Fragment, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Input } from '@/components/ui/input';
-import { Title } from '@/components/ui/text';
-import { Button } from '@/components/ui/button';
-import { ActionIcon } from '@/components/ui/action-icon';
-import { Empty, SearchNotFoundIcon } from '@/components/ui/empty';
 import {
   PiFileTextDuotone,
   PiMagnifyingGlassBold,
@@ -14,6 +9,7 @@ import {
 } from 'react-icons/pi';
 import cn from '@/utils/class-names';
 import { pageLinks } from './page-links.data';
+import { ActionIcon, Button, Empty, Input, SearchNotFoundIcon, Title } from 'rizzui';
 
 export default function SearchList({ onClose }: { onClose?: () => void }) {
   const inputRef = useRef(null);
