@@ -7,8 +7,9 @@ import { FaMagnifyingGlass, FaShieldHalved, FaUsersLine } from 'react-icons/fa6'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import EmptyCard from './EmptyCard'
 import FaqCard from './FaqCard'
+import { FAQ } from '@/app/admin/(private)/faqs/components/PageContent'
 
-export default function HelpCenterTab() {
+export default function HelpCenterTab({ faq }: { faq: FAQ[] }) {
   return (
     <Tabs>
       <TabList className="grid w-full grid-cols-2 text-center ">
@@ -22,7 +23,7 @@ export default function HelpCenterTab() {
           <input className="w-full border-none bg-[#F3F0FF] py-2 outline-none" type="text" style={{ boxShadow: 'none' }} />
         </div>
 
-        <div className="flex flex-col gap-4">{faq.length > 0 ? faq?.map((item) => <FaqCard key={item.title} question={item.title} answer={item.description} />) : <EmptyCard name="FAQ" />}</div>
+        <div className="flex flex-col gap-4">{faq.length > 0 ? faq?.map((item: FAQ) => <FaqCard key={item.title} question={item.title} answer={item.description} />) : <EmptyCard name="FAQ" />}</div>
       </TabPanel>
 
       <TabPanel>
