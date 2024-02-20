@@ -78,14 +78,7 @@ export default function ProfileMenu({ buttonClassName, avatarClassName }: { butt
   }, [pathname])
 
   return (
-    <Popover
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
-      // content={() => <DropdownMenu />}
-      shadow="sm"
-      placement="bottom-end"
-      // className="z-50 p-0 dark:bg-gray-100 [&>svg]:dark:fill-gray-100"
-    >
+    <Popover isOpen={isOpen} setIsOpen={setIsOpen} content={<DropdownMenu />} shadow="sm" placement="bottom-end" className="z-50 p-0 dark:bg-gray-100 [&>svg]:dark:fill-gray-100">
       <button className={cn('w-9 shrink-0 rounded-full outline-none focus-visible:ring-[1.5px] focus-visible:ring-gray-400 focus-visible:ring-offset-2 active:translate-y-px sm:w-10', buttonClassName)}>
         <Avatar src="https://isomorphic-furyroad.s3.amazonaws.com/public/avatars-blur/avatar-11.webp" name="John Doe" color="primary" className={cn('!h-9 w-9 sm:!h-10 sm:w-10', avatarClassName)} />
       </button>

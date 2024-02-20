@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import AdminForm from './AdminForm'
-import FeatureTable from './AdminTable'
+import AdminTable from './AdminTable'
 import AddButton from '../../components/AddButton'
 
 export type Admin = {}
@@ -17,13 +17,9 @@ export default function PageContent({ data }: { data: Admin }) {
 
   return (
     <>
-      <AdminForm
-        formData={formData}
-        modalState={modalState}
-        setModalState={setModalState}
-      />
+      <AdminForm formData={formData} modalState={modalState} setModalState={setModalState} />
       <AddButton name="Admin" setModalState={setModalState} />
-      <FeatureTable data={data} edit={setModalState} formData={setFormData} />
+      <AdminTable data={data} edit={setModalState} formData={setFormData} />
     </>
   )
 }

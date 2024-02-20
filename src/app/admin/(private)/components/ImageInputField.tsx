@@ -1,31 +1,24 @@
 import 'cropperjs/dist/cropper.css'
 import { useFormikContext } from 'formik'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { Cropper } from 'react-cropper'
+import { useRef, useState } from 'react'
+import Cropper, { ReactCropperElement } from 'react-cropper'
 import Dropzone from 'react-dropzone'
 import toast from 'react-hot-toast'
 import { RxCross2 } from 'react-icons/rx'
 
 export default function ImageInputField({ label, name }: { label: string; name: string }) {
   const maxSize = 10 //MB
-
-  const [preview, setPreview] = useState<any>()
-  const cropperRef = useRef(null)
   const { values, setFieldValue }: any = useFormikContext()
-
-  useEffect(() => {
-    if (values.image) setPreview(values.image)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    console.log(values)
-  }, [values])
+  const [preview, setPreview] = useState<string | null>(values.image)
+  const cropperRef = useRef<ReactCropperElement>(null)
 
   const debouncedHandleCrop = debounce(() => {
-    // const cropper = cropperRef.current?.cropper as Cropper
-    // const croppedImage = cropper.getCroppedCanvas().toDataURL()
-    // setFieldValue(name, croppedImage)
+    const cropper = cropperRef.current?.cropper
+
+    if (cropper) {
+      const croppedImage = cropper.getCroppedCanvas().toDataURL()
+      setFieldValue(name, croppedImage)
+    }
   }, 1000)
 
   const handleDrop = (files: any) => {
@@ -34,7 +27,7 @@ export default function ImageInputField({ label, name }: { label: string; name: 
     if (file.size < MBToBytes(maxSize)) {
       const reader = new FileReader()
       reader.readAsDataURL(file)
-      reader.onloadend = () => setPreview(reader.result) // Converted selected image to base64 string
+      reader.onloadend = () => setPreview(reader.result as string) // Converted selected image to base64 string
     } else {
       toast.error(`File size exceeds ${maxSize}MB limit`)
     }
@@ -72,7 +65,7 @@ export default function ImageInputField({ label, name }: { label: string; name: 
   )
 }
 
-type props = { name?: string; image: string; setValue?: Function }
+type props = { name?: string; image: string | null; setValue?: Function }
 
 function Zone({ image }: props) {
   if (!image) {

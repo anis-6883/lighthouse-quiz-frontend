@@ -35,6 +35,6 @@
     "**/*.mjs",
     ".next/types/**/*.ts",
     "src/app/(frontend)/components/VideoPlayer.tsx"
-, "prettier.config.js"  ],
+, "prettier.config.js", "src/app/admin/(private)/components/ImageInputField.tsx"  ],
   "exclude": ["node_modules"]
 }

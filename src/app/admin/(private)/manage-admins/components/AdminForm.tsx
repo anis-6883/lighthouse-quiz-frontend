@@ -28,20 +28,19 @@ type props = {
   setModalState: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function FeatureForm({ formData, modalState, setModalState }: props) {
-  const handleFeature = async (values: any, { resetForm }: { resetForm: Function }) => {
+export default function AdminForm({ formData, modalState, setModalState }: props) {
+  const handleAdmin = async (values: any, { resetForm }: { resetForm: Function }) => {
     const payload = {
       name: values.name,
       email: values.email,
       type: values.type,
-      status: values.status,
+      status: values.status === 'Active' ? true : false,
       password: values.password,
       image: values.image,
+      existing: formData.image,
     }
 
-    console.log(payload)
-
-    const response = formData?.id ? () => updateData('register', payload, formData.id) : () => postData('register', payload)
+    const response = formData?._id ? () => updateData('update', payload, formData._id) : () => postData('register', payload)
 
     toast.promise(response(), {
       loading: 'Please wait...',
@@ -79,7 +78,7 @@ export default function FeatureForm({ formData, modalState, setModalState }: pro
             image: formData?.image,
           }}
           validationSchema={adminSchema}
-          onSubmit={handleFeature}
+          onSubmit={handleAdmin}
         >
           {({ values, handleChange, handleBlur, isSubmitting, setFieldValue }) => {
             return (
@@ -113,8 +112,8 @@ export default function FeatureForm({ formData, modalState, setModalState }: pro
                     label="Status *"
                     name="status"
                     options={[
-                      { label: 'Active', value: 'active' },
-                      { label: 'Inactive', value: 'inactive' },
+                      { label: 'Active', value: 'Active' },
+                      { label: 'Inactive', value: 'Inactive' },
                     ]}
                     value={values.status}
                     onChange={(selected: { value: string }) => setFieldValue('status', selected.value)}
@@ -139,7 +138,7 @@ export default function FeatureForm({ formData, modalState, setModalState }: pro
                 </div>
 
                 <Button type="submit" size="lg" className="col-span-2 mt-2" disabled={isSubmitting}>
-                  {formData.id ? 'Update' : 'Add'}
+                  {formData._id ? 'Update' : 'Add'}
                 </Button>
               </Form>
             )
