@@ -1,22 +1,24 @@
 import { metaObject } from '@/config/site.config';
-import { FaArrowLeft, FaRegBell } from 'react-icons/fa6';
+import { FaRegBell } from 'react-icons/fa6';
+import ReferModal from '../components/ReferModal';
 import TopNavigation from '../components/TopNavigation';
 
 export const metadata = {
-  ...metaObject('Home'),
+  ...metaObject('Refer'),
 };
 
 export default function Page() {
   return (
     <>
-      <div className="w-full pb-5 pt-2">
+      <div className="w-full pb-5 pt-4">
         <TopNavigation
-          icon={<FaArrowLeft className="text-2xl" />}
-          pageName="home"
+          icon=""
+          pageName="Refer"
           notification={<FaRegBell className="text-3xl font-medium" />}
         />
       </div>
-      <div>data on fire</div>
+
+      <ReferModal />
     </>
   );
 }
