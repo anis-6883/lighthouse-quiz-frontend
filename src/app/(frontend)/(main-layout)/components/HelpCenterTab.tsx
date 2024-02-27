@@ -1,5 +1,6 @@
 'use client';
 
+import { routes } from '@/config/routes';
 import Link from 'next/link';
 import { FaFileContract, FaHeadphonesAlt } from 'react-icons/fa';
 import { FaMagnifyingGlass, FaShieldHalved, FaUsersLine } from 'react-icons/fa6';
@@ -35,7 +36,7 @@ export default function HelpCenterTab({ faq }: { faq: FAQ[] }) {
         <h6 className='py-8 text-xl font-medium'>Quizzes</h6>
         <div className='flex flex-col gap-5 '>
           <div className='w-full rounded-xl border shadow-sm'>
-            <Link href='/home'>
+            <Link href={routes.aboutUs}>
               <div className='flex items-center gap-4 p-6'>
                 <FaUsersLine className='text-4xl' />
                 <span className='text-xl font-semibold capitalize sm:text-2xl'>About Us</span>
@@ -43,7 +44,7 @@ export default function HelpCenterTab({ faq }: { faq: FAQ[] }) {
             </Link>
           </div>
           <div className='w-full rounded-xl border shadow-sm'>
-            <Link href='/home'>
+            <Link href={routes.tramsAndConditions}>
               <div className='flex items-center gap-4 p-6'>
                 <FaFileContract className='text-3xl' />
                 <span className='text-xl font-semibold capitalize sm:text-2xl'>Terms & Conditions</span>
@@ -52,20 +53,24 @@ export default function HelpCenterTab({ faq }: { faq: FAQ[] }) {
           </div>
 
           <div className='w-full rounded-xl border shadow-sm'>
-            <Link href='/home'>
+            <Link href={routes.privacyPolicy}>
               <div className='flex items-center gap-4 p-6'>
                 <FaShieldHalved className='text-3xl' />
                 <span className='text-xl font-semibold capitalize sm:text-2xl'>Privacy Policy</span>
               </div>
             </Link>
           </div>
-          <div className='w-full rounded-xl border shadow-sm'>
-            <Link href='/home'>
-              <div className='flex items-center gap-4 p-6'>
-                <FaHeadphonesAlt className='text-3xl' />
-                <span className='text-xl font-semibold capitalize sm:text-2xl'>Contact Us</span>
-              </div>
-            </Link>
+          <div
+            onClick={(e) => {
+              window.location.href = 'mailto:rootweb.laravel@gmail.com';
+              e.preventDefault();
+            }}
+            className='w-full cursor-pointer rounded-xl border shadow-sm'
+          >
+            <div className='flex items-center gap-4 p-6'>
+              <FaHeadphonesAlt className='text-3xl' />
+              <span className='text-xl font-semibold capitalize sm:text-2xl'>Contact Us</span>
+            </div>
           </div>
         </div>
       </TabPanel>

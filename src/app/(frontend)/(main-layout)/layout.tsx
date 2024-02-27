@@ -7,7 +7,7 @@ export default async function MainLayout({
 }) {
   return (
     <div className="bg-[#EBF5FB]">
-      <main className="relative m-auto min-h-screen max-w-3xl overflow-hidden bg-[#ffffff] px-6 pb-20 pt-6 sm:px-8">
+      <main className="relative m-auto min-h-screen max-w-3xl overflow-hidden bg-[#ffffff] px-4 pb-20 pt-6 sm:px-8">
         {children}
       </main>
       <nav className="relative m-auto flex max-w-3xl items-center justify-center ">

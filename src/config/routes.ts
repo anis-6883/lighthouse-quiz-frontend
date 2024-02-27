@@ -4,6 +4,8 @@ export const routes = {
   register: '/register',
   signIn: '/signin',
   verification: '/verification/otp',
+  history: '/history',
+  refer: '/refer',
   settings: {
     home: '/settings',
     notification: '/settings/notifications',
@@ -12,6 +14,9 @@ export const routes = {
   user: {
     profile: 'user/profile'
   },
+  aboutUs: '/about-us',
+  tramsAndConditions: '/terms-and-conditions',
+  privacyPolicy: '/privacy-policy',
   // signIn: '/user/signin',
   forgetPassword: '/user/forget-password',
   adminLogin: '/admin/login',
