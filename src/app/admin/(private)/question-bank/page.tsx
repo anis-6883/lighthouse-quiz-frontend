@@ -8,7 +8,7 @@ const title = 'Question Bank'
 export const metadata = { ...metaObject(title) }
 
 export default async function Page() {
-  const data = await getData('features')
+  const data = await getData('questions')
 
   const pageHeader = {
     title,
