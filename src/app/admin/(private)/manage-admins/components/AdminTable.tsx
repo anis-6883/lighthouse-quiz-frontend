@@ -6,16 +6,18 @@ import { Option } from '../../components/Actions'
 import AskConfirmation from '../../components/AskConfirmation'
 import Table from '../../components/Table'
 import { Badge } from 'rizzui'
+import { useSession } from 'next-auth/react'
 
 let popup = false
 
 export default function AdminTable({ data, edit, formData }: { data: any; edit: Function; formData: Function }) {
+  const { data: session } = useSession()
+  const token = session?.user.accessToken || ''
+
   const structure = [
     {
       header: 'Image',
-      Cell: ({ row }: any) => {
-        return <img src={row?.original?.image} alt="image" className="h-14 transition-all duration-500 hover:h-40" />
-      },
+      Cell: ({ row }: any) => <img src={row?.original?.image} alt="image" className="h-14 transition-all duration-500 hover:h-40" />,
     },
     {
       header: 'Name',
@@ -63,7 +65,7 @@ export default function AdminTable({ data, edit, formData }: { data: any; edit: 
 
         toast((t) => {
           popup = t.visible
-          return AskConfirmation(t, () => deleteData('delete', data._id))
+          return AskConfirmation(t, () => deleteData('delete', token, data._id))
         })
       },
     },

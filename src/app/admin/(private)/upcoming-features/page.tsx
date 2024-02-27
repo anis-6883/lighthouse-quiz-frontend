@@ -8,7 +8,7 @@ const title = 'Upcoming Features'
 export const metadata = { ...metaObject(title) }
 
 export default async function Page() {
-  const data = await getData('features')
+  const data:any = await getData('features')
 
   const pageHeader = {
     title,

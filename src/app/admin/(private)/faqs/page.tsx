@@ -8,14 +8,11 @@ const title = 'Frequently Asked Questions'
 export const metadata = { ...metaObject(title) }
 
 export default async function Page() {
-  const data = await getData('faq')
+  const data: any = await getData('faq')
 
   const pageHeader = {
     title,
-    breadcrumb: [
-      { href: routes.dashboard, name: 'Dashboard' },
-      { name: title },
-    ],
+    breadcrumb: [{ href: routes.dashboard, name: 'Dashboard' }, { name: title }],
   }
 
   return (

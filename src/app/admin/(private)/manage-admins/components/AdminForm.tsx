@@ -2,7 +2,7 @@
 
 import { ErrorMessage, Form, Formik } from 'formik'
 import { RxCross2 } from 'react-icons/rx'
-import { Button, Input, Modal, Select } from 'rizzui'
+import { Button, Input, Modal, Password, Select } from 'rizzui'
 import * as Yup from 'yup'
 import ImageInputField from '../../components/ImageInputField'
 import toast from 'react-hot-toast'
@@ -10,17 +10,22 @@ import updateData from '@/utils/fetch/updateData'
 import postData from '@/utils/fetch/postData'
 import reload from '@/utils/fetch/reload'
 import { Response } from '@/data/response'
+import { useSession } from 'next-auth/react'
 
 const adminSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
   email: Yup.string().email('Invalid email address').required('Email is required'),
   type: Yup.string().required('Type is required'),
   status: Yup.string().required('Status is required'),
-  password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password')], 'Passwords must match')
-    .required('Confirm Password is required'),
+  image: Yup.string().required('Image is required'),
 })
+
+function validatePassword(password: string, confirmPassword: string) {
+  if (password.length < 8) return 'Password must be at least 8 characters'
+  if (password !== confirmPassword) return 'Passwords must match'
+
+  return null
+}
 
 type props = {
   formData: any
@@ -29,18 +34,33 @@ type props = {
 }
 
 export default function AdminForm({ formData, modalState, setModalState }: props) {
+  const { data: session } = useSession()
+  const token = session?.user.accessToken || ''
+
   const handleAdmin = async (values: any, { resetForm }: { resetForm: Function }) => {
-    const payload = {
+    const payload: any = {
       name: values.name,
       email: values.email,
       type: values.type,
       status: values.status === 'Active' ? true : false,
-      password: values.password,
       image: values.image,
       existing: formData.image,
     }
 
-    const response = formData?._id ? () => updateData('update', payload, formData._id) : () => postData('register', payload)
+    // password can be set first time only
+    if (formData?._id) {
+    } else {
+      const validPassword: null | string = validatePassword(values.password, values.confirmPassword)
+
+      if (!(validPassword === null)) {
+        toast.error(validPassword)
+        return
+      }
+
+      payload['password'] = values.password
+    }
+
+    const response = formData?._id ? () => updateData('update', token, payload, formData._id) : () => postData('register', token, payload)
 
     toast.promise(response(), {
       loading: 'Please wait...',
@@ -52,9 +72,14 @@ export default function AdminForm({ formData, modalState, setModalState }: props
           return data.message
         }
 
+        console.log(data)
+
         throw new Error(data.message)
       },
-      error: (error) => error.message,
+      error: (error) => {
+        if (error.message) return error.message
+        return 'Something went wrong!'
+      },
     })
   }
 
@@ -84,12 +109,30 @@ export default function AdminForm({ formData, modalState, setModalState }: props
             return (
               <Form className="grid grid-cols-2 gap-x-5 gap-y-6">
                 <div>
-                  <Input label="Name *" inputClassName="border-2" name="name" size="lg" onChange={handleChange} onBlur={handleBlur} value={values.name} placeholder="Name" />
+                  <Input
+                    label="Name *"
+                    inputClassName="border-2"
+                    name="name"
+                    size="lg"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.name}
+                    placeholder="Name"
+                  />
                   <ErrorMessage name="name" component="p" />
                 </div>
 
                 <div>
-                  <Input label="Email *" inputClassName="border-2" name="email" size="lg" onChange={handleChange} onBlur={handleBlur} value={values.email} placeholder="Email" />
+                  <Input
+                    label="Email *"
+                    inputClassName="border-2"
+                    name="email"
+                    size="lg"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.email}
+                    placeholder="Email"
+                  />
                   <ErrorMessage name="email" component="p" />
                 </div>
 
@@ -122,15 +165,35 @@ export default function AdminForm({ formData, modalState, setModalState }: props
                   <ErrorMessage name="status" component="p" />
                 </div>
 
-                <div>
-                  <Input label="Password *" inputClassName="border-2 " name="password" size="lg" onChange={handleChange} onBlur={handleBlur} value={values.password} />
-                  <ErrorMessage name="password" component="p" />
-                </div>
+                {!formData?._id && (
+                  <>
+                    <div>
+                      <Password
+                        label="Password *"
+                        inputClassName="border-2 "
+                        name="password"
+                        size="lg"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.password}
+                      />
+                      <ErrorMessage name="password" component="p" />
+                    </div>
 
-                <div>
-                  <Input label="Confirm Password *" inputClassName="border-2" name="confirmPassword" size="lg" onChange={handleChange} onBlur={handleBlur} value={values.confirmPassword} />
-                  <ErrorMessage name="confirmPassword" component="p" />
-                </div>
+                    <div>
+                      <Password
+                        label="Confirm Password *"
+                        inputClassName="border-2"
+                        name="confirmPassword"
+                        size="lg"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.confirmPassword}
+                      />
+                      <ErrorMessage name="confirmPassword" component="p" />
+                    </div>
+                  </>
+                )}
 
                 <div className="col-span-2">
                   <ImageInputField label="Image *" name="image" />
