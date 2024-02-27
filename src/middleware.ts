@@ -25,6 +25,7 @@ export default withAuth(
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|images|icons|favicon.ico|register|signin|home|history|refer|settings|about-us|terms-and-conditions|privacy-policy|verification|signup|user|test|super-admin/login|$).*)'
-  ]
-};
+    '/((?!api|_next/static|_next/image|images|icons|favicon.ico|register|signin|home|history|refer|settings|about-us|terms-and-conditions|privacy-policy|verification|signup|user|test|admin/login|$).*)',
+  ],
+  // matcher: ['/admin/:path*'],
+}
