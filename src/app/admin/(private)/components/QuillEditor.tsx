@@ -1,27 +1,19 @@
-import { FieldError } from '@/components/ui/field-error';
-import cn from '@/utils/class-names';
-import ReactQuill, { type ReactQuillProps } from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+// import { FieldError } from '@/components/ui/field-error'
+import cn from '@/utils/class-names'
+import ReactQuill, { type ReactQuillProps } from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
+import { FieldError } from 'rizzui'
 
 interface QuillEditorProps extends ReactQuillProps {
-  error?: string;
-  label?: React.ReactNode;
-  className?: string;
-  labelClassName?: string;
-  errorClassName?: string;
-  toolbarPosition?: 'top' | 'bottom';
+  error?: string
+  label?: React.ReactNode
+  className?: string
+  labelClassName?: string
+  errorClassName?: string
+  toolbarPosition?: 'top' | 'bottom'
 }
 
-export default function QuillEditor({
-  id,
-  label,
-  error,
-  className,
-  labelClassName,
-  errorClassName,
-  toolbarPosition = 'top',
-  ...props
-}: QuillEditorProps) {
+export default function QuillEditor({ id, label, error, className, labelClassName, errorClassName, toolbarPosition = 'top', ...props }: QuillEditorProps) {
   const quillModules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -39,7 +31,7 @@ export default function QuillEditor({
 
       ['clean'],
     ],
-  };
+  }
 
   // const quillFormats = [
   //   'header',
@@ -61,22 +53,14 @@ export default function QuillEditor({
 
   return (
     <div className={cn(className)}>
-      {label && (
-        <label className={cn('mb-1.5 block', labelClassName)}>{label}</label>
-      )}
+      {label && <label className={cn('mb-1.5 block', labelClassName)}>{label}</label>}
       <ReactQuill
         modules={quillModules}
         // formats={quillFormats}
-        className={cn(
-          'react-quill',
-          toolbarPosition === 'bottom' && 'react-quill-toolbar-bottom relative',
-          className
-        )}
+        className={cn('react-quill', toolbarPosition === 'bottom' && 'react-quill-toolbar-bottom relative', className)}
         {...props}
       />
-      {error && (
-        <FieldError size="DEFAULT" error={error} className={errorClassName} />
-      )}
+      {error && <FieldError size="lg" error={error} className={errorClassName} />}
     </div>
-  );
+  )
 }

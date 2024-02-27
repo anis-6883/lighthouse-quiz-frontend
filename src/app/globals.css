@@ -14,6 +14,7 @@
     /**
     Bible Quiz Frontend Color Variable
     **/
+    /* --background: #ffffff;  */
     --full-screen-color: #ebf5fb;
     --primary-color: #6949ff;
     --btn-hover-color: #7e63fb;
@@ -123,6 +124,8 @@
     /**
     Bible Quiz Frontend Color Variable
     **/
+    --background: 255 255 255; /* #ffffff */
+
     --full-screen-color: #ebf5fb;
     --primary-color: #6949ff;
     --btn-hover-color: #7e63fb;

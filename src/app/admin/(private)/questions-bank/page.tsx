@@ -1,31 +1,27 @@
-import PageHeader from '@/app/shared/page-header';
-import { routes } from '@/config/routes';
-import { metaObject } from '@/config/site.config';
+import PageHeader from '@/app/shared/page-header'
+import { routes } from '@/config/routes'
+import { metaObject } from '@/config/site.config'
+import getData from '@/utils/fetch/getData'
+import PageContent from './components/PageContent'
 
-const pageHeader = {
-  title: 'Questions Bank',
-  breadcrumb: [
-    {
-      href: routes.dashboard,
-      name: 'Dashboard',
-    },
-    {
-      name: 'Questions Bank',
-    },
-  ],
-};
+const title = 'Upcoming Features'
+export const metadata = { ...metaObject(title) }
 
-export const metadata = {
-  ...metaObject('Questions Bank'),
-};
+export default async function Page() {
+	const data = await getData('features')
 
-export default function Page() {
-  return (
-    <>
-      <PageHeader
-        title={pageHeader.title}
-        breadcrumb={pageHeader.breadcrumb}
-      ></PageHeader>
-    </>
-  );
+	const pageHeader = {
+		title,
+		breadcrumb: [
+			{ href: routes.dashboard, name: 'Dashboard' },
+			{ name: title },
+		],
+	}
+
+	return (
+		<>
+			<PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
+			<PageContent data={data} />
+		</>
+	)
 }

@@ -1,12 +1,13 @@
-import type { Config } from 'tailwindcss';
-import plugin from 'tailwindcss/plugin';
+import type { Config } from 'tailwindcss'
+import plugin from 'tailwindcss/plugin'
+const colors = require('tailwindcss/colors')
 
 export default {
   content: [
     './src/**/*.{js,ts,jsx,tsx}',
-    './node_modules/rizzui/dist/*.{js,ts,jsx,tsx}', // must use this line to compile and generate our RizzUI components style
+    './node_modules/rizzui/dist/*.{js,ts,jsx,tsx}',
   ],
-  darkMode: ['class', '[data-theme="dark"]'],
+  // darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     screens: {
       xs: '480px',
@@ -20,6 +21,8 @@ export default {
     },
     extend: {
       colors: {
+        background: '#fff',
+
         gray: {
           0: 'rgb(var(--gray-0) / <alpha-value>)',
           50: 'rgb(var(--gray-50) / <alpha-value>)',
@@ -131,25 +134,25 @@ export default {
       },
     },
   },
-  daisyui: {
-    themes: [
-      {
-        mytheme: {
-          primary: '#3872FA',
-          neutral: '#D6DAE1',
-          accent: '#111111',
-          error: '#FC003D',
-        },
-      },
-    ],
-  },
+  // daisyui: {
+  //   themes: [
+  //     {
+  //       mytheme: {
+  //         primary: '#3872FA',
+  //         neutral: '#D6DAE1',
+  //         accent: '#111111',
+  //         error: '#FC003D',
+  //       },
+  //     },
+  //   ],
+  // },
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/container-queries'),
     plugin(function ({ addVariant }) {
       // required this to prevent any style on readOnly input elements
-      addVariant('not-read-only', '&:not(:read-only)');
+      addVariant('not-read-only', '&:not(:read-only)')
     }),
     require('daisyui'),
   ],
-} satisfies Config;
+} satisfies Config
