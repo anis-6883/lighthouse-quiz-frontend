@@ -1,18 +1,10 @@
-'use client';
-import { routes } from '@/config/routes';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+'use client'
+import { routes } from '@/config/routes'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
-export default function TopNavigation({
-  icon = '',
-  pageName = '',
-  notification = '',
-}: {
-  icon?: any;
-  pageName: string;
-  notification?: any;
-}) {
-  const router = useRouter();
+export default function TopNavigation({ icon, share, pageName = '', notification }: { icon?: any; share?: any; pageName: string; notification?: any }) {
+  const router = useRouter()
 
   return (
     <>
@@ -30,15 +22,14 @@ export default function TopNavigation({
               {pageName}
             </h2>
           ) : (
-            <img
-              className="h-[55px] w-[60px]"
-              src="/images/logo.png"
-              alt="bible quiz logo"
-            />
+            <img className="h-[55px] w-[60px]" src="/images/logo.png" alt="bible quiz logo" />
           )}
         </li>
-        <Link href={routes.settings.notification}>{notification}</Link>
+        <li className="flex gap-4">
+          <Link href={routes.refer}>{share}</Link>
+          <Link href={routes.settings.notification}>{notification}</Link>
+        </li>
       </ul>
     </>
-  );
+  )
 }
