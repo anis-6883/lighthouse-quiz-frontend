@@ -9,10 +9,10 @@ export const routes = {
   settings: {
     home: '/settings',
     notification: '/settings/notifications',
-    helpCenter: '/settings/help-center'
+    helpCenter: '/settings/help-center',
   },
   user: {
-    profile: 'user/profile'
+    profile: 'user/profile',
   },
   aboutUs: '/about-us',
   tramsAndConditions: '/terms-and-conditions',
@@ -22,50 +22,50 @@ export const routes = {
   adminLogin: '/admin/login',
   dashboard: '/admin/dashboard',
   questionsBank: {
-    home: '/admin/questions-bank',
+    home: '/admin/question-bank',
     create: '/admin/questions-bank/create',
-    edit: (id: string) => `/admin/questions-bank/update/${id}`
+    edit: (id: string) => `/admin/questions-bank/update/${id}`,
   },
   dailyQuizzes: {
     home: '/admin/daily-quizzes',
     create: '/admin/daily-quizzes/create',
-    edit: (id: string) => `/admin/daily-quizzes/update/${id}`
+    edit: (id: string) => `/admin/daily-quizzes/update/${id}`,
   },
   liveQuizzes: {
     home: '/admin/live-quizzes',
     create: '/admin/live-quizzes/create',
-    edit: (id: string) => `/admin/live-quizzes/update/${id}`
+    edit: (id: string) => `/admin/live-quizzes/update/${id}`,
   },
   reports: {
     dailyQuiz: '/admin/reports/daily-quiz',
-    liveQuiz: '/admin/reports/live-quiz'
+    liveQuiz: '/admin/reports/live-quiz',
   },
   faqs: {
     home: '/admin/faqs',
     create: '/admin/faqs/create',
-    edit: (id: string) => `/admin/faqs/update/${id}`
+    edit: (id: string) => `/admin/faqs/update/${id}`,
   },
   upcomingFeatures: {
     home: '/admin/upcoming-features',
     create: '/admin/upcoming-features/create',
-    edit: (id: string) => `/admin/upcoming-features/update/${id}`
+    edit: (id: string) => `/admin/upcoming-features/update/${id}`,
   },
   notifications: {
     home: '/admin/notifications',
     create: '/admin/notifications/create',
-    edit: (id: string) => `/admin/notifications/update/${id}`
+    edit: (id: string) => `/admin/notifications/update/${id}`,
   },
   manageUsers: {
     home: '/admin/manage-users',
     create: '/admin/manage-users/create',
-    edit: (id: string) => `/admin/manage-users/update/${id}`
+    edit: (id: string) => `/admin/manage-users/update/${id}`,
   },
   manageAdmins: {
     home: '/admin/manage-admins',
     create: '/admin/manage-admins/create',
-    edit: (id: string) => `/admin/manage-admins/update/${id}`
+    edit: (id: string) => `/admin/manage-admins/update/${id}`,
   },
-  deleteAccounts: '/admin/delete-accounts',
+  deleteAccounts: '/admin/deletion-requests',
   generalSettings: '/admin/general-settings',
 
   // Skip others routes for now...
@@ -74,25 +74,25 @@ export const routes = {
     home: '/admin/manage-live-matches',
     create: '/admin/manage-live-matches/create',
     details: (id: string) => `/admin/manage-live-matches/${id}`,
-    edit: (id: number) => `/admin/manage-live-matches/update/${id}`
+    edit: (id: number) => `/admin/manage-live-matches/update/${id}`,
   },
   fixture: {
     football: '/admin/fixtures/football',
-    cricket: '/admin/fixtures/cricket'
+    cricket: '/admin/fixtures/cricket',
   },
   highlights: {
     football: {
       home: '/admin/highlights/football',
       create: '/admin/highlights/football/create',
       details: (id: string) => `/admin/highlights/football/${id}`,
-      edit: (id: string) => `/admin/highlights/football/update/${id}`
+      edit: (id: string) => `/admin/highlights/football/update/${id}`,
     },
     cricket: {
       home: '/admin/highlights/cricket',
       create: '/admin/highlights/cricket/create',
       details: (id: string) => `/admin/highlights/cricket/${id}`,
-      edit: (id: string) => `/admin/highlights/cricket/update/${id}`
-    }
+      edit: (id: string) => `/admin/highlights/cricket/update/${id}`,
+    },
   },
   popularFootballEntity: '/admin/popular/football-entities',
   popularCricketEntity: '/admin/popular/cricket-entities',
@@ -113,12 +113,12 @@ export const routes = {
     shop: '/ecommerce/shop',
     cart: '/ecommerce/cart',
     checkout: '/ecommerce/checkout',
-    trackingId: (id: string) => `/ecommerce/tracking/${id}`
+    trackingId: (id: string) => `/ecommerce/tracking/${id}`,
   },
   searchAndFilter: {
     realEstate: '/search/real-estate',
     nft: '/search/nft',
-    flight: '/search/flight'
+    flight: '/search/flight',
   },
   support: {
     dashboard: '/support',
@@ -132,7 +132,7 @@ export const routes = {
     templates: '/support/templates',
     createTemplate: '/support/templates/create',
     viewTemplate: (id: string) => `/support/templates/${id}`,
-    editTemplate: (id: string) => `/support/templates/${id}/edit`
+    editTemplate: (id: string) => `/support/templates/${id}/edit`,
   },
   logistics: {
     dashboard: '/logistics',
@@ -141,20 +141,20 @@ export const routes = {
     createShipment: '/logistics/shipments/create',
     editShipment: (id: string) => `/logistics/shipments/${id}/edit`,
     shipmentDetails: (id: string) => `/logistics/shipments/${id}`,
-    tracking: (id: string) => `/logistics/tracking/${id}`
+    tracking: (id: string) => `/logistics/tracking/${id}`,
   },
   executive: {
-    dashboard: '/executive'
+    dashboard: '/executive',
   },
   analytics: '/analytics',
   file: {
     dashboard: '/file',
     manager: '/file-manager',
     upload: '/file-manager/upload',
-    create: '/file-manager/create'
+    create: '/file-manager/create',
   },
   pos: {
-    index: '/point-of-sale'
+    index: '/point-of-sale',
   },
   eventCalendar: '/event-calendar',
   rolesPermissions: '/roles-permissions',
@@ -162,14 +162,14 @@ export const routes = {
     home: '/invoice',
     create: '/invoice/create',
     details: (id: string) => `/invoice/${id}`,
-    edit: (id: string) => `/invoice/${id}/edit`
+    edit: (id: string) => `/invoice/${id}/edit`,
   },
   widgets: {
     cards: '/widgets/cards',
     icons: '/widgets/icons',
     charts: '/widgets/charts',
     maps: '/widgets/maps',
-    banners: '/widgets/banners'
+    banners: '/widgets/banners',
   },
   tables: {
     basic: '/tables/basic',
@@ -177,14 +177,14 @@ export const routes = {
     enhanced: '/tables/enhanced',
     pagination: '/tables/pagination',
     search: '/tables/search',
-    stickyHeader: '/tables/sticky-header'
+    stickyHeader: '/tables/sticky-header',
   },
   multiStep: '/multi-step',
   forms: {
     profileSettings: '/forms/profile-settings',
     notificationPreference: '/forms/profile-settings/notification',
     personalInformation: '/forms/profile-settings/profile',
-    newsletter: '/forms/newsletter'
+    newsletter: '/forms/newsletter',
   },
   emailTemplates: '/email-templates',
   profile: '/profile',
@@ -217,6 +217,6 @@ export const routes = {
     otp2: '/auth/otp-2',
     otp3: '/auth/otp-3',
     otp4: '/auth/otp-4',
-    otp5: '/auth/otp-5'
-  }
-};
+    otp5: '/auth/otp-5',
+  },
+}

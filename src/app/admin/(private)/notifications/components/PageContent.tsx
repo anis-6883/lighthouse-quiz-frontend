@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import FAQForm from './FAQForm'
-import FAQTable from './FAQTable'
+import NotificationForm from './NotificationForm'
+import NotificationTable from './NotificationTable'
 import AddButton from '../../components/AddButton'
 
 export type FAQ = {
@@ -20,13 +20,9 @@ export default function PageContent({ data }: { data: FAQ }) {
 
   return (
     <>
-      <FAQForm
-        formData={formData}
-        modalState={modalState}
-        setModalState={setModalState}
-      />
-      <AddButton name="Admin" setModalState={setModalState} />
-      <FAQTable data={data} edit={setModalState} formData={setFormData} />
+      <NotificationForm formData={formData} modalState={modalState} setModalState={setModalState} />
+      <AddButton name="Notification" setModalState={setModalState} />
+      <NotificationTable data={data} edit={setModalState} formData={setFormData} />
     </>
   )
 }

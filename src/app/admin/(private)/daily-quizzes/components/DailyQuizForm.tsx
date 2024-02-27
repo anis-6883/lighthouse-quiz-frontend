@@ -23,7 +23,7 @@ type props = {
   setModalState: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function FeatureForm({ formData, modalState, setModalState }: props) {
+export default function DailyQuizForm({ formData, modalState, setModalState }: props) {
   const { data: session } = useSession()
   const token = session?.user?.accessToken || ''
 

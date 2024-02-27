@@ -9,9 +9,9 @@ import { useSession } from 'next-auth/react'
 
 let popup = false
 
-export default function FeatureTable({ data, edit, formData }: { data: any; edit: Function; formData: Function }) {
+export default function QuestionTable({ data, edit, formData }: { data: any; edit: Function; formData: Function }) {
   const { data: session } = useSession()
-  const token = session?.user.accessToken || ''
+  const token = session?.user?.accessToken || ''
 
   const structure = [
     {

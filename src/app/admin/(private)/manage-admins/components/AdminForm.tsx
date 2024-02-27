@@ -72,8 +72,6 @@ export default function AdminForm({ formData, modalState, setModalState }: props
           return data.message
         }
 
-        console.log(data)
-
         throw new Error(data.message)
       },
       error: (error) => {

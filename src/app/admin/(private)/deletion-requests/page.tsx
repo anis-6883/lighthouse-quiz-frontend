@@ -4,11 +4,11 @@ import { metaObject } from '@/config/site.config'
 import getData from '@/utils/fetch/getData'
 import PageContent from './components/PageContent'
 
-const title = 'Users'
+const title = 'Account Deletion Requests'
 export const metadata = { ...metaObject(title) }
 
 export default async function Page() {
-  const data: any = await getData('user')
+  const data: any = [] // await getData('user/deletion-request')
 
   const pageHeader = {
     title,
