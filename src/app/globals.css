@@ -349,6 +349,28 @@
 /* ................................................... */
 
 /* ................................................... */
+/** Phone Country Code input Css start **/
+/* ................................................... */
+.react-international-phone-country-selector-button {
+  border: none !important;
+  outline: none !important;
+}
+.react-international-phone-country-selector {
+  border: none !important;
+  outline: none !important;
+  /* border-bottom: 2px solid #6949ff !important; */
+}
+.react-international-phone-input {
+  width: 100% !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* ................................................... */
+/** Phone Country Code input Css End **/
+/* ................................................... */
+
+/* ................................................... */
 /* Default Button Color Change */
 /* ................................................... */
 
@@ -505,17 +527,11 @@ input[type='checkbox']:checked ~ svg {
   @apply w-auto border-l-0 pr-3.5;
 }
 
-.react-datepicker-popper
-  .react-datepicker__time-container
-  .react-datepicker__time {
+.react-datepicker-popper .react-datepicker__time-container .react-datepicker__time {
   @apply bg-gray-50 dark:bg-gray-200;
 }
 
-.react-datepicker__time-container
-  .react-datepicker__time
-  .react-datepicker__time-box
-  ul.react-datepicker__time-list
-  li.react-datepicker__time-list-item:hover {
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
   @apply dark:bg-gray-300;
 }
 
@@ -589,8 +605,7 @@ input[type='checkbox']:checked ~ svg {
   @apply bg-gray-200 text-gray-900;
 }
 
-.react-datepicker
-  div.react-datepicker__year-text--in-selecting-range.react-datepicker__year-text--disabled {
+.react-datepicker div.react-datepicker__year-text--in-selecting-range.react-datepicker__year-text--disabled {
   @apply bg-transparent text-gray-300;
 }
 
@@ -635,16 +650,10 @@ input[type='checkbox']:checked ~ svg {
 .react-datepicker-popper .react-datepicker-time__header {
   @apply text-gray-700;
 }
-.react-datepicker-popper
-  .react-datepicker__time-container
-  .react-datepicker__time
-  .react-datepicker__time-box {
+.react-datepicker-popper .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
   width: 90px;
 }
-.react-datepicker--time-only
-  .react-datepicker__time-container
-  .react-datepicker__time
-  .react-datepicker__time-box {
+.react-datepicker--time-only .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
   @apply w-auto;
 }
 
@@ -669,8 +678,7 @@ input[type='checkbox']:checked ~ svg {
 }
 
 /* hover on selected months in range */
-.react-datepicker
-  .react-datepicker__month-text.react-datepicker__month--in-range:hover {
+.react-datepicker .react-datepicker__month-text.react-datepicker__month--in-range:hover {
   @apply bg-gray-200 text-gray-900;
 }
 
@@ -682,12 +690,9 @@ input[type='checkbox']:checked ~ svg {
 }
 
 /* hover on selected range start and end month */
-.react-datepicker
-  .react-datepicker__month-text.react-datepicker__month--selected:hover,
-.react-datepicker
-  .react-datepicker__month-text.react-datepicker__month--range-start:hover,
-.react-datepicker
-  .react-datepicker__month-text.react-datepicker__month--range-end:hover {
+.react-datepicker .react-datepicker__month-text.react-datepicker__month--selected:hover,
+.react-datepicker .react-datepicker__month-text.react-datepicker__month--range-start:hover,
+.react-datepicker .react-datepicker__month-text.react-datepicker__month--range-end:hover {
   @apply bg-gray-900/80 text-gray-0;
 }
 
@@ -712,10 +717,8 @@ input[type='checkbox']:checked ~ svg {
 }
 
 /* selected year & month in year picker */
-.react-datepicker
-  .react-datepicker__year-text.react-datepicker__year-text--selected,
-.react-datepicker
-  .react-datepicker__month-text.react-datepicker__month-text--selected {
+.react-datepicker .react-datepicker__year-text.react-datepicker__year-text--selected,
+.react-datepicker .react-datepicker__month-text.react-datepicker__month-text--selected {
   @apply bg-gray-900 text-gray-0;
   @apply hover:bg-gray-900/80 hover:text-gray-0;
 }
@@ -727,9 +730,7 @@ input[type='checkbox']:checked ~ svg {
 }
 
 /* sub-header containing year and month dropdown */
-.react-datepicker
-  .react-datepicker__current-month--hasYearDropdown.react-datepicker__current-month--hasMonthDropdown
-  ~ .react-datepicker__header__dropdown {
+.react-datepicker .react-datepicker__current-month--hasYearDropdown.react-datepicker__current-month--hasMonthDropdown ~ .react-datepicker__header__dropdown {
   @apply my-2 grid grid-cols-2 divide-x divide-gray-300 text-sm;
 }
 
@@ -868,32 +869,20 @@ td.rc-table-cell-fix-right {
   @apply m-1.5 rounded border border-gray-100 @lg:m-1;
 }
 
-.text_editor
-  .rdw-editor-wrapper
-  .rdw-editor-toolbar
-  > div
-  > .rdw-option-wrapper {
+.text_editor .rdw-editor-wrapper .rdw-editor-toolbar > div > .rdw-option-wrapper {
   @apply h-9 w-10 w-9 border-0 border-r border-gray-100 last:border-r-0 hover:bg-gray-50 hover:shadow-none @lg:m-0;
 }
 
-.text_editor
-  .rdw-editor-wrapper
-  .rdw-editor-toolbar
-  > div
-  > .rdw-option-wrapper.rdw-option-active {
+.text_editor .rdw-editor-wrapper .rdw-editor-toolbar > div > .rdw-option-wrapper.rdw-option-active {
   @apply bg-gray-100 shadow-none;
 }
 
-.text_editor
-  .rdw-editor-wrapper
-  .rdw-editor-main
-  .public-DraftStyleDefault-block {
+.text_editor .rdw-editor-wrapper .rdw-editor-main .public-DraftStyleDefault-block {
   @apply m-0;
 }
 
 .radial-progress-bar {
-  background: radial-gradient(closest-side, #f1f1f1 85%, transparent 90% 100%),
-    conic-gradient(var(--progress-bg) var(--progress-value), #ddd 0);
+  background: radial-gradient(closest-side, #f1f1f1 85%, transparent 90% 100%), conic-gradient(var(--progress-bg) var(--progress-value), #ddd 0);
 }
 
 /* React Quill */
@@ -1035,13 +1024,11 @@ td.rc-table-cell-fix-right {
 
 /* social btn shadow  */
 .social-btn-shadow {
-  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.1))
-    drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.1)) drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
 }
 
 .social-btn-shadow:hover {
-  filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.05))
-    drop-shadow(0px 20px 25px rgba(0, 0, 0, 0.05));
+  filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.05)) drop-shadow(0px 20px 25px rgba(0, 0, 0, 0.05));
 }
 
 /* profile card swiper pagination  */
@@ -1154,12 +1141,7 @@ div[style='z-index: 1000001;'],
   @apply h-12 border-gray-200 py-3.5 text-[13px] font-semibold uppercase text-gray-400 lg:px-7;
 }
 
-:is(
-    .rbc-header + .rbc-header,
-    .rbc-day-bg + .rbc-day-bg,
-    .rbc-month-row + .rbc-month-row,
-    .rbc-timeslot-group
-  ) {
+:is(.rbc-header + .rbc-header, .rbc-day-bg + .rbc-day-bg, .rbc-month-row + .rbc-month-row, .rbc-timeslot-group) {
   @apply border-gray-200;
 }
 
@@ -1331,8 +1313,6 @@ div[style='z-index: 1000001;'],
 .pos-all-items-top-slider .swiper-pagination span {
   @apply !mx-[3px] !h-2 !w-2.5 !rounded-full !bg-gray-600 !duration-200;
 }
-.pos-all-items-top-slider
-  .swiper-pagination
-  span.swiper-pagination-bullet-active {
+.pos-all-items-top-slider .swiper-pagination span.swiper-pagination-bullet-active {
   @apply !w-4 !bg-gray-400;
 }

@@ -14,6 +14,8 @@ export const routes = {
   user: {
     profile: 'user/profile',
   },
+  summary: '/summary',
+  waitingArea: '/waiting-area',
   aboutUs: '/about-us',
   tramsAndConditions: '/terms-and-conditions',
   privacyPolicy: '/privacy-policy',
