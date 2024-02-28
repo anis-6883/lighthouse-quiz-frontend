@@ -15,6 +15,7 @@ let popup = false
 export default function QuestionTable({ data, edit, formData }: { data: any; edit: Function; formData: Function }) {
   const { data: session } = useSession()
   const token = session?.user?.accessToken || ''
+
   console.log(data)
 
   const structure = [
@@ -57,7 +58,7 @@ export default function QuestionTable({ data, edit, formData }: { data: any; edi
 
         toast((t) => {
           popup = t.visible
-          return AskConfirmation(t, () => deleteData('features', token, data._id))
+          return AskConfirmation(t, () => deleteData('questions', token, data._id))
         })
       },
     },

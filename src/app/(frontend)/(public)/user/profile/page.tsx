@@ -1,5 +1,5 @@
 import Button from '@/app/(frontend)/components/Button'
-import CountryCode from '@/app/(frontend)/components/CountryCode'
+import InputPhone from '@/app/(frontend)/components/InputPhone'
 import ProfileImage from '@/app/(frontend)/components/ProfileImage'
 import SelectOption from '@/app/(frontend)/components/SelectOption'
 import TextInput from '@/app/(frontend)/components/TextInput'
@@ -26,7 +26,7 @@ export default function Page() {
           <TextInput type="text" label="Your Name" name="name" placeholder="Ex.John Doe" requiredStar="*" />
 
           <div className="w-full py-3">
-            <CountryCode title="Phone Number" requiredStar="*" />
+            <InputPhone title="Phone Number" requiredStar="*" />
           </div>
 
           <SelectOption label="Country" name="country" placeholder="select country" />

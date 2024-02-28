@@ -7,12 +7,14 @@ import { getServerSession } from 'next-auth'
  * @returns The data from the API or an empty array if the request fails.
  */
 
-export default async function getData(path: string): Promise<any[]> {
+export default async function getData(path: string, route: string = 'admin'): Promise<any[]> {
   const session = await getServerSession(authOptions)
   const base = process.env.BASE ?? process.env.NEXT_PUBLIC_BASE
 
+  const url = route === 'admin' ? `${base}/api/admin/${path}` : `${base}/api/${path}`
+
   try {
-    let response: any = await fetch(`${base}/api/admin/${path}`, {
+    let response: any = await fetch(url, {
       headers: {
         'x-api-key': process.env.API_KEY,
         Authorization: `Bearer ${session?.user?.accessToken}`,
@@ -25,7 +27,7 @@ export default async function getData(path: string): Promise<any[]> {
     if (response.status) {
       return response.data
     } else {
-      throw new Error(`${base}/api/admin/${path}: ${response.message}`)
+      throw new Error(`${url}: ${response.message}`)
     }
   } catch (e) {
     console.error(e)

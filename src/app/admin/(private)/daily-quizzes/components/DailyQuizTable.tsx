@@ -16,18 +16,50 @@ export default function DailyQuizTable({ data, edit, formData }: { data: any; ed
   const structure = [
     {
       header: 'Image',
-      Cell: ({ row }: any) => {
-        // eslint-disable-next-line jsx-a11y/alt-text
-        return <img src={row?.original?.image} alt="image" className="h-14 transition-all duration-500 hover:h-40" />
-      },
+      Cell: ({ row }: any) => <img src={row?.original?.image} alt="image" className="h-14 transition-all duration-500 hover:h-40" />,
     },
     {
       accessorKey: 'title',
       header: 'Title',
     },
+    {
+      accessorKey: 'totalNumberOfQuestions',
+      header: 'Questions',
+      size: 1,
+    },
+    {
+      Cell: ({ row }: any) => <>5</>,
+      size: 1,
+      // accessorKey: 'played',
+      header: 'Played',
+    },
+    {
+      Cell: ({ row }: any) => {
+        const formattedDate: string = new Date(row?.original?.publishDate).toLocaleDateString('en-GB', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        })
+        return formattedDate
+      },
+      size: 1,
+      accessorKey: 'publishDate',
+      header: 'Date',
+    },
   ]
 
   const options: Option[] = [
+    {
+      name: 'Duplicate',
+      action: (data: any) => {
+        edit(true)
+        formData({
+          title: data.title,
+          image: data.image,
+          id: data._id,
+        })
+      },
+    },
     {
       name: 'Edit',
       action: (data: any) => {

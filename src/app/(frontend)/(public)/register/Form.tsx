@@ -1,43 +1,92 @@
-import { routes } from '@/config/routes'
-import { metaObject } from '@/config/site.config'
-import Link from 'next/link'
+'use client'
+
+import { Response } from '@/data/response'
+import postData from '@/utils/fetch/postData'
+import reload from '@/utils/fetch/reload'
+import { Formik } from 'formik'
+import { useSession } from 'next-auth/react'
+import toast from 'react-hot-toast'
+import * as Yup from 'yup'
 import Button from '../../components/Button'
 import Checkbox from '../../components/Checkbox'
-import CountryCode from '../../components/CountryCode'
+import InputPhone from '../../components/InputPhone'
 import SelectOption from '../../components/SelectOption'
 import TextInput from '../../components/TextInput'
+import Link from 'next/link'
+import CountryCode from './CountryInput'
 
-export const metadata = {
-  ...metaObject('User Register'),
-}
+const userSchema = Yup.object().shape({
+  //   title: Yup.string().required('Question is required'),
+  //   description: Yup.string().required('Answer is required'),
+})
 
-export default function Page() {
+export default function Form() {
+  const { data: session } = useSession()
+  const token = session?.user.accessToken || ''
+
+  const handleQuestion = async (values: any, { resetForm }: { resetForm: Function }) => {
+    const payload = {
+      title: values.title,
+      description: values.description,
+    }
+
+    const response = () => postData('faq', token, payload)
+
+    toast.promise(response(), {
+      loading: 'Please wait...',
+      success: (data: Response) => {
+        if (data.status) {
+          reload('faq')
+          resetForm()
+          return data.message
+        }
+
+        throw new Error(data.message)
+      },
+      error: (error) => {
+        if (error.message) return error.message
+        return 'Something went wrong!'
+      },
+    })
+  }
+
   return (
-    <main className="bg-[#EBF5FB]">
-      <div className="m-auto grid min-h-screen max-w-3xl place-items-center bg-[#ffffff]">
-        <div className="my-6 flex w-full flex-col items-center justify-center gap-3 overflow-hidden px-4 sm:max-w-[640px] sm:px-12">
-          <div className="mt-2 flex flex-col items-center justify-center gap-4 px-12 text-center">
-            <progress className="progress progress-primary h-4 w-56 bg-slate-200" value="70" max="100"></progress>
-            <h1 className="text-xl font-medium sm:text-2xl">Create an account ✏️</h1>
-            <p className="text-lg ">Please complete your profile to participate in the Quiz!</p>
-          </div>
-
+    <Formik
+      initialValues={{
+        name: '',
+        countryCode: '+91',
+        phone: '',
+      }}
+      validationSchema={userSchema}
+      onSubmit={handleQuestion}
+    >
+      {({ values, handleChange, handleBlur, isSubmitting }) => {
+        console.log(values)
+        return (
           <form className="flex w-full flex-col gap-3 ">
             <TextInput
               label="Your Name"
-              name="username"
+              name="name"
               placeholder="Ex.John Doe"
               requiredStar="*"
               type="text"
-              // value={values.username}
-              // onChange={handleChange}
-              // onFocus={handleBlur}
-              // errors={errors.username}
-              // touched={touched.username}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values?.name}
             />
-            <CountryCode title="Phone Number" requiredStar="*" />
 
-            <SelectOption name="country" label="Country" placeholder="Select Country" />
+            <InputPhone title="Phone Number" requiredStar="*" />
+
+            <CountryCode />
+
+            {/* <SelectOption
+              name="country"
+              label="Country"
+              placeholder="Select Country"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values?.title}
+            /> */}
 
             <div className="w-full border-b-2  border-[#6949FF] outline-none">
               <label htmlFor="language" className="text-base font-bold capitalize ">
@@ -50,8 +99,9 @@ export default function Page() {
                     name="gender"
                     className="radio-primary radio-xs"
                     value="male"
-                    // style={{ boxShadow: 'none' }}
-                    // onChange={handleChange}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values?.title}
                   />
                   <span className="text-base capitalize">Male</span>
                 </div>
@@ -61,8 +111,9 @@ export default function Page() {
                     name="gender"
                     className="radio-primary radio-xs"
                     value="female"
-                    // style={{ boxShadow: 'none' }}
-                    // onChange={handleChange}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values?.title}
                   />
                   <span className="text-base capitalize">Female</span>
                 </div>
@@ -71,17 +122,16 @@ export default function Page() {
             {/* <p className="text-red-600 ">
 		    {errors.gender && errors.gender}
 			</p> */}
+
             <TextInput
               label="Age"
               name="age"
               type="number"
               placeholder="Ex.12"
               requiredStar="*"
-              // value={values.age}
-              // onChange={handleChange}
-              // onFocus={handleBlur}
-              // errors={errors.age}
-              // touched={touched.age}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values?.age}
             />
             {/* select language input */}
             <div className="w-full border-b-2 border-[#6949FF]  pt-1 outline-none">
@@ -105,9 +155,9 @@ export default function Page() {
                     type="radio"
                     name="language"
                     className="radio-primary radio-xs"
-                    // style={{ boxShadow: 'none' }}
-                    // value="tamil"
-                    // onChange={handleChange}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values?.title}
                   />
                   <span className="text-base capitalize">Tamil</span>
                 </div>
@@ -116,9 +166,9 @@ export default function Page() {
                     type="radio"
                     name="language"
                     className="radio-primary radio-xs"
-                    // style={{ boxShadow: 'none' }}
-                    // value="both"
-                    // onChange={handleChange}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values?.title}
                   />
                   <span className="text-base capitalize">Both</span>
                 </div>
@@ -133,11 +183,9 @@ export default function Page() {
               placeholder="email@example.com"
               type="email"
               requiredStar=""
-              // value={values.email}
-              // onChange={handleChange}
-              // onFocus={handleBlur}
-              // errors={errors.email}
-              // touched={touched.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values?.title}
             />
             <TextInput
               label="Church you Attend"
@@ -145,11 +193,9 @@ export default function Page() {
               type="text"
               placeholder=""
               requiredStar=""
-              // value={values.church}
-              // onChange={handleChange}
-              // onFocus={handleBlur}
-              // errors={errors.church}
-              // touched={touched.church}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values?.title}
             />
             <div className="flex w-full items-center gap-4 py-3">
               {/* <label className="label cursor-pointer"> */}
@@ -173,15 +219,8 @@ export default function Page() {
               title="Register"
             />
           </form>
-
-          <div className="w-full p-2 text-base">
-            Already have an account?{' '}
-            <Link className="text-base font-medium capitalize text-[#781970d6] underline" href={routes.signIn}>
-              Sign In
-            </Link>
-          </div>
-        </div>
-      </div>
-    </main>
+        )
+      }}
+    </Formik>
   )
 }

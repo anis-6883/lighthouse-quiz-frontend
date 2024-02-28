@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import AddButton from '../../components/AddButton'
 import DailyQuizForm from './DailyQuizForm'
 import DailyQuizTable from './DailyQuizTable'
 
@@ -15,17 +16,7 @@ export default function PageContent({ data }: any) {
   return (
     <>
       <DailyQuizForm formData={formData} modalState={modalState} setModalState={setModalState} />
-
-      <div className="flex w-full justify-end">
-        <button
-          onClick={() => setModalState(true)}
-          type="button"
-          className=" mb-3 rounded-lg border-b-[5px] border-b-[#543ACC] bg-[#6949FF] px-5 py-3 text-sm text-white"
-        >
-          Add New Feature
-        </button>
-      </div>
-
+      <AddButton name="Daily Quiz" setModalState={setModalState} />
       <DailyQuizTable data={data} edit={setModalState} formData={setFormData} />
     </>
   )
