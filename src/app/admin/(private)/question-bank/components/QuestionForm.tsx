@@ -34,7 +34,7 @@ export default function QuestionForm({ formData, modalState, setModalState }: pr
       existing: formData.image,
     }
 
-    const response = formData?.id ? () => updateData('features', token, payload, formData.id) : () => postData('features', token, payload)
+    const response = formData?.id ? () => updateData('features', token, payload, formData.id) : () => postData('admin/features', token, payload)
 
     toast.promise(response(), {
       loading: 'Please wait...',

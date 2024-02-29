@@ -60,7 +60,7 @@ export default function AdminForm({ formData, modalState, setModalState }: props
       payload['password'] = values.password
     }
 
-    const response = formData?._id ? () => updateData('update', token, payload, formData._id) : () => postData('register', token, payload)
+    const response = formData?._id ? () => updateData('update', token, payload, formData._id) : () => postData('admin/register', token, payload)
 
     toast.promise(response(), {
       loading: 'Please wait...',

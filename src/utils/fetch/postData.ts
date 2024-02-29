@@ -26,7 +26,7 @@ export default async function postData(path: string, token: string, formData: an
   }
 
   try {
-    const response = await fetch(`${base}/api/admin/${path}`, {
+    const response = await fetch(`${base}/api/${path}`, {
       method: 'POST',
       headers,
       body,

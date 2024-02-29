@@ -11,7 +11,7 @@ export default function InputPhone({ title, star }: { title?: string; star?: any
     dialCode: '91',
   })
 
-  const { setFieldValue }: any = useFormikContext()
+  const { values, setFieldValue }: any = useFormikContext()
 
   return (
     <div className="my-1 ">
@@ -32,9 +32,11 @@ export default function InputPhone({ title, star }: { title?: string; star?: any
         <span>{countryCode.dialCode.length > 0 && '+' + countryCode.dialCode}</span>
 
         <input
+          type="tel"
           name="phone"
           className="w-full border-0 p-0 outline-none focus:shadow-none focus:ring-0"
           onChange={(e) => setFieldValue('phone', e.target.value)}
+          value={values.phone}
         />
       </div>
 

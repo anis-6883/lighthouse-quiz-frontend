@@ -1,12 +1,12 @@
-import { env } from '@/env.mjs';
-import { IJWT } from '@/types';
-import getAccessToken from '@/utils/axios/getAccessToken';
-import { lighthouseBackendUrl } from '@/utils/axios/getAxios';
-import getRandomString from '@/utils/get-random-string';
-import type { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import GoogleProvider from 'next-auth/providers/google';
-import { pagesOptions } from './pages-options';
+import { env } from '@/env.mjs'
+import { IJWT } from '@/types'
+import getAccessToken from '@/utils/axios/getAccessToken'
+import { lighthouseBackendUrl } from '@/utils/axios/getAxios'
+import getRandomString from '@/utils/get-random-string'
+import type { NextAuthOptions } from 'next-auth'
+import CredentialsProvider from 'next-auth/providers/credentials'
+import GoogleProvider from 'next-auth/providers/google'
+import { pagesOptions } from './pages-options'
 
 export const authOptions: NextAuthOptions = {
   // debug: true,
@@ -20,32 +20,32 @@ export const authOptions: NextAuthOptions = {
       credentials: {},
       async authorize(credentials: any) {
         // const cookies = cookie.parse(req.headers.cookie);
-        
+
+        console.log('user login', credentials)
+
         // Admin Login
         if (credentials?.adminLogin === 'true') {
           try {
-            const { data } = await lighthouseBackendUrl.post(
-              '/api/admin/login',
-              {
-                email: credentials?.email,
-                password: credentials?.password,
-              }
-            );
+            const { data } = await lighthouseBackendUrl.post('/api/admin/login', {
+              email: credentials?.email,
+              password: credentials?.password,
+            })
 
             if (data?.status === false) {
-              throw new Error(data?.message);
+              throw new Error(data?.message)
             } else {
-              const user = data?.data;
-              return user; // return the user's data
+              const user = data?.data
+              return user // return the user's data
             }
           } catch (err: any) {
-            console.log(err.message);
-            throw new Error(err.message);
+            console.log(err.message)
+            throw new Error(err.message)
           }
         } else {
+          console.log('user login')
           // User Otp Verify & Sign In
-          const user = JSON.parse(credentials.userData);
-          return user; // userData come from otp verify
+          // const user = JSON.parse(credentials.userData);
+          // return user; // userData come from otp verify
 
           // ========== (Skip It) ========== //
           // if (credentials?.signUp === 'true') {
@@ -132,7 +132,7 @@ export const authOptions: NextAuthOptions = {
           return {
             ...token,
             ...user,
-          };
+          }
         }
       }
 
@@ -144,26 +144,23 @@ export const authOptions: NextAuthOptions = {
           password: getRandomString(10),
           image: user?.image,
           provider: account?.provider,
-        };
-        const { data } = await lighthouseBackendUrl.post(
-          '/api/user/register',
-          values
-        );
-        const userData = data?.data;
+        }
+        const { data } = await lighthouseBackendUrl.post('/api/user/register', values)
+        const userData = data?.data
 
         if (userData) {
           return {
             ...token,
             ...userData,
-          };
+          }
         }
       }
 
       // Get Access Token
-      if (new Date().getTime() < token?.expiresIn) return token;
+      if (new Date().getTime() < token?.expiresIn) return token
 
-      const role = token?.role === 'user' ? 'user' : 'admin';
-      return await getAccessToken(token, role);
+      const role = token?.role === 'user' ? 'user' : 'admin'
+      return await getAccessToken(token, role)
     },
     async session({ session, token }) {
       return {
@@ -172,7 +169,7 @@ export const authOptions: NextAuthOptions = {
           ...session.user,
           ...token,
         },
-      };
+      }
     },
   },
-};
+}

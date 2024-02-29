@@ -32,7 +32,7 @@ export default function NotificationForm({ formData, modalState, setModalState }
       description: values.description,
     }
 
-    const response = formData?.id ? () => updateData('faq', token, payload, formData.id) : () => postData('faq', token, payload)
+    const response = formData?.id ? () => updateData('faq', token, payload, formData.id) : () => postData('admin/faq', token, payload)
 
     toast.promise(response(), {
       loading: 'Please wait...',
