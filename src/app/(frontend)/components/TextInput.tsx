@@ -1,41 +1,29 @@
+import { ErrorMessage } from 'formik'
+
 export default function TextInput(props: any) {
   const {
     label,
-    requiredStar,
+    star,
   }: {
     label: string
-    requiredStar: string
+    star: string
   } = props
 
   return (
-    // <div className="w-full">
-    //   <label className="text-base font-bold capitalize">
-    //     {label} <span className="text-red-500">{requiredStar}</span>
-    //   </label>
-    //   <input
-    //     id="name"
-    //     type={type}
-    //     name={name}
-    //     // value={value}
-    //     // onChange={onChange}
-    //     // onFocus={onFocus}
-    //     placeholder={placeholder}
-    //     className="w-full border-none border-[#6949FF] px-2 pb-4 pt-2 outline-none"
-    //   />
-    //   {/* <p className="text-red-600 mt-2">{errors && touched && errors}</p> */}
-    // </div>
-
-    <div className="w-full">
+    <div className="my-1 ">
       <label className="text-base font-bold capitalize">
-        {label} <span className="text-red-500">{requiredStar}</span>
+        <span>{label}</span>
+        <span className="ml-1 text-red-500">{star}</span>
       </label>
+
       <input
         id="name"
         {...props}
-        className="w-full border-x-0 border-b-2 border-t-0 border-b-[#6949FF] px-2 pb-4 pt-2 outline-none"
+        className="w-full border-x-0 border-b-2 border-t-0 border-b-[#6949FF] p-1 outline-none"
         style={{ boxShadow: 'none' }}
       />
-      {/* <p className="text-red-600 mt-2">{errors && touched && errors}</p> */}
+
+      <ErrorMessage name={props?.name} component="p" className="mt-2 text-red-600" />
     </div>
   )
 }

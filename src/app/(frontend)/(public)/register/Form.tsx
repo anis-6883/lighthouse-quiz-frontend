@@ -3,34 +3,35 @@
 import { Response } from '@/data/response'
 import postData from '@/utils/fetch/postData'
 import reload from '@/utils/fetch/reload'
-import { Formik } from 'formik'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { useSession } from 'next-auth/react'
+import Link from 'next/link'
 import toast from 'react-hot-toast'
 import * as Yup from 'yup'
 import Button from '../../components/Button'
 import Checkbox from '../../components/Checkbox'
 import InputPhone from '../../components/InputPhone'
-import SelectOption from '../../components/SelectOption'
 import TextInput from '../../components/TextInput'
-import Link from 'next/link'
-import CountryCode from './CountryInput'
+import InputCountry from './CountryInput'
 
 const userSchema = Yup.object().shape({
-  //   title: Yup.string().required('Question is required'),
-  //   description: Yup.string().required('Answer is required'),
+  name: Yup.string().required('Your name is required'),
+  phone: Yup.string()
+    .matches(/^\d{10}$/, 'Invalid phone number')
+    .required('Phone number is required'),
+  country: Yup.string().required('Country is required'),
+  gender: Yup.string().required('Gender is required'),
+  age: Yup.number().min(0, 'Age must be a positive number').max(150, 'Age must be less than or equal to 150').required('Age is required'),
+  language: Yup.string().required('Language is required'),
+  email: Yup.string().email('Invalid email address'),
 })
 
-export default function Form() {
+export default function SignUpForm() {
   const { data: session } = useSession()
   const token = session?.user.accessToken || ''
 
   const handleQuestion = async (values: any, { resetForm }: { resetForm: Function }) => {
-    const payload = {
-      title: values.title,
-      description: values.description,
-    }
-
-    const response = () => postData('faq', token, payload)
+    const response = () => postData('register/signup', token, values)
 
     toast.promise(response(), {
       loading: 'Please wait...',
@@ -56,169 +57,95 @@ export default function Form() {
         name: '',
         countryCode: '+91',
         phone: '',
+        gender: '',
+        country: '',
+        age: '',
+        language: '',
+        church_you_attend: '',
       }}
       validationSchema={userSchema}
       onSubmit={handleQuestion}
     >
       {({ values, handleChange, handleBlur, isSubmitting }) => {
         console.log(values)
+
         return (
-          <form className="flex w-full flex-col gap-3 ">
-            <TextInput
-              label="Your Name"
-              name="name"
-              placeholder="Ex.John Doe"
-              requiredStar="*"
-              type="text"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values?.name}
-            />
+          <Form className="flex w-full flex-col gap-3 ">
+            <TextInput label="Your Name" name="name" placeholder="Ex.John Doe" star="*" type="text" onChange={handleChange} onBlur={handleBlur} />
+            <InputPhone title="Phone Number" star="*" />
+            <InputCountry />
 
-            <InputPhone title="Phone Number" requiredStar="*" />
-
-            <CountryCode />
-
-            {/* <SelectOption
-              name="country"
-              label="Country"
-              placeholder="Select Country"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values?.title}
-            /> */}
-
-            <div className="w-full border-b-2  border-[#6949FF] outline-none">
-              <label htmlFor="language" className="text-base font-bold capitalize ">
-                Gender <span className="text-red-500">*</span>
+            <div className="my-1 w-full border-b-0 border-[#6949FF] outline-none">
+              <label htmlFor="language" className="text-base font-bold ">
+                <span>Gender</span>
+                <span className="ml-1 text-red-500">*</span>
               </label>
-              <div className="flex gap-4 px-2 pb-5 pt-3">
-                <div className="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="gender"
-                    className="radio-primary radio-xs"
-                    value="male"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values?.title}
-                  />
-                  <span className="text-base capitalize">Male</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="gender"
-                    className="radio-primary radio-xs"
-                    value="female"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values?.title}
-                  />
-                  <span className="text-base capitalize">Female</span>
-                </div>
-              </div>
-            </div>
-            {/* <p className="text-red-600 ">
-		    {errors.gender && errors.gender}
-			</p> */}
 
-            <TextInput
-              label="Age"
-              name="age"
-              type="number"
-              placeholder="Ex.12"
-              requiredStar="*"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values?.age}
-            />
+              <div className="flex gap-4 p-1" role="group">
+                <label className="flex cursor-pointer items-center gap-3">
+                  <Field type="radio" name="gender" value="Male" className="radio-primary radio-xs" />
+                  <span className="text-base">Male</span>
+                </label>
+
+                <label className="flex cursor-pointer items-center gap-3">
+                  <Field type="radio" name="gender" value="Female" className="radio-primary radio-xs" />
+                  <span className="text-base">Female</span>
+                </label>
+              </div>
+
+              <ErrorMessage name="gender" component="div" className="text-red-500" />
+            </div>
+
+            <TextInput label="Age" name="age" type="number" placeholder="Ex.12" star="*" onChange={handleChange} onBlur={handleBlur} />
+
             {/* select language input */}
-            <div className="w-full border-b-2 border-[#6949FF]  pt-1 outline-none">
+            <div className="my-1 w-full border-b-0 border-[#6949FF] outline-none">
               <label htmlFor="language" className="text-base font-bold capitalize ">
                 Select Your quiz Language <span className="text-red-500">*</span>
               </label>
-              <div className="flex gap-4 px-2 pb-5 pt-3">
-                <div className="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="language"
-                    className="radio-primary radio-xs"
-                    // style={{ boxShadow: 'none' }}
-                    // value="english"
-                    // onChange={handleChange}
-                  />
-                  <span className="text-base capitalize">English</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="language"
-                    className="radio-primary radio-xs"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values?.title}
-                  />
-                  <span className="text-base capitalize">Tamil</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="language"
-                    className="radio-primary radio-xs"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values?.title}
-                  />
-                  <span className="text-base capitalize">Both</span>
-                </div>
-              </div>
-            </div>
-            {/* <p className="text-red-600 ">
-									{errors.language && errors.language}
-								</p> */}
-            <TextInput
-              label="Email"
-              name="email"
-              placeholder="email@example.com"
-              type="email"
-              requiredStar=""
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values?.title}
-            />
-            <TextInput
-              label="Church you Attend"
-              name="church"
-              type="text"
-              placeholder=""
-              requiredStar=""
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values?.title}
-            />
-            <div className="flex w-full items-center gap-4 py-3">
-              {/* <label className="label cursor-pointer"> */}
 
-              <Checkbox />
-              <span className="label-text text-base">
-                I agree with the{' '}
-                <Link className="capitalize underline" href="/login">
-                  terms & condition
-                </Link>
-              </span>
-              {/* </label> */}
+              <div className="flex gap-4 p-1">
+                <label className="flex cursor-pointer items-center gap-3">
+                  <Field type="radio" name="language" value="English" className="radio-primary radio-xs" />
+                  <span className="text-base">English</span>
+                </label>
+
+                <label className="flex cursor-pointer items-center gap-3">
+                  <Field type="radio" name="language" value="Tamil" className="radio-primary radio-xs" />
+                  <span className="text-base">Tamil</span>
+                </label>
+
+                <label className="flex cursor-pointer items-center gap-3">
+                  <Field type="radio" name="language" value="Both" className="radio-primary radio-xs" />
+                  <span className="text-base">Both</span>
+                </label>
+              </div>
+              <ErrorMessage name="language" component="div" className="text-red-500" />
             </div>
-            {/* <p className="text-red-600 ">
-									{errors.checkbox && errors.checkbox}
-								</p> */}
+
+            <TextInput label="Email" name="email" placeholder="email@example.com" type="email" onChange={handleChange} onBlur={handleBlur} />
+            <TextInput label="Church you Attend" name="church_you_attend" type="text" onChange={handleChange} onBlur={handleBlur} />
+
+            <div className="flex w-full items-center gap-4 py-3">
+              <label className="label  cursor-pointer">
+                <Checkbox />
+
+                <span className="label-text ml-2 text-base">
+                  I agree with the
+                  <Link className="ml-1 underline" href="/login">
+                    Terms & Condition
+                  </Link>
+                </span>
+              </label>
+            </div>
+
             <Button
               type="submit"
               // disabled={isSubmitting}
               height={12}
               title="Register"
             />
-          </form>
+          </Form>
         )
       }}
     </Formik>
