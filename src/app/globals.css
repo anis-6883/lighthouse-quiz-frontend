@@ -21,6 +21,12 @@
     --text-color: #263238;
     --front-bg-color: #ffffff;
 
+    /* quiz options color  */
+    --ans-option-one: #3779ff;
+    --ans-option-two: #7a5548;
+    --ans-option-three: #ff981f;
+    --ans-option-four: #607d8a;
+
     /* For rgb(255 255 255 / <alpha-value>) = #ffffff */
     --gray-0: 255 255 255;
     /* For rgb(250 250 250 / <alpha-value>) = #fafafa */
@@ -131,6 +137,12 @@
     --btn-hover-color: #7e63fb;
     --text-color: #263238;
     --front-bg-color: #ffffff;
+
+    /* quiz options color  */
+    --ans-option-one: #3779ff;
+    --ans-option-two: #7a5548;
+    --ans-option-three: #ff981f;
+    --ans-option-four: #607d8a;
 
     /*
       - gray/natural color shades for texts, borders and disabled elements.

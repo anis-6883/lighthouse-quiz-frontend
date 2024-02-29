@@ -175,8 +175,8 @@ export default function Page() {
           </form>
 
           <div className="w-full p-2 text-base">
-            Already have an account?{' '}
-            <Link className="text-base font-medium capitalize text-[#781970d6] underline" href={routes.signIn}>
+            Already have an account?
+            <Link className="ml-2 text-base font-medium capitalize text-[#781970d6] underline" href={routes.signIn}>
               Sign In
             </Link>
           </div>

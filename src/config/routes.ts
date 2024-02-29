@@ -4,6 +4,7 @@ export const routes = {
   register: '/register',
   signIn: '/signin',
   verification: '/verification/otp',
+  quiz: '/quiz',
   history: '/history',
   refer: '/refer',
   settings: {
