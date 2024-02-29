@@ -4,6 +4,7 @@ export const routes = {
   register: '/register',
   signIn: '/signin',
   verification: '/verification/otp',
+  quiz: '/quiz',
   history: '/history',
   refer: '/refer',
   settings: {
@@ -19,6 +20,7 @@ export const routes = {
   aboutUs: '/about-us',
   tramsAndConditions: '/terms-and-conditions',
   privacyPolicy: '/privacy-policy',
+  question: '/question',
   // signIn: '/user/signin',
   forgetPassword: '/user/forget-password',
   adminLogin: '/admin/login',

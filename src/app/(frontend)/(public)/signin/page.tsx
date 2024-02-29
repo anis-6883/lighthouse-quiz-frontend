@@ -36,7 +36,7 @@ export default function Page() {
           <Button type="submit" height={12} title="Login" />
           <div className="w-full p-2 text-base">
             Don&apos;t have an Account?
-            <Link className="text-base font-medium capitalize text-[#781970d6] underline ml-2" href="/register">
+            <Link className="ml-2 text-base font-medium capitalize text-[#781970d6] underline" href="/register">
               register
             </Link>
           </div>
