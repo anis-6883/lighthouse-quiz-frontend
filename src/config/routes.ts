@@ -19,6 +19,7 @@ export const routes = {
   aboutUs: '/about-us',
   tramsAndConditions: '/terms-and-conditions',
   privacyPolicy: '/privacy-policy',
+  question: '/question',
   // signIn: '/user/signin',
   forgetPassword: '/user/forget-password',
   adminLogin: '/admin/login',

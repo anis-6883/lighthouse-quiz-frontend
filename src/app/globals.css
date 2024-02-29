@@ -349,6 +349,28 @@
 /* ................................................... */
 
 /* ................................................... */
+/** Question Answer placeholder text css start **/
+/* ................................................... */
+
+/* [contentEditable='true']:empty:not(:focus):before {
+  content: attr(data-text);
+} */
+.question_placeholder:before {
+  content: attr(data-placeholder);
+}
+.trueFalse_answer_placeholder:before {
+  content: attr(data-text);
+}
+
+.answer_placeholder:empty:before {
+  content: attr(data-text);
+}
+
+/* ................................................... */
+/** Question Answer placeholder text End **/
+/* ................................................... */
+
+/* ................................................... */
 /** Phone Country Code input Css start **/
 /* ................................................... */
 .react-international-phone-country-selector-button {
