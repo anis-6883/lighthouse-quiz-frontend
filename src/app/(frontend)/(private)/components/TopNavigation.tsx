@@ -11,9 +11,9 @@ export default function TopNavigation({ icon, share, pageName = '', notification
       <ul className="flex items-center justify-between bg-[#fff] font-medium ">
         <li>
           {pageName != 'home' ? (
-            <h2 className="flex items-center gap-2 text-[22px] font-semibold capitalize text-[var(--text-color)]">
+            <h2 className="flex items-center text-[22px] font-semibold capitalize text-[var(--text-color)]">
               {icon != ' ' ? (
-                <button type="button" onClick={() => router.back()}>
+                <button className="mr-[5px]" type="button" onClick={() => router.back()}>
                   {icon}
                 </button>
               ) : (

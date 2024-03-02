@@ -1,3 +1,5 @@
+import { Checkbox } from 'rizzui'
+
 export default function McqCard({ bg_color, imageSrc, option_text }: { bg_color: any; imageSrc?: any; option_text: any }) {
   return (
     <>
@@ -7,11 +9,7 @@ export default function McqCard({ bg_color, imageSrc, option_text }: { bg_color:
             {imageSrc != null && <img className="h-[45px] w-[45px] rounded-lg object-fill sm:h-[56px] sm:w-[56px]" src={imageSrc} alt="option image" />}
             <span className="text-sm font-medium sm:text-lg ">{option_text}</span>
           </div>
-          <input
-            type="checkbox"
-            // checked="checked"
-            className="checkbox rounded-full border-[#232020]"
-          />
+          <Checkbox rounded="full" inputClassName="checked:!bg-black border-black" />
         </label>
       </form>
     </>

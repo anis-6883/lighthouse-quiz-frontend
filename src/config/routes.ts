@@ -6,6 +6,8 @@ export const routes = {
   verification: '/verification/otp',
   quiz: '/quiz',
   history: '/history',
+  prayer: '/prayer-request',
+  dailyWord: '/daily-word',
   refer: '/refer',
   settings: {
     home: '/settings',
