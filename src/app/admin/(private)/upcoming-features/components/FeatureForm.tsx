@@ -24,8 +24,8 @@ type props = {
 }
 
 export default function FeatureForm({ formData, modalState, setModalState }: props) {
-  const { data: session } = useSession()
-  const token = session?.user.accessToken || ''
+  const { data: session }: any = useSession()
+  const token = session?.accessToken || ''
 
   const handleFeature = async (values: any, { resetForm }: { resetForm: Function }) => {
     const payload = {

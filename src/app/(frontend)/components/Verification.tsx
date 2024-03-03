@@ -1,12 +1,13 @@
 import { metaObject } from '@/config/site.config'
-import { PinCode } from 'rizzui'
-import Button from './Button'
-import Countdown from 'react-countdown'
-import { useState } from 'react'
-import React, { Dispatch, SetStateAction } from 'react'
 import postData from '@/utils/fetch/postData'
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import Countdown from 'react-countdown'
 import toast from 'react-hot-toast'
+import { PinCode } from 'rizzui'
+import Button from './Button'
+import { routes } from '@/config/routes'
 
 export const metadata = {
   ...metaObject('Verification OTP'),
@@ -15,25 +16,27 @@ export const metadata = {
 export default function Verification({ token }: { token: string }) {
   const [timer, setTimer] = useState(Date.now() + 60 * 1000)
   const [OTP, setOTP] = useState('')
+  const router = useRouter()
 
   const handleOTP = async () => {
-    // const response = await postData('register/verification', token, { otp: OTP })
-    signIn('credentials', {
-      OTP,
-      redirect: false,
-    }).then((callback) => {
-      console.log(callback)
-      // if (callback?.error) {
-      //   setLoginFormSubmitted(false)
-      //   toast.error(callback?.error)
-      // }
-      // if (callback?.ok && !callback?.error) {
-      //   replace('/admin/dashboard')
-      //   toast.success('Admin Login Successfully!')
-      // }
-    })
+    const response = await postData('register/verification', token, { otp: OTP })
 
-    // console.log(response)
+    if (response.status) {
+      signIn('credentials', {
+        accessToken: response.data.accessToken,
+        role: 'user',
+        redirect: false,
+      }).then((callback) => {
+        if (callback?.error) {
+          toast.error(callback?.error)
+        } else if (callback?.ok) {
+          toast.success('Welcome!')
+          router.push(routes.appHome)
+        }
+      })
+    } else {
+      toast.error(response.message)
+    }
   }
 
   const renderTimer = ({ seconds, completed }: { seconds: number; completed: boolean }) => {

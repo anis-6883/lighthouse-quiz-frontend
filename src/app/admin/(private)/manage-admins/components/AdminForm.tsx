@@ -34,8 +34,8 @@ type props = {
 }
 
 export default function AdminForm({ formData, modalState, setModalState }: props) {
-  const { data: session } = useSession()
-  const token = session?.user.accessToken || ''
+  const { data: session }: any = useSession()
+  const token = session?.accessToken || ''
 
   const handleAdmin = async (values: any, { resetForm }: { resetForm: Function }) => {
     const payload: any = {

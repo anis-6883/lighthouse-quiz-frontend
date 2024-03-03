@@ -25,10 +25,10 @@ const userSchema = Yup.object().shape({
 })
 
 export default function SignUpForm({ setToken }: { setToken: React.Dispatch<React.SetStateAction<string>> }) {
-  const { data: session } = useSession()
-  const token = session?.user.accessToken || ''
+  const { data: session }: any = useSession()
+  const token = session?.accessToken || ''
 
-  const handleQuestion = async (values: any, { resetForm }: { resetForm: Function }) => {
+  const handleRegister = async (values: any, { resetForm }: { resetForm: Function }) => {
     const response = await postData('register/signup', token, values)
 
     if (response.status) {
@@ -58,7 +58,7 @@ export default function SignUpForm({ setToken }: { setToken: React.Dispatch<Reac
           conditions: false,
         }}
         validationSchema={userSchema}
-        onSubmit={handleQuestion}
+        onSubmit={handleRegister}
       >
         {({ values, handleChange, handleBlur, isSubmitting }) => {
           return (

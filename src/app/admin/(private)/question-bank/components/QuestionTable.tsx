@@ -13,10 +13,8 @@ import { Select } from 'rizzui'
 let popup = false
 
 export default function QuestionTable({ data, edit, formData }: { data: any; edit: Function; formData: Function }) {
-  const { data: session } = useSession()
-  const token = session?.user?.accessToken || ''
-
-  console.log(data)
+  const { data: session }: any = useSession()
+  const token = session?.accessToken || ''
 
   const structure = [
     {
@@ -31,12 +29,12 @@ export default function QuestionTable({ data, edit, formData }: { data: any; edi
         return <Question data={row.original} />
       },
     },
-    {
-      header: 'Duration',
-      Cell: ({ row }: any) => {
-        return <Select label="Select" options={{ label: 'sajid', value: 'sajid' }} value={row.original.duration} />
-      },
-    },
+    // {
+    //   header: 'Duration',
+    //   Cell: ({ row }: any) => {
+    //     return <Select label="Select" options={{ , value: 'sajid' }} value={row.original.duration} />
+    //   },
+    // },
   ]
 
   const options: Option[] = [
@@ -68,7 +66,6 @@ export default function QuestionTable({ data, edit, formData }: { data: any; edi
 }
 
 function Question({ data }: any) {
-  console.log(data)
   return (
     <div>
       <h1>{data.question}</h1>

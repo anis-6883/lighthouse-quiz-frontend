@@ -1,3 +1,6 @@
+'use client'
+
+import TopNavigation from '@/app/(frontend)/app/components/TopNavigation'
 import Button from '@/app/(frontend)/components/Button'
 import InputPhone from '@/app/(frontend)/components/InputPhone'
 import ProfileImage from '@/app/(frontend)/components/ProfileImage'
@@ -5,13 +8,13 @@ import SelectOption from '@/app/(frontend)/components/SelectOption'
 import TextInput from '@/app/(frontend)/components/TextInput'
 import { metaObject } from '@/config/site.config'
 import { FaArrowLeft } from 'react-icons/fa6'
-import TopNavigation from '../../../(main-layout)/components/TopNavigation'
 
-export const metadata = {
-  ...metaObject('Settings - Notifications'),
-}
+// export const metadata = {
+//   ...metaObject('Settings - Notifications'),
+// }
 
 export default function Page() {
+  return <>this page is under development</>
   return (
     <main className="bg-[#EBF5FB] ">
       <div className="relative m-auto min-h-screen w-full max-w-3xl overflow-hidden bg-[#fff] px-4 pb-5 pt-4 sm:px-8">
@@ -25,9 +28,7 @@ export default function Page() {
           <hr className="my-2 h-[1.5px] w-full bg-[#e0e0e0] " />
           <TextInput type="text" label="Your Name" name="name" placeholder="Ex.John Doe" requiredStar="*" />
 
-          <div className="w-full py-3">
-            <InputPhone title="Phone Number" requiredStar="*" />
-          </div>
+          <div className="w-full py-3">{/* <InputPhone title="Phone Number" star="*" /> */}</div>
 
           <SelectOption label="Country" name="country" placeholder="select country" />
 

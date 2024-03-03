@@ -12,7 +12,6 @@ export default function Button(props: any) {
   return (
     <button
       {...props}
-      type={type}
       className={`w-full h-${height} btn  rounded-full bg-[#6949FF] capitalize text-[#fff] shadow-md hover:bg-[#785cf8]`}
     >
       {title}

@@ -1,7 +1,6 @@
 import { routes } from '@/config/routes'
 import { metaObject } from '@/config/site.config'
 import Link from 'next/link'
-import SignUpForm from './Form'
 import SignUp from './SignUp'
 
 export const metadata = {

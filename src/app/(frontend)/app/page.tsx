@@ -2,8 +2,8 @@ import { metaObject } from '@/config/site.config'
 import getData from '@/utils/fetch/getData'
 import { FaArrowLeft, FaRegBell } from 'react-icons/fa6'
 import { IoMdShare } from 'react-icons/io'
-import TopNavigation from '../components/TopNavigation'
-import DailyQuizSlider from './components/DailyQuizSlider'
+import TopNavigation from './components/TopNavigation'
+import DailyQuizSlider from './home/DailyQuizSlider'
 
 export const metadata = {
   ...metaObject('Home'),
@@ -11,7 +11,6 @@ export const metadata = {
 
 export default async function Page() {
   const data = await getData('daily-quiz/list/?todayDate=2024-02-29', 'player')
-  // console.log(data)
 
   return (
     <>

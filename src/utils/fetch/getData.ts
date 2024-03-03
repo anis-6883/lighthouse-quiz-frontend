@@ -1,6 +1,5 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'
 import { getServerSession } from 'next-auth'
-
 /**
  * Fetches data from the API endpoint.
  * @param path - The API endpoint path.
@@ -17,16 +16,18 @@ export default async function getData(path: string, route: string = 'admin'): Pr
     let response: any = await fetch(url, {
       headers: {
         'x-api-key': process.env.API_KEY,
-        Authorization: `Bearer ${session?.user?.accessToken}`,
+        Authorization: `Bearer ${session?.accessToken}`,
       } as HeadersInit,
       cache: 'no-store',
       next: { tags: [path] },
     })
+
     response = await response.json()
 
     if (response.status) {
       return response.data
     } else {
+      console.log(response)
       throw new Error(`${url}: ${response.message}`)
     }
   } catch (e) {
