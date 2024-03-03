@@ -27,6 +27,9 @@
     --ans-option-three: #ff981f;
     --ans-option-four: #607d8a;
 
+    /*** Leader board bg color ***/
+    --leader-board-bg-color: #876dff;
+
     /* For rgb(255 255 255 / <alpha-value>) = #ffffff */
     --gray-0: 255 255 255;
     /* For rgb(250 250 250 / <alpha-value>) = #fafafa */
@@ -143,6 +146,9 @@
     --ans-option-two: #7a5548;
     --ans-option-three: #ff981f;
     --ans-option-four: #607d8a;
+
+    /*** Leader board bg color ***/
+    --leader-board-bg-color: #876dff;
 
     /*
       - gray/natural color shades for texts, borders and disabled elements.
@@ -565,7 +571,11 @@ input[type='checkbox']:checked ~ svg {
   @apply bg-gray-50 dark:bg-gray-200;
 }
 
-.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
+.react-datepicker__time-container
+  .react-datepicker__time
+  .react-datepicker__time-box
+  ul.react-datepicker__time-list
+  li.react-datepicker__time-list-item:hover {
   @apply dark:bg-gray-300;
 }
 
@@ -764,7 +774,9 @@ input[type='checkbox']:checked ~ svg {
 }
 
 /* sub-header containing year and month dropdown */
-.react-datepicker .react-datepicker__current-month--hasYearDropdown.react-datepicker__current-month--hasMonthDropdown ~ .react-datepicker__header__dropdown {
+.react-datepicker
+  .react-datepicker__current-month--hasYearDropdown.react-datepicker__current-month--hasMonthDropdown
+  ~ .react-datepicker__header__dropdown {
   @apply my-2 grid grid-cols-2 divide-x divide-gray-300 text-sm;
 }
 

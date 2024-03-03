@@ -9,6 +9,8 @@ export const routes = {
   prayer: '/prayer-request',
   dailyWord: '/daily-word',
   refer: '/refer',
+  countdown: '/countdown',
+  endQuiz: '/end-quiz',
   settings: {
     home: '/settings',
     notification: '/settings/notifications',
@@ -23,6 +25,9 @@ export const routes = {
   tramsAndConditions: '/terms-and-conditions',
   privacyPolicy: '/privacy-policy',
   question: '/question',
+  leaderBoard: '/leaderboard',
+  quizEndLeaderBoard: '/quiz-end-leaderboard',
+  EndScoreScreen: '/end-score-screen',
   // signIn: '/user/signin',
   forgetPassword: '/user/forget-password',
   adminLogin: '/admin/login',

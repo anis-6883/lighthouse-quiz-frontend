@@ -24,5 +24,7 @@ export default withAuth(
 )
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|images|icons|favicon.ico|register|signin|home|quiz|history|prayer-request|daily-word|refer|settings|summary|waiting-area|about-us|terms-and-conditions|privacy-policy|verification|signup|user|question|test|admin/login|$).*)'],
+  matcher: [
+    '/((?!api|_next/static|_next/image|images|icons|favicon.ico|register|signin|home|quiz|countdown|end-quiz|leaderboard|quiz-end-leaderboard|end-score-screen|history|prayer-request|daily-word|refer|settings|summary|waiting-area|about-us|terms-and-conditions|privacy-policy|verification|signup|user|question|test|admin/login|$).*)',
+  ],
 }

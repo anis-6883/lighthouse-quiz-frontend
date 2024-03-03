@@ -18,7 +18,7 @@ export default function Page() {
         />
       </div>
 
-      <div className="mb-4 mt-4 w-full">
+      <div className="mt-4 w-full">
         <div className="flex w-full gap-4">
           <button className="w-full rounded-full border-2 border-[var(--primary-color)] bg-[var(--primary-color)] py-[4px] text-lg text-white sm:py-[6px]">
             Tamil
@@ -34,14 +34,13 @@ export default function Page() {
               <PiShare className="text-[24px]" />
             </span>
           </div>
-          {/* border-[#5E17EB] */}
-          {/* <div className="relative h-[220px] w-full rounded-3xl border-b-[8px] border-r-[8px] border-[#5E17EB] bg-[#FAEBFF]">
-            <ImQuotesLeft className="absolute left-2 top-1 text-2xl" />
-            <ImQuotesRight className="absolute bottom-1 right-2 text-2xl" />
-          </div> */}
 
           <div className="relative w-full text-center">
             <img className="h-full w-full object-contain" src="/images/speechBible.png" alt="" />
+            <span className="absolute bottom-7 left-6 right-[26px] top-6 flex items-center justify-center overflow-hidden text-base leading-6 tracking-wider text-black sm:left-7 sm:right-10 sm:text-xl sm:leading-8">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere repellat enim eum, ad quos autem obcaecati voluptatum soluta maiores
+              optio commodi cupiditate ducimus quae officia, at ratione impedit.
+            </span>
           </div>
 
           <div className="mb-4 flex w-full justify-between pt-6">
@@ -51,8 +50,13 @@ export default function Page() {
         </div>
         <div
           style={{ clipPath: 'polygon(0% 0%, 13% 9%, 94% 9%, 98% 10%, 100% 13%, 100% 100%, 0 100%)' }}
-          className="h-[400px] w-full rounded-bl-3xl rounded-br-3xl rounded-tl-none rounded-tr-[4.8rem] border-b-[3px] border-l-2 border-b-[#00000011] border-l-[#00000011] bg-[#FAEBFF] p-4  "
-        ></div>
+          className="flex h-[400px] w-full items-center rounded-bl-3xl rounded-br-3xl rounded-tl-none rounded-tr-[4.8rem] border-b-[3px] border-l-2 border-b-[#00000011] border-l-[#00000011] bg-[#FAEBFF] px-2 pb-4 pt-12 sm:px-4"
+        >
+          <span className="text-center text-base leading-[28px] tracking-wider text-black sm:left-7 sm:right-10 sm:text-xl sm:leading-8">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere repellat enim eum, ad quos autem obcaecati voluptatum soluta maiores
+            optio commodi cupiditate ducimus quae officia, at ratione impedit voluptates dolores.
+          </span>
+        </div>
       </div>
     </>
   )

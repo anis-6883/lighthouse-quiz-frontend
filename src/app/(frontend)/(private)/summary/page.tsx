@@ -22,7 +22,9 @@ export default function Page() {
           date=" 2/3/2024"
           questionType="daily"
         />
+
         <TopRanking />
+
         <div className="flex flex-col gap-6 px-6 sm:px-0">
           <div className="h-16 rounded-xl bg-gradient-to-r from-[#4f2e83] to-[#92296f]">
             <div className="flex h-full w-full items-center justify-between px-4">
@@ -59,9 +61,6 @@ export default function Page() {
                 <span className="font-medium text-white">Accuracy</span>
               </div>
               <div className=" w-3/5">
-                {/* <input type="progress" min={0} max="100" value="80" className="progress progress-warning h-4 bg-[#c3b6ff]" />
-              <span className="absolute -top-2 left-80 mr-3 rounded-full bg-white p-1 text-black">70%</span> */}
-
                 <div className="h-4 w-full rounded-full bg-[#fff]">
                   <div className="relative h-full w-[50%] rounded-full bg-[#c3b6ff] text-center text-xs text-white">
                     <span className="absolute -top-1 right-[0%] z-10 rounded-full bg-white p-[5px] font-medium text-black">50%</span>

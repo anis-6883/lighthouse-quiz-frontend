@@ -1,3 +1,4 @@
+import TopNavigation from '@/app/(frontend)/(private)/components/TopNavigation'
 import Button from '@/app/(frontend)/components/Button'
 import InputPhone from '@/app/(frontend)/components/InputPhone'
 import ProfileImage from '@/app/(frontend)/components/ProfileImage'
@@ -5,7 +6,6 @@ import SelectOption from '@/app/(frontend)/components/SelectOption'
 import TextInput from '@/app/(frontend)/components/TextInput'
 import { metaObject } from '@/config/site.config'
 import { FaArrowLeft } from 'react-icons/fa6'
-import TopNavigation from '../../../(main-layout)/components/TopNavigation'
 
 export const metadata = {
   ...metaObject('Settings - Notifications'),
@@ -26,7 +26,7 @@ export default function Page() {
           <TextInput type="text" label="Your Name" name="name" placeholder="Ex.John Doe" requiredStar="*" />
 
           <div className="w-full py-3">
-            <InputPhone title="Phone Number" requiredStar="*" />
+            <InputPhone title="Phone Number" />
           </div>
 
           <SelectOption label="Country" name="country" placeholder="select country" />
