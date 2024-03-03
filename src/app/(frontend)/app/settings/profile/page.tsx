@@ -1,17 +1,19 @@
-import TopNavigation from '@/app/(frontend)/(private)/components/TopNavigation'
+'use client'
+
+import TopNavigation from '@/app/(frontend)/app/components/TopNavigation'
 import Button from '@/app/(frontend)/components/Button'
 import InputPhone from '@/app/(frontend)/components/InputPhone'
 import ProfileImage from '@/app/(frontend)/components/ProfileImage'
 import SelectOption from '@/app/(frontend)/components/SelectOption'
 import TextInput from '@/app/(frontend)/components/TextInput'
-import { metaObject } from '@/config/site.config'
 import { FaArrowLeft } from 'react-icons/fa6'
 
-export const metadata = {
-  ...metaObject('Settings - Notifications'),
-}
+// export const metadata = {
+//   ...metaObject('Settings - Notifications'),
+// }
 
 export default function Page() {
+  return <>this page is under development</>
   return (
     <main className="bg-[#EBF5FB] ">
       <div className="relative m-auto min-h-screen w-full max-w-3xl overflow-hidden bg-[#fff] px-4 pb-5 pt-4 sm:px-8">

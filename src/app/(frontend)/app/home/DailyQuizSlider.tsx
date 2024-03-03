@@ -13,6 +13,7 @@ type Props = {
     title: string
     image: string
     publishDate: Date
+    status: ''
   }[]
 }
 

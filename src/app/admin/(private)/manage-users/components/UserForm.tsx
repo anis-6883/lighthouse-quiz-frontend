@@ -23,8 +23,8 @@ type props = {
 }
 
 export default function UserForm({ formData, modalState, setModalState }: props) {
-  const { data: session } = useSession()
-  const token = session?.user.accessToken || ''
+  const { data: session }: any = useSession()
+  const token = session?.accessToken || ''
 
   const handleQuestion = async (values: any, { resetForm }: { resetForm: Function }) => {
     const payload = {
@@ -32,7 +32,7 @@ export default function UserForm({ formData, modalState, setModalState }: props)
       description: values.description,
     }
 
-    const response = formData?.id ? () => updateData('faq', token, payload, formData.id) : () => postData('faq', token, payload)
+    const response = formData?.id ? () => updateData('faq', token, payload, formData.id) : () => postData('admin/faq', token, payload)
 
     toast.promise(response(), {
       loading: 'Please wait...',

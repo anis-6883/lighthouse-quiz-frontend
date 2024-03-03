@@ -1,31 +1,30 @@
-'use client';
+'use client'
 
-import { userLoggedIn, userLoggedOut } from '@/features/auth/authSlice';
-import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { userLoggedIn, userLoggedOut } from '@/features/auth/authSlice'
+import { useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 export function useIsMounted() {
-  const { data: session } = useSession();
-  const dispatch = useDispatch();
+  const { data: session }: any = useSession()
+  const dispatch = useDispatch()
 
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false)
   useEffect(() => {
     if (session) {
       dispatch(
         userLoggedIn({
-          accessToken: session?.user?.accessToken,
-          user: session?.user,
-        })
-      );
+          accessToken: session?.accessToken,
+        }),
+      )
     } else {
-      dispatch(userLoggedOut());
+      dispatch(userLoggedOut())
     }
 
     setTimeout(() => {
-      setMounted(true);
-    }, 1000);
-  }, [dispatch, session]);
+      setMounted(true)
+    }, 1000)
+  }, [dispatch, session])
 
-  return mounted;
+  return mounted
 }

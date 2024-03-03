@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
-import DailyQuizCard from '../home/components/DailyQuizCard'
+import DailyQuizCard from '../home/DailyQuizCard'
 import ImageCard from '../components/ImageCard'
 
 export default function HomeSlider() {
@@ -39,7 +39,7 @@ export default function HomeSlider() {
       <div>
         <h1 className=" my-3 py-2 text-xl font-normal text-[var(--text-color)] sm:text-2xl">Daily Verse Quiz</h1>
         <div className="slider-container">
-          <Slider {...settings}>
+          {/* <Slider {...settings}>
             <Link href="/quiz">
               <DailyQuizCard name="Today English" image="/images/Daily_Quiz.png" date="06.2.2024" />
             </Link>
@@ -52,7 +52,7 @@ export default function HomeSlider() {
             <Link href="/quiz">
               <DailyQuizCard name="Today English Daily Quiz text for long test form hit " image="/images/home_popup_img.jpg" date="06.2.2024" />
             </Link>
-          </Slider>
+          </Slider> */}
           {/* <div className="text-center py-10 px-[75px] text-base font-semibold leading-8">
 							No Daily Quiz today. Take this time to reflect on His words. Join
 							us again tomorrow !

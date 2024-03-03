@@ -8,7 +8,7 @@ import { PiSquaresFourBold } from 'react-icons/pi'
 
 export default function BottomNavigation() {
   const pathname = usePathname()
-  const home = routes.authHome
+  const home = routes.appHome
   const history = routes.history
   const refer = routes.refer
   const settings = routes.settings.home

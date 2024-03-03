@@ -24,8 +24,8 @@ type props = {
 }
 
 export default function DailyQuizForm({ formData, modalState, setModalState }: props) {
-  const { data: session } = useSession()
-  const token = session?.user?.accessToken || ''
+  const { data: session }: any = useSession()
+  const token = session?.accessToken || ''
 
   const handleFeature = async (values: any, { resetForm }: { resetForm: Function }) => {
     const payload = {
@@ -34,7 +34,7 @@ export default function DailyQuizForm({ formData, modalState, setModalState }: p
       existing: formData.image,
     }
 
-    const response = formData?.id ? () => updateData('features', token, payload, formData.id) : () => postData('features', token, payload)
+    const response = formData?.id ? () => updateData('features', token, payload, formData.id) : () => postData('admin/features', token, payload)
 
     toast.promise(response(), {
       loading: 'Please wait...',
