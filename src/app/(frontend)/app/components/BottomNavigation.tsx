@@ -18,7 +18,7 @@ export default function BottomNavigation() {
       <ul className="m-auto flex h-16 items-center  justify-center gap-7 font-medium text-[#9e9e9e] sm:gap-20">
         <li>
           <Link
-            href={routes.authHome}
+            href={routes.appHome}
             className={`${pathname === home ? 'active' : ''} flex flex-col items-center justify-center transition-all duration-300 ease-in-out hover:text-black`}
           >
             <AiFillHome className="text-xl sm:text-2xl" />

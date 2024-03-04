@@ -12,7 +12,12 @@ export default function Page() {
   return (
     <>
       <div className="w-full pb-5 pt-2">
-        <TopNavigation icon={<FaArrowLeft className="text-2xl" />} pageName="Prayer Request" share={<IoMdShare className="text-2xl font-medium text-black" />} notification={<FaRegBell className="text-[25px] font-medium " />} />
+        <TopNavigation
+          icon={<FaArrowLeft className="text-2xl" />}
+          pageName="Prayer Request"
+          share={<IoMdShare className="text-2xl font-medium text-black" />}
+          notification={<FaRegBell className="text-[25px] font-medium " />}
+        />
       </div>
 
       <div>

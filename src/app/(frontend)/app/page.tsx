@@ -11,6 +11,9 @@ export const metadata = {
 
 export default async function Page() {
   const data = await getData('daily-quiz/list/?todayDate=2024-02-29', 'player')
+  console.log(data)
+
+  // return <></>
 
   return (
     <>

@@ -23,6 +23,7 @@ export default async function getData(path: string, route: string = 'admin'): Pr
     })
 
     response = await response.json()
+    console.log(response)
 
     if (response.status) {
       return response.data

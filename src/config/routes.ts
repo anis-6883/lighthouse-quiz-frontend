@@ -7,6 +7,8 @@ export const routes = {
   quiz: '/quiz',
   history: '/app/history',
   refer: '/app/refer',
+  dailyWord: '/app/daily-word',
+  prayer: '/app/prayer-request',
   settings: {
     home: '/app/settings',
     notification: '/app/settings/notifications',
