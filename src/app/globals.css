@@ -22,10 +22,10 @@
     --front-bg-color: #ffffff;
 
     /* quiz options color  */
-    --ans-option-one: #3779ff;
-    --ans-option-two: #7a5548;
-    --ans-option-three: #ff981f;
-    --ans-option-four: #607d8a;
+    --ans-option-1: #3779ff;
+    --ans-option-2: #7a5548;
+    --ans-option-3: #ff981f;
+    --ans-option-4: #607d8a;
 
     /*** Leader board bg color ***/
     --leader-board-bg-color: #876dff;
@@ -142,10 +142,10 @@
     --front-bg-color: #ffffff;
 
     /* quiz options color  */
-    --ans-option-one: #3779ff;
-    --ans-option-two: #7a5548;
-    --ans-option-three: #ff981f;
-    --ans-option-four: #607d8a;
+    --ans-option-0: #3779ff;
+    --ans-option-1: #7a5548;
+    --ans-option-2: #ff981f;
+    --ans-option-3: #607d8a;
 
     /*** Leader board bg color ***/
     --leader-board-bg-color: #876dff;

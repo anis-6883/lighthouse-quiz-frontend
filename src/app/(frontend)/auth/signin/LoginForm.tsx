@@ -64,7 +64,7 @@ export default function LoginForm() {
 
       <div className="w-full p-2 text-center text-base">
         Don&apos;t have an Account?
-        <Link className="ml-2 text-base font-medium capitalize text-[#781970d6] underline" href="/register">
+        <Link className="ml-2 text-base font-medium capitalize text-[#781970d6] underline" href="/auth/register">
           register
         </Link>
       </div>

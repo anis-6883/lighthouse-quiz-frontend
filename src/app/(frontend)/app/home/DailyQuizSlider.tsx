@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick.css'
 import DailyQuizCard from './DailyQuizCard'
 import Link from 'next/link'
 import { settings } from './SliderSettings'
+import { routes } from '@/config/routes'
 
 type Props = {
   data: {
@@ -24,7 +25,7 @@ export default function DailyQuizSlider({ data }: Props) {
       <div className="slider-container">
         <Slider {...settings}>
           {data?.map((dailyQuiz) => (
-            <Link key={dailyQuiz?._id} href="/quiz">
+            <Link key={dailyQuiz?._id} href={`${routes.quiz}/daily/${dailyQuiz._id}`}>
               <DailyQuizCard name={dailyQuiz?.title} image={dailyQuiz?.image} date={dailyQuiz?.publishDate} status={dailyQuiz?.status} />
             </Link>
           ))}

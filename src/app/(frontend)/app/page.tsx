@@ -4,16 +4,15 @@ import { FaArrowLeft, FaRegBell } from 'react-icons/fa6'
 import { IoMdShare } from 'react-icons/io'
 import TopNavigation from './components/TopNavigation'
 import DailyQuizSlider from './home/DailyQuizSlider'
+import UpcomingFeatures from './home/UpcomingFeatures'
 
 export const metadata = {
   ...metaObject('Home'),
 }
 
 export default async function Page() {
-  const data = await getData('daily-quiz/list/?todayDate=2024-02-29', 'player')
-  console.log(data)
-
-  // return <></>
+  const dailyQuizzes = await getData('daily-quiz/list/?todayDate=2024-03-04', 'player')
+  const features = await getData('features', 'player')
 
   return (
     <>
@@ -44,8 +43,8 @@ export default async function Page() {
         </div>
       </div>
 
-      {/* <HomeSlider /> */}
-      <DailyQuizSlider data={data} />
+      <DailyQuizSlider data={dailyQuizzes} />
+      <UpcomingFeatures data={features} />
     </>
   )
 }
