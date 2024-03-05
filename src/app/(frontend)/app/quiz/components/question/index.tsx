@@ -37,11 +37,13 @@ export default function Question({ questions }: { questions: Question }) {
   const [seconds, setSeconds] = useState(-1)
 
   const handleQuestion = (answer: number) => {
+    calculateScore()
+
     if (questions[serial].answer[0] === answer || answer === -1) {
-      toast.success('Your answer is correct')
+      toast.success(`Your answer is correct ${calculateScore()}`)
       playCorrectAudio()
     } else {
-      toast.error('Your answer is incorrect')
+      toast.error(`Your answer is incorrect ${calculateScore()}`)
       playIncorrectAudio()
     }
 
@@ -49,9 +51,22 @@ export default function Question({ questions }: { questions: Question }) {
     setSeconds(-1)
   }
 
+  const calculateScore = (remaining: number = seconds) => {
+    const points = 1000
+    const timeSpent = questions[serial].duration - remaining
+    const score = points - timeSpent * 10 // deduct 10 points per second
+    return score
+  }
+
   return (
     <div className="w-full">
-      <TopBar progress={`${serial + 1}/${questions.length}`} duration={15} seconds={seconds} setSeconds={setSeconds} action={handleQuestion} />
+      <TopBar
+        progress={`${serial + 1}/${questions.length}`}
+        duration={questions[serial].duration}
+        seconds={seconds}
+        setSeconds={setSeconds}
+        action={handleQuestion}
+      />
       <QuestionCard question={questions[serial]?.question} />
 
       <div className="pt-6">
