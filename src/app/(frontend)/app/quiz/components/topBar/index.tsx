@@ -69,7 +69,7 @@ export default function TopBar({
         <div className="h-4 w-full rounded-full bg-gray-300">
           <div
             style={{ animationDuration: `${duration}s` }}
-            className={`${seconds > 0 ? 'timer' : ''} ${getPortion(seconds, duration)} h-full rounded-full bg-green-600 pr-2 text-end text-xs text-white`}
+            className={`${seconds > 0 ? 'timer' : ''} ${getPortion(seconds, duration)} h-full rounded-full pr-2 text-end text-xs text-white`}
           >
             {seconds > 0 && seconds}
           </div>
