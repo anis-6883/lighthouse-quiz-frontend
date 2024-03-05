@@ -9,6 +9,7 @@ import { getServerSession } from 'next-auth'
 export default async function getData(path: string, route: string = 'admin'): Promise<any[]> {
   const session = await getServerSession(authOptions)
   const base = process.env.BASE ?? process.env.NEXT_PUBLIC_BASE
+  console.log(session)
 
   const url = route === 'admin' ? `${base}/api/admin/${path}` : `${base}/api/${path}`
 
@@ -23,6 +24,7 @@ export default async function getData(path: string, route: string = 'admin'): Pr
     })
 
     response = await response.json()
+    console.log(response)
 
     if (response.status) {
       return response.data

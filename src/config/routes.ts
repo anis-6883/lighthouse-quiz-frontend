@@ -4,9 +4,11 @@ export const routes = {
   register: '/auth/register',
   signIn: '/auth/signin',
   verification: '/verification/otp',
-  quiz: '/quiz',
+  quiz: '/app/quiz',
   history: '/app/history',
   refer: '/app/refer',
+  dailyWord: '/app/daily-word',
+  prayer: '/app/prayer-request',
   settings: {
     home: '/app/settings',
     notification: '/app/settings/notifications',

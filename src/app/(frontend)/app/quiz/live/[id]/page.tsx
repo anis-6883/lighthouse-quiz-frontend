@@ -1,10 +1,10 @@
 import { metaObject } from '@/config/site.config'
 import { IoMdMusicalNote } from 'react-icons/io'
-import Button from '../../components/Button'
-import CheckboxCard from './components/CheckboxCard'
-import McqCard from './components/McqCard'
-import OpenendedCard from './components/OpenendedCard'
-import QuestionCard from './components/QuestionCard'
+import QuestionCard from '../../components/question/QuestionCard'
+import MCQOption from '../../components/MCQOption'
+import CheckboxCard from '../../components/CheckboxCard'
+import OpenendedCard from '../../components/OpenendedCard'
+import Button from '@/app/(frontend)/components/Button'
 
 export const metadata = {
   ...metaObject('Daily Quiz'),
@@ -39,13 +39,14 @@ export default function Page() {
           />
 
           <div className="pt-6">
-            <McqCard bg_color="bg-[var(--ans-option-one)]" option_text="hello bangladesh" imageSrc="/images/Live_Quiz.png" />
+            <MCQOption bg_color="bg-[var(--ans-option-one)]" option_text="hello bangladesh" imageSrc="/images/Live_Quiz.png" />
 
             <CheckboxCard bg_color="bg-[var(--ans-option-two)]" option_text="Open Hello Bangladesh" />
 
             <OpenendedCard />
           </div>
           <br />
+
           <Button type="submit" height={16} title="submit answer" />
         </div>
       </div>
