@@ -155,7 +155,7 @@ export default function SignUpForm({ setToken }: { setToken: React.Dispatch<Reac
               <div className="my-1 ">
                 <div className="flex w-full items-center gap-4">
                   <label className="label  cursor-pointer">
-                    <Checkbox name="conditions" onChange={handleChange} onBlur={handleBlur} />
+                    <Checkbox name="conditions" size="sm" onChange={handleChange} onBlur={handleBlur} />
 
                     <span className="label-text ml-2 text-base">
                       I agree with the
