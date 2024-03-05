@@ -3,10 +3,7 @@ import plugin from 'tailwindcss/plugin'
 const colors = require('tailwindcss/colors')
 
 export default {
-  content: [
-    './src/**/*.{js,ts,jsx,tsx}',
-    './node_modules/rizzui/dist/*.{js,ts,jsx,tsx}',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx}', './node_modules/rizzui/dist/*.{js,ts,jsx,tsx}'],
   // darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     screens: {
@@ -40,7 +37,7 @@ export default {
         primary: {
           lighter: 'rgb(var(--primary-lighter) / <alpha-value>)',
           light: 'rgb(var(--primary-light) / <alpha-value>)',
-          DEFAULT: 'rgb(var(--primary-default) / <alpha-value>)',
+          DEFAULT: '#543ACC',
           dark: 'rgb(var(--primary-dark) / <alpha-value>)',
         },
         secondary: {
@@ -129,8 +126,7 @@ export default {
         underline: 'url("/public/underline.svg")',
       },
       boxShadow: {
-        profilePic:
-          '0px 2px 4px -2px rgba(0, 0, 0, 0.10), 0px 4px 6px -1px rgba(0, 0, 0, 0.10)',
+        profilePic: '0px 2px 4px -2px rgba(0, 0, 0, 0.10), 0px 4px 6px -1px rgba(0, 0, 0, 0.10)',
       },
     },
   },

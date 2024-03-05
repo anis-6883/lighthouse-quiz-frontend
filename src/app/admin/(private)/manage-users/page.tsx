@@ -2,26 +2,23 @@ import PageHeader from '@/app/shared/page-header'
 import { routes } from '@/config/routes'
 import { metaObject } from '@/config/site.config'
 import getData from '@/utils/fetch/getData'
-// import PageContent from './components/PageContent'
+import PageContent from './components/PageContent'
 
-const title = 'Upcoming Features'
+const title = 'Users'
 export const metadata = { ...metaObject(title) }
 
 export default async function Page() {
-	const data = await getData('features')
+  const data: any = await getData('user')
 
-	const pageHeader = {
-		title,
-		breadcrumb: [
-			{ href: routes.dashboard, name: 'Dashboard' },
-			{ name: title },
-		],
-	}
+  const pageHeader = {
+    title,
+    breadcrumb: [{ href: routes.dashboard, name: 'Dashboard' }, { name: title }],
+  }
 
-	return (
-		<>
-			<PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
-			{/* <PageContent data={data} /> */}
-		</>
-	)
+  return (
+    <>
+      <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
+      <PageContent data={data} />
+    </>
+  )
 }

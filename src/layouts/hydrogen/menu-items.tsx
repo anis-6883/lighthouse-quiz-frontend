@@ -1,14 +1,9 @@
-import { routes } from '@/config/routes';
-import { BsStackOverflow } from 'react-icons/bs';
-import { FaCogs } from 'react-icons/fa';
-import { IoBarChart, IoCalendarOutline } from 'react-icons/io5';
-import { LuLayoutDashboard, LuUserCog, LuUserX, LuUsers } from 'react-icons/lu';
-import {
-  PiBellRingingBold,
-  PiChalkboardTeacherBold,
-  PiConfettiBold,
-  PiQuestionBold,
-} from 'react-icons/pi';
+import { routes } from '@/config/routes'
+import { BsStackOverflow } from 'react-icons/bs'
+import { FaCogs } from 'react-icons/fa'
+import { IoBarChart, IoCalendarOutline } from 'react-icons/io5'
+import { LuLayoutDashboard, LuUserCog, LuUserX, LuUsers } from 'react-icons/lu'
+import { PiBellRingingBold, PiChalkboardTeacherBold, PiConfettiBold, PiQuestionBold } from 'react-icons/pi'
 
 // Note: do not add href in the label object, it is rendering as label
 export const menuItems = [
@@ -18,7 +13,7 @@ export const menuItems = [
     icon: <LuLayoutDashboard />,
   },
   {
-    name: 'Questions Bank',
+    name: 'Question Bank',
     href: routes.questionsBank.home,
     icon: <BsStackOverflow />,
   },
@@ -73,7 +68,7 @@ export const menuItems = [
     icon: <LuUserCog />,
   },
   {
-    name: 'Delete Accounts',
+    name: 'Deletion Requests',
     href: routes.deleteAccounts,
     icon: <LuUserX />,
   },
@@ -82,4 +77,4 @@ export const menuItems = [
     href: routes.generalSettings,
     icon: <FaCogs />,
   },
-];
+]

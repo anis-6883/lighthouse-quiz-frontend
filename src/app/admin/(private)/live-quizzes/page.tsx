@@ -4,24 +4,21 @@ import { metaObject } from '@/config/site.config'
 import getData from '@/utils/fetch/getData'
 import PageContent from './components/PageContent'
 
-const title = 'Upcoming Features'
+const title = 'Live Quizzes'
 export const metadata = { ...metaObject(title) }
 
 export default async function Page() {
-	const data = await getData('features')
+  const data: any = await getData('features')
 
-	const pageHeader = {
-		title,
-		breadcrumb: [
-			{ href: routes.dashboard, name: 'Dashboard' },
-			{ name: title },
-		],
-	}
+  const pageHeader = {
+    title,
+    breadcrumb: [{ href: routes.dashboard, name: 'Dashboard' }, { name: title }],
+  }
 
-	return (
-		<>
-			<PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
-			<PageContent data={data} />
-		</>
-	)
+  return (
+    <>
+      <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
+      <PageContent data={data} />
+    </>
+  )
 }
