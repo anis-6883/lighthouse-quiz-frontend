@@ -4,12 +4,12 @@ import postData from '@/utils/fetch/postData'
 import { Form, Formik } from 'formik'
 import Link from 'next/link'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 import { Checkbox } from 'rizzui'
 import * as Yup from 'yup'
 import Button from '../../components/Button'
 import InputPhone from '../../components/InputPhone'
 import Verification from '../../components/Verification'
-import toast from 'react-hot-toast'
 
 const userSchema = Yup.object().shape({
   phone: Yup.string()
@@ -52,9 +52,8 @@ export default function LoginForm() {
         <Form>
           <InputPhone />
 
-          <label className="pb-b flex w-full items-center gap-3 py-4 ">
-            <Checkbox />
-
+          <label className="pb-b flex w-full items-center gap-3 py-6 ">
+            <Checkbox size="sm" />
             <span className="label-text text-lg">Keep me Logged in</span>
           </label>
 

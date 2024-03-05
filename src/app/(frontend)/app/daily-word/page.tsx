@@ -2,7 +2,8 @@ import { metaObject } from '@/config/site.config'
 import { FaClock, FaRegBell } from 'react-icons/fa6'
 import { IoMdShare } from 'react-icons/io'
 import { PiShare } from 'react-icons/pi'
-import TopNavigation from '../components/TopNavigation'
+import TopNavigation from '../../app/components/TopNavigation'
+
 export const metadata = {
   ...metaObject('Daily Word'),
 }

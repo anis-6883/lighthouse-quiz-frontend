@@ -2,7 +2,7 @@ import { metaObject } from '@/config/site.config'
 import { FaArrowLeft, FaRegBell } from 'react-icons/fa6'
 import { IoMdShare } from 'react-icons/io'
 
-import TopNavigation from '../components/TopNavigation'
+import TopNavigation from '../../app/components/TopNavigation'
 import PrayerReqForm from './components/PrayerReqForm'
 export const metadata = {
   ...metaObject('Prayer Request'),
