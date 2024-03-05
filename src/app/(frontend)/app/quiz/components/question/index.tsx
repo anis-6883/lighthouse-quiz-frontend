@@ -9,6 +9,7 @@ import toast from 'react-hot-toast'
 import postData from '@/utils/fetch/postData'
 import { useSession } from 'next-auth/react'
 import LeaderBoard from '../leaderboard'
+import notify from './notify'
 
 type Question = {
   _id: string
@@ -57,12 +58,10 @@ export default function Question({ questions, quizId }: { questions: Question; q
 
     if (questions[serial].answer[0] === answer || answer === -1) {
       point = calculateScore(seconds, questions[serial].duration)
-
-      toast.success(`Your answer is correct ${point}`)
-
+      notify(true, point)
       playCorrectAudio()
     } else {
-      toast.error(`Your answer is incorrect`)
+      notify(false)
       playIncorrectAudio()
     }
 

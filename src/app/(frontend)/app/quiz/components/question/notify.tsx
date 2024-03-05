@@ -3,16 +3,17 @@ import toast from 'react-hot-toast'
 import { FaCircleCheck } from 'react-icons/fa6'
 import { IoMdCloseCircle } from 'react-icons/io'
 
-export default function TosterPop({ isRight, point }: { point?: number; isRight?: boolean }) {
-  const notify = () => {
-    toast.custom(
-      isRight ? (
-        <div className="flex h-[85px] w-full max-w-3xl items-center justify-center rounded-lg bg-[#4CB050] text-center font-bold ">
+export default function notify(isRight: boolean, points?: number) {
+  toast.custom(
+    <div className="relative mx-auto h-screen w-full max-w-3xl">
+      {isRight ? (
+        <div className="absolute bottom-0 mx-auto flex h-[85px] w-full max-w-3xl items-center justify-center rounded-lg bg-[#4CB050] text-center font-bold ">
           <span className="flex flex-col items-center rounded-md bg-[#D1EBD3] px-12 py-3 text-base font-medium">
             <span className="flex items-center gap-2 ">
-              Answer Point <FaCircleCheck className="text-xl text-[#4CB050]" />
+              <FaCircleCheck className="text-xl text-[#4CB050]" />
+              <span>Correct Answer</span>
             </span>
-            <span>+{point}</span>
+            <span>+{points}</span>
           </span>
         </div>
       ) : (
@@ -21,18 +22,7 @@ export default function TosterPop({ isRight, point }: { point?: number; isRight?
             Incorrect Answer <IoMdCloseCircle className="text-xl text-[#F50049]" />
           </span>
         </div>
-      ),
-      {
-        position: 'bottom-center',
-      },
-    )
-  }
-
-  return (
-    <div>
-      <button className="border p-3" onClick={notify}>
-        Click Toast
-      </button>
-    </div>
+      )}
+    </div>,
   )
 }
