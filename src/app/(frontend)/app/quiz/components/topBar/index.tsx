@@ -25,15 +25,17 @@ export default function TopBar({
   duration,
   action,
   progress,
+  audio,
+  setAudio,
 }: {
+  audio: boolean
+  setAudio: Function
   progress: string
   seconds: number
   setSeconds: Function
   duration: number
   action: Function
 }) {
-  const [audio, setAudio] = useState(false)
-
   useEffect(() => {
     if (seconds > 0) {
       const timeoutId = setTimeout(() => {

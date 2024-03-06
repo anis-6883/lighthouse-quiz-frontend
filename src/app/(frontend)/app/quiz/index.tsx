@@ -1,15 +1,15 @@
 'use client'
 
 import Button from '@/app/(frontend)/components/Button'
-import MCQOption from '../MCQOption'
-import TopBar from '../topBar'
-import QuestionCard from './QuestionCard'
+import MCQOption from './components/MCQOption'
+import TopBar from './components/topBar'
+import QuestionCard from './components/QuestionCard'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import postData from '@/utils/fetch/postData'
 import { useSession } from 'next-auth/react'
-import LeaderBoard from '../leaderboard'
-import notify from './notify'
+import LeaderBoard from './components/leaderboard'
+import notify from './components/notify'
 
 type Question = {
   _id: string
@@ -47,11 +47,12 @@ const calculateScore = (remaining: number, duration: number) => {
   return score
 }
 
-export default function Question({ questions, quizId }: { questions: Question; quizId: string }) {
+export default function Quiz({ questions, quizId }: { questions: Question; quizId: string }) {
   const [serial, setSerial] = useState(0)
   const [seconds, setSeconds] = useState(-1)
   const { data: session }: any = useSession()
   const [leaderBoard, setLeaderBoard] = useState(false)
+  const [audio, setAudio] = useState(false)
 
   const handleQuestion = async (answer: number) => {
     let point = 0
@@ -64,17 +65,18 @@ export default function Question({ questions, quizId }: { questions: Question; q
       notify(false)
       playIncorrectAudio()
     }
-
-    postData('daily-quiz/answer', session?.accessToken, {
-      quizId,
-      answer: {
-        quesId: questions[serial]._id,
-        answered: [answer],
-        time: seconds,
-        point,
-      },
-      isFinished: questions.length - 1 === serial,
-    })
+    if (answer) {
+      postData('daily-quiz/answer', session?.accessToken, {
+        quizId,
+        answer: {
+          quesId: questions[serial]._id,
+          answered: [answer],
+          time: seconds,
+          point,
+        },
+        isFinished: questions.length - 1 === serial,
+      })
+    }
     setSeconds(0)
 
     await new Promise<void>((resolve) => {
@@ -98,11 +100,13 @@ export default function Question({ questions, quizId }: { questions: Question; q
     return () => clearTimeout(timeoutId)
   }, [leaderBoard])
 
-  if (leaderBoard) return <LeaderBoard />
+  if (leaderBoard) return <LeaderBoard quizId={quizId} isFinished={questions.length - 1 === serial} />
 
   return (
     <div className="w-full select-none">
       <TopBar
+        audio={audio}
+        setAudio={setAudio}
         progress={`${serial + 1}/${questions.length}`}
         duration={questions[serial].duration}
         seconds={seconds}
@@ -116,7 +120,14 @@ export default function Question({ questions, quizId }: { questions: Question; q
         <div className="pt-6">
           {questions[serial].type === 'multiple' &&
             questions[serial].options.map((option, index) => (
-              <MCQOption key={option._id} index={index} action={handleQuestion} bg_color={`${optionColors[index]}`} title={option.title} />
+              <MCQOption
+                key={option._id}
+                index={index}
+                time={seconds}
+                action={handleQuestion}
+                bg_color={`${optionColors[index]}`}
+                title={option.title}
+              />
             ))}
 
           {/* 

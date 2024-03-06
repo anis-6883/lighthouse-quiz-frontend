@@ -1,6 +1,6 @@
 import { metaObject } from '@/config/site.config'
 import { IoMdMusicalNote } from 'react-icons/io'
-import QuestionCard from '../../components/question/QuestionCard'
+import QuestionCard from '../../components/QuestionCard'
 import MCQOption from '../../components/MCQOption'
 import CheckboxCard from '../../components/CheckboxCard'
 import OpenendedCard from '../../components/OpenendedCard'

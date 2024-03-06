@@ -1,14 +1,14 @@
 import { metaObject } from '@/config/site.config'
 import { FaArrowLeft, FaFlagCheckered, FaRegBell } from 'react-icons/fa6'
-import HistoryCard from '../components/HistoryCard'
-import TopNavigation from '../components/TopNavigation'
-import TopRanking from '../components/TopRanking'
+import HistoryCard from '../../components/HistoryCard'
+import TopNavigation from '../../components/TopNavigation'
+import TopRanking from '../../components/TopRanking'
 
 export const metadata = {
   ...metaObject('User Summary'),
 }
 
-export default function Page() {
+export default function Summary() {
   return (
     <>
       <div className="w-full pb-6 ">

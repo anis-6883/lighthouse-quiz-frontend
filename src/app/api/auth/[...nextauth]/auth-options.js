@@ -8,6 +8,7 @@ export const authOptions = {
     CredentialsProvider({
       async authorize(credentials) {
         return {
+          userId: credentials.userId,
           accessToken: credentials?.accessToken,
           role: credentials?.role,
         }

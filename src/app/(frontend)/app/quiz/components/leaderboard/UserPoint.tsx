@@ -1,9 +1,21 @@
-export default function UserPoint({ name, ImageSrc, isActive }: { name: string; ImageSrc?: any; isActive?: number }) {
+export default function UserPoint({
+  rank,
+  name,
+  ImageSrc,
+  isActive,
+  point,
+}: {
+  rank: number
+  name: string
+  ImageSrc?: any
+  isActive: boolean
+  point: number
+}) {
   return (
-    <div className={`${isActive == 1 ? 'bg-white text-black' : 'text-white'} `}>
+    <div className={`${isActive ? 'bg-white text-black' : 'text-white'} `}>
       <div className="flex items-center justify-between px-6 py-2 text-base font-medium sm:px-8">
         <span className="flex items-center gap-4 rounded-full ">
-          1
+          {rank}
           {ImageSrc ? (
             <img className="h-10 w-10 rounded-full" src={ImageSrc} alt="user image" />
           ) : (
@@ -11,7 +23,7 @@ export default function UserPoint({ name, ImageSrc, isActive }: { name: string; 
           )}
           {name}
         </span>
-        120
+        {point}
       </div>
     </div>
   )

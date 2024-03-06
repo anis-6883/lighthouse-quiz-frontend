@@ -20,9 +20,11 @@ export default function Verification({ token }: { token: string }) {
 
   const handleOTP = async () => {
     const response = await postData('register/verification', token, { otp: OTP })
+    console.log(response)
 
     if (response.status) {
       signIn('credentials', {
+        userId: response.data._id,
         accessToken: response.data.accessToken,
         role: 'user',
         redirect: false,
