@@ -75,27 +75,26 @@ export default function Question({ questions, quizId }: { questions: Question; q
       },
       isFinished: questions.length - 1 === serial,
     })
+    setSeconds(0)
 
-    setSerial((prev) => (prev < questions.length - 1 ? prev + 1 : prev))
-    setSeconds(-1)
+    await new Promise<void>((resolve) => {
+      setTimeout(() => {
+        setSerial((prev) => (prev < questions.length - 1 ? prev + 1 : prev))
+        setSeconds(-1)
+        resolve()
+      }, 3000)
+    })
   }
 
-  // show leader board after every 3 questions
   useEffect(() => {
     if (serial > 0 && (serial === questions.length - 1 || serial % 3 === 0)) {
-      setLeaderBoard(true)
+      setLeaderBoard(true) // show leader board after every 3 questions
     }
   }, [questions.length, serial])
 
-  //hide leader board in 3 seconds
   useEffect(() => {
     let timeoutId: NodeJS.Timeout
-
-    if (leaderBoard) {
-      timeoutId = setTimeout(() => {
-        setLeaderBoard(false)
-      }, 3000) // 3000 milliseconds = 3 seconds
-    }
+    if (leaderBoard) timeoutId = setTimeout(() => setLeaderBoard(false), 3000) //hide leader board in 3 seconds
     return () => clearTimeout(timeoutId)
   }, [leaderBoard])
 
@@ -110,6 +109,7 @@ export default function Question({ questions, quizId }: { questions: Question; q
         setSeconds={setSeconds}
         action={handleQuestion}
       />
+
       <QuestionCard question={questions[serial]?.question} />
 
       {seconds !== -1 && (
@@ -119,9 +119,10 @@ export default function Question({ questions, quizId }: { questions: Question; q
               <MCQOption key={option._id} index={index} action={handleQuestion} bg_color={`${optionColors[index]}`} title={option.title} />
             ))}
 
-          {/* <McqCard bg_color="bg-[var(--ans-option-one)]" option_text="hello bangladesh" imageSrc="/images/Live_Quiz.png" />
-            <CheckboxCard bg_color="bg-[var(--ans-option-two)]" option_text="Open Hello Bangladesh" />
-            <OpenendedCard /> */}
+          {/* 
+          <McqCard bg_color="bg-[var(--ans-option-one)]" option_text="hello bangladesh" imageSrc="/images/Live_Quiz.png" />
+          <CheckboxCard bg_color="bg-[var(--ans-option-two)]" option_text="Open Hello Bangladesh" />
+          <OpenendedCard /> */}
         </div>
       )}
 

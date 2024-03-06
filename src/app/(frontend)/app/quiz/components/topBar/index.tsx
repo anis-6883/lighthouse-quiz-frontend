@@ -37,14 +37,13 @@ export default function TopBar({
   useEffect(() => {
     if (seconds > 0) {
       const timeoutId = setTimeout(() => {
-        setSeconds(seconds - 1)
+        if (seconds === 1) action()
+        else setSeconds(seconds - 1)
       }, 1000)
 
       return () => clearTimeout(timeoutId) // Cleanup function
     } else if (seconds === -1) {
-      setSeconds(duration)
-    } else if (seconds === 0) {
-      action()
+      setSeconds(duration) //restart timer
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [duration, seconds])
