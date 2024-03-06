@@ -1,14 +1,23 @@
-import { apiSlice } from '@/features/api/apiSlice';
+import { apiSlice } from '@/features/api/apiSlice'
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    adminLogin: builder.mutation({
+      query: (data) => {
+        return {
+          url: `/api/admin/login`,
+          method: 'POST',
+          body: data,
+        }
+      },
+    }),
     userRegister: builder.mutation({
       query: (data) => {
         return {
           url: `/api/user/register`,
           method: 'POST',
           body: data,
-        };
+        }
       },
     }),
     loginWithPhone: builder.mutation({
@@ -17,7 +26,7 @@ export const authApi = apiSlice.injectEndpoints({
           url: `/api/user/login`,
           method: 'POST',
           body: data,
-        };
+        }
       },
     }),
     verifyPhone: builder.mutation({
@@ -26,7 +35,7 @@ export const authApi = apiSlice.injectEndpoints({
           url: `/api/user/verify-phone`,
           method: 'POST',
           body: data,
-        };
+        }
       },
     }),
     forgetPassword: builder.mutation({
@@ -35,7 +44,7 @@ export const authApi = apiSlice.injectEndpoints({
           url: `/api/user/forget-password`,
           method: 'POST',
           body: data,
-        };
+        }
       },
     }),
     verifyForgetPasswordOtp: builder.mutation({
@@ -44,7 +53,7 @@ export const authApi = apiSlice.injectEndpoints({
           url: `/api/user/verify-forget-password-otp`,
           method: 'POST',
           body: data,
-        };
+        }
       },
     }),
     changeForgetPassword: builder.mutation({
@@ -53,7 +62,7 @@ export const authApi = apiSlice.injectEndpoints({
           url: `/api/user/change-forget-password`,
           method: 'PUT',
           body: data,
-        };
+        }
       },
     }),
     resendOtp: builder.mutation({
@@ -62,7 +71,7 @@ export const authApi = apiSlice.injectEndpoints({
           url: `/api/user/resend-otp`,
           method: 'POST',
           body: data,
-        };
+        }
       },
     }),
     getProfile: builder.query({
@@ -75,7 +84,7 @@ export const authApi = apiSlice.injectEndpoints({
           url: `/api/user/favorites`,
           method: 'PUT',
           body: data,
-        };
+        }
       },
       invalidatesTags: ['userProfile'],
     }),
@@ -85,16 +94,17 @@ export const authApi = apiSlice.injectEndpoints({
           url: `/api/user/favorites/update`,
           method: 'PUT',
           body: data,
-        };
+        }
       },
       invalidatesTags: ['userProfile'],
     }),
   }),
-});
+})
 
 export const {
   useGetProfileQuery,
   useResendOtpMutation,
+  useAdminLoginMutation,
   useVerifyPhoneMutation,
   useUserRegisterMutation,
   useLoginWithPhoneMutation,
@@ -103,4 +113,4 @@ export const {
   useUpdateUserFavoritesMutation,
   useChangeForgetPasswordMutation,
   useVerifyForgetPasswordOtpMutation,
-} = authApi;
+} = authApi

@@ -1,43 +1,32 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import SearchList from '@/components/search/search-list'
+import SearchTrigger from '@/components/search/search-trigger'
+import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { Modal } from 'rizzui'
 
-import SearchTrigger from '@/components/search/search-trigger';
-import SearchList from '@/components/search/search-list';
-import { Modal } from 'rizzui';
-
-export default function SearchWidget({
-  className,
-  icon,
-}: {
-  className?: string;
-  icon?: React.ReactNode;
-}) {
-  const [open, setOpen] = useState(false);
+export default function SearchWidget({ className, icon }: { className?: string; icon?: React.ReactNode }) {
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
-        setOpen(!open);
+        setOpen(!open)
       }
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [open]);
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [open])
 
-  const pathname = usePathname();
+  const pathname = usePathname()
   useEffect(() => {
-    setOpen(() => false);
-  }, [pathname]);
+    setOpen(() => false)
+  }, [pathname])
 
   return (
     <>
-      <SearchTrigger
-        icon={icon}
-        className={className}
-        onClick={() => setOpen(true)}
-      />
+      <SearchTrigger icon={icon} className={className} onClick={() => setOpen(true)} />
 
       <Modal
         isOpen={open}
@@ -48,5 +37,5 @@ export default function SearchWidget({
         <SearchList onClose={() => setOpen(false)} />
       </Modal>
     </>
-  );
+  )
 }
