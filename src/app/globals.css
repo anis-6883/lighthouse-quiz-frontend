@@ -340,6 +340,10 @@
   background-color: #6949ff !important;
 }
 
+.rizzui-select-option:hover {
+  background-color: #f1f1f1;
+}
+
 /* ................................................... */
 /** welcome page react Slick slider Custom Dots End **/
 /* ................................................... */
