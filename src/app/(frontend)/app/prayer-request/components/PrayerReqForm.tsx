@@ -48,7 +48,6 @@ export default function PrayerReqForm() {
   return (
     <Formik initialValues={{ subject: '', description: '' }} validationSchema={prayerSchema} onSubmit={handlePrayer}>
       {({ values, handleChange, handleBlur, isSubmitting }) => {
-        console.log(values)
         return (
           <Form className="mt-4 flex flex-col gap-5">
             <Input

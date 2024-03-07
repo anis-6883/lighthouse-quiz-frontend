@@ -1,14 +1,13 @@
 'use client'
 
+import deleteData from '@/utils/fetch/deleteData'
+import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
+import { FcCheckmark } from 'react-icons/fc'
+import { RxCross2 } from 'react-icons/rx'
 import { Option } from '../../components/Actions'
 import AskConfirmation from '../../components/AskConfirmation'
 import Table from '../../components/Table'
-import { useSession } from 'next-auth/react'
-import { FcCheckmark } from 'react-icons/fc'
-import { RxCross2 } from 'react-icons/rx'
-import deleteData from '@/utils/fetch/deleteData'
-import { Select } from 'rizzui'
 
 let popup = false
 

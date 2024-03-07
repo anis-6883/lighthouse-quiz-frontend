@@ -1,15 +1,13 @@
 'use client'
 
-import Button from '@/app/(frontend)/components/Button'
-import MCQOption from './components/MCQOption'
-import TopBar from './components/topBar'
-import QuestionCard from './components/QuestionCard'
-import { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
 import postData from '@/utils/fetch/postData'
 import { useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
+import MCQOption from './components/MCQOption'
+import QuestionCard from './components/QuestionCard'
 import LeaderBoard from './components/leaderboard'
 import notify from './components/notify'
+import TopBar from './components/topBar'
 
 type Question = {
   _id: string
@@ -96,49 +94,53 @@ export default function Quiz({ questions, quizId }: { questions: Question; quizI
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout
-    if (leaderBoard) timeoutId = setTimeout(() => setLeaderBoard(false), 3000) //hide leader board in 3 seconds
+    if (leaderBoard && questions.length - 1 !== serial) timeoutId = setTimeout(() => setLeaderBoard(false), 3000) //hide leader board in 3 seconds
     return () => clearTimeout(timeoutId)
-  }, [leaderBoard])
+  }, [leaderBoard, questions.length, serial])
 
   if (leaderBoard) return <LeaderBoard quizId={quizId} isFinished={questions.length - 1 === serial} />
 
   return (
-    <div className="w-full select-none">
-      <TopBar
-        audio={audio}
-        setAudio={setAudio}
-        progress={`${serial + 1}/${questions.length}`}
-        duration={questions[serial].duration}
-        seconds={seconds}
-        setSeconds={setSeconds}
-        action={handleQuestion}
-      />
+    <main className="bg-[#EBF5FB]">
+      <div className="relative m-auto min-h-screen max-w-3xl overflow-hidden bg-[var(--front-bg-color)] px-6 pb-20 pt-6 sm:px-8">
+        <div className="w-full select-none">
+          <TopBar
+            audio={audio}
+            setAudio={setAudio}
+            progress={`${serial + 1}/${questions.length}`}
+            duration={questions[serial].duration}
+            seconds={seconds}
+            setSeconds={setSeconds}
+            action={handleQuestion}
+          />
 
-      <QuestionCard question={questions[serial]?.question} />
+          <QuestionCard question={questions[serial]?.question} />
 
-      {seconds !== -1 && (
-        <div className="pt-6">
-          {questions[serial].type === 'multiple' &&
-            questions[serial].options.map((option, index) => (
-              <MCQOption
-                key={option._id}
-                index={index}
-                time={seconds}
-                action={handleQuestion}
-                bg_color={`${optionColors[index]}`}
-                title={option.title}
-              />
-            ))}
+          {seconds !== -1 && (
+            <div className="pt-6">
+              {questions[serial].type === 'multiple' &&
+                questions[serial].options.map((option, index) => (
+                  <MCQOption
+                    key={option._id}
+                    index={index}
+                    time={seconds}
+                    action={handleQuestion}
+                    bg_color={`${optionColors[index]}`}
+                    title={option.title}
+                  />
+                ))}
 
-          {/* 
+              {/* 
           <McqCard bg_color="bg-[var(--ans-option-one)]" option_text="hello bangladesh" imageSrc="/images/Live_Quiz.png" />
           <CheckboxCard bg_color="bg-[var(--ans-option-two)]" option_text="Open Hello Bangladesh" />
           <OpenendedCard /> */}
-        </div>
-      )}
+            </div>
+          )}
 
-      <br />
-      {/* <Button type="submit" height={16} title="submit answer" onClick={() => handleQuestion(-1)} /> */}
-    </div>
+          <br />
+          {/* <Button type="submit" height={16} title="submit answer" onClick={() => handleQuestion(-1)} /> */}
+        </div>
+      </div>
+    </main>
   )
 }

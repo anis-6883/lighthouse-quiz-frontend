@@ -5,16 +5,15 @@ import postData from '@/utils/fetch/postData'
 import reload from '@/utils/fetch/reload'
 import updateData from '@/utils/fetch/updateData'
 import { ErrorMessage, Form, Formik } from 'formik'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { RxCross2 } from 'react-icons/rx'
 import { Button, Input, Modal } from 'rizzui'
 import * as Yup from 'yup'
-import ImageInputField from '../../components/ImageInputField'
-import { useSession } from 'next-auth/react'
 
-const featureSchema = Yup.object().shape({
+const dailyQuizTitleSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
-  image: Yup.string().required('Image is required'),
 })
 
 type props = {
@@ -26,23 +25,21 @@ type props = {
 export default function DailyQuizForm({ formData, modalState, setModalState }: props) {
   const { data: session }: any = useSession()
   const token = session?.accessToken || ''
+  const router = useRouter()
 
-  const handleFeature = async (values: any, { resetForm }: { resetForm: Function }) => {
-    const payload = {
-      title: values.title,
-      image: values.image,
-      existing: formData.image,
-    }
+  const handleDailyQuizTitle = async (values: any, { resetForm }: { resetForm: Function }) => {
+    const payload = { title: values.title }
 
-    const response = formData?.id ? () => updateData('features', token, payload, formData.id) : () => postData('admin/features', token, payload)
+    const response = formData?.id ? () => updateData('daily-quiz', token, payload, formData.id) : () => postData('admin/daily-quiz', token, payload)
 
     toast.promise(response(), {
       loading: 'Please wait...',
       success: (data: Response) => {
         if (data.status) {
-          reload('features')
+          reload('daily-quiz/list')
           setModalState(false)
           resetForm()
+          router.push('/admin/daily-quizzes/' + data.data._id)
           return data.message
         }
 
@@ -64,8 +61,12 @@ export default function DailyQuizForm({ formData, modalState, setModalState }: p
           </button>
         </div>
 
-        <Formik initialValues={{ title: formData?.title || '', image: formData?.image }} validationSchema={featureSchema} onSubmit={handleFeature}>
-          {({ values, handleChange, handleBlur, isSubmitting, isValid }) => {
+        <Formik
+          initialValues={{ title: formData?.title || '', image: formData?.image }}
+          validationSchema={dailyQuizTitleSchema}
+          onSubmit={handleDailyQuizTitle}
+        >
+          {({ values, handleChange, handleBlur, isSubmitting }) => {
             return (
               <Form>
                 <Input
@@ -78,9 +79,6 @@ export default function DailyQuizForm({ formData, modalState, setModalState }: p
                   value={values.title}
                 />
                 <ErrorMessage name="title" component="p" />
-
-                <ImageInputField label="Image *" name="image" />
-                <ErrorMessage name="image" component="p" />
 
                 <Button type="submit" size="lg" className="col-span-2 mt-2" disabled={isSubmitting}>
                   {formData.id ? 'Update' : 'Add'}

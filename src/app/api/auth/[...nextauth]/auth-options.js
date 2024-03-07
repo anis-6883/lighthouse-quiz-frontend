@@ -26,7 +26,7 @@ export const authOptions = {
       }
       // console.log('user', user)
       // console.log('account', account)
-      // console.log('token', token)
+      console.log('token', token.accessToken)
       return token
     },
 

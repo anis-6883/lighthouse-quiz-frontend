@@ -3,7 +3,7 @@ import { metaObject } from '@/config/site.config'
 import { getServerSession } from 'next-auth'
 import Quiz from '../..'
 import postData from '@/utils/fetch/postData'
-import Summary from '../../summary/Summary'
+import Summary from '../../summary/page'
 
 export const metadata = {
   ...metaObject('Daily Quiz'),
@@ -664,13 +664,5 @@ export default async function Page({ params }: { params: { id: string } }) {
   // }
 
   if (dailyQuiz.data.isPlayed) return <Summary />
-  else {
-    return (
-      <main className="bg-[#EBF5FB]">
-        <div className="relative m-auto min-h-screen max-w-3xl overflow-hidden bg-[var(--front-bg-color)] px-6 pb-20 pt-6 sm:px-8">
-          <Quiz questions={dailyQuiz.data.questions} quizId={params.id} />
-        </div>
-      </main>
-    )
-  }
+  else return <Quiz questions={dailyQuiz.data.questions} quizId={params.id} />
 }

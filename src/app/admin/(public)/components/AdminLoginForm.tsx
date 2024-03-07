@@ -70,7 +70,6 @@ export default function AdminLoginForm() {
 
   // Submit Handler
   const handleSubmit = (values: any) => {
-    console.log(values)
     setSubmitting(true)
 
     adminLogin({

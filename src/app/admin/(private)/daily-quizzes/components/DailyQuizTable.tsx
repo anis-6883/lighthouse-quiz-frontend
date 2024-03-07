@@ -6,12 +6,14 @@ import { Option } from '../../components/Actions'
 import AskConfirmation from '../../components/AskConfirmation'
 import Table from '../../components/Table'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 let popup = false
 
 export default function DailyQuizTable({ data, edit, formData }: { data: any; edit: Function; formData: Function }) {
   const { data: session }: any = useSession()
   const token = session?.accessToken || ''
+  const router = useRouter()
 
   const structure = [
     {
@@ -63,12 +65,14 @@ export default function DailyQuizTable({ data, edit, formData }: { data: any; ed
     {
       name: 'Edit',
       action: (data: any) => {
-        edit(true)
-        formData({
-          title: data.title,
-          image: data.image,
-          id: data._id,
-        })
+        console.log(data)
+
+        // formData({
+        //   title: data.title,
+        //   image: data.image,
+        //   id: data._id,
+        // })
+        // router.push('/admin/daily-quizzes/' + data._id)
       },
     },
     {
@@ -78,7 +82,7 @@ export default function DailyQuizTable({ data, edit, formData }: { data: any; ed
 
         toast((t) => {
           popup = t.visible
-          return AskConfirmation(t, () => deleteData('features', token, data._id))
+          return AskConfirmation(t, () => deleteData('daily-quiz', token, data._id))
         })
       },
     },
