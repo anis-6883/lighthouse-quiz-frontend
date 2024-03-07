@@ -24,7 +24,7 @@ export default function Page() {
         <PrayerReqForm />
 
         <div className="flex w-full justify-center">
-          <img className="mt-5 h-full max-h-[320px] w-full max-w-[390px] rounded-xl object-cover" src="images/prayer.png" alt="" />
+          <img className="mt-5 h-full max-h-[320px] w-full max-w-[390px] rounded-xl object-cover" src="/images/prayer.png" alt="" />
         </div>
       </div>
     </>
