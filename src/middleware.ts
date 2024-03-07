@@ -9,7 +9,7 @@ export default withAuth(
     if (token && token.accessToken && token.role) {
       if (token.role === 'admin') {
         if (pathname.startsWith('/auth') || pathname.startsWith('/app') || pathname === '/admin/login')
-          return NextResponse.redirect(new URL('/admin/', req.url))
+          return NextResponse.redirect(new URL('/admin/dashboard', req.url))
       } else if (token.role === 'user') {
         if (pathname.startsWith('/admin') || pathname.startsWith('/auth')) return NextResponse.redirect(new URL('/app', req.url))
       }

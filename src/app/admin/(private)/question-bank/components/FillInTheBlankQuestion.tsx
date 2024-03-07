@@ -1,10 +1,9 @@
-'use client'
 import { FaTrashAlt } from 'react-icons/fa'
 import { TiPlus } from 'react-icons/ti'
 
-export default function FillInTheBlank() {
+export default function FillInTheBlankQuestion() {
   return (
-    <>
+    <div>
       <div className="mb-5 rounded-xl bg-[#3a1737] py-8">
         <div className="mx-auto w-full max-w-[500px]">
           <input
@@ -44,6 +43,6 @@ export default function FillInTheBlank() {
           </button>
         </div>
       </div>
-    </>
+    </div>
   )
 }

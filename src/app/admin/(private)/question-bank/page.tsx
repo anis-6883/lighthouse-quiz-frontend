@@ -5,6 +5,7 @@ import getData from '@/utils/fetch/getData'
 import PageContent from './components/PageContent'
 
 const title = 'Question Bank'
+
 export const metadata = { ...metaObject(title) }
 
 export default async function Page() {

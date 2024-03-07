@@ -1,7 +1,6 @@
 'use client'
 
 import { DrawerPlacements, useDrawer } from '@/app/shared/drawer-views/use-drawer'
-
 import cn from '@/utils/class-names'
 import { ActionIcon } from 'rizzui'
 
