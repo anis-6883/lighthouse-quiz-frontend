@@ -17,12 +17,6 @@ export default function QuestionTable({ data, edit, formData }: { data: any; edi
 
   const structure = [
     {
-      header: 'Image',
-      Cell: ({ row }: any) => {
-        return <img src={row?.original?.image} alt="image" className="h-14 transition-all duration-500 hover:h-40" />
-      },
-    },
-    {
       header: 'Question',
       Cell: ({ row }: any) => {
         return <Question data={row.original} />
@@ -64,18 +58,23 @@ export default function QuestionTable({ data, edit, formData }: { data: any; edi
   return <Table data={data} structure={structure} options={options} />
 }
 
-function Question({ data }: any) {
+export function Question({ data }: any) {
   return (
-    <div>
-      <h1>{data.question}</h1>
-      <div className="grid grid-cols-2">
-        {data?.options?.map((option: { title: string; _id: string }, serial: number) => (
-          <div key={option?._id} className="flex items-center gap-1">
-            {serial === data.answer[0] ? <FcCheckmark /> : <RxCross2 className="text-red-500" />}
+    <div className="flex items-center gap-7 p-3">
+      {data?.image && <img src={data.image} alt="image" className="h-20 rounded border-2" />}
 
-            <span>{option?.title}</span>
-          </div>
-        ))}
+      <div>
+        <h1 className="mb-3 text-lg font-bold">{data.question}</h1>
+
+        <div className="grid w-full grid-cols-4 gap-3">
+          {data?.options?.map((option: { title: string; _id: string; image: string }, serial: number) => (
+            <div key={option?._id} className="flex items-center gap-3">
+              {serial === data.answer[0] ? <FcCheckmark /> : <RxCross2 className="text-red-500" />}
+              {option?.image && <img src={option?.image} alt="image" className="h-10 rounded border-2" />}
+              <span>{option?.title}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )

@@ -15,8 +15,6 @@ export default function PageContent({ data }: any) {
     if (newQuesModal == false) setFormData({})
   }, [newQuesModal])
 
-  console.log()
-
   return (
     <>
       <QuestionForm formData={formData} modalState={newQuesModal} setModalState={setNewQuesModal} />
@@ -27,7 +25,7 @@ export default function PageContent({ data }: any) {
         <AddButton className="block" prefix="Add" name="from Question Bank" setModalState={setQuesBankModal} />
       </div>
 
-      <QuestionTable data={data.question} edit={setNewQuesModal} formData={setFormData} />
+      <QuestionTable data={data.questionDetails} edit={setNewQuesModal} formData={setFormData} />
     </>
   )
 }
