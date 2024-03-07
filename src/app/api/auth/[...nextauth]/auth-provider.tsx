@@ -1,32 +1,25 @@
-'use client';
+'use client'
 
-import { userLoggedIn, userLoggedOut } from '@/features/auth/authSlice';
-import { SessionProvider } from 'next-auth/react';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { userLoggedIn, userLoggedOut } from '@/features/auth/authSlice'
+import { SessionProvider } from 'next-auth/react'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
-export default function AuthProvider({
-  children,
-  session,
-}: {
-  children: React.ReactNode;
-  session: any;
-}): React.ReactNode {
-  const dispatch = useDispatch();
+export default function AuthProvider({ children, session }: { children: React.ReactNode; session: any }): React.ReactNode {
+  const dispatch = useDispatch()
 
   // User data and token update into redux state
   useEffect(() => {
     if (session) {
       dispatch(
         userLoggedIn({
-          accessToken: session?.user?.accessToken,
-          user: session?.user,
-        })
-      );
+          accessToken: session?.accessToken,
+        }),
+      )
     } else {
-      dispatch(userLoggedOut());
+      dispatch(userLoggedOut())
     }
-  }, [dispatch, session]);
+  }, [dispatch, session])
 
-  return <SessionProvider session={session}>{children}</SessionProvider>;
+  return <SessionProvider session={session}>{children}</SessionProvider>
 }

@@ -11,8 +11,8 @@ import { useSession } from 'next-auth/react'
 let popup = false
 
 export default function AdminTable({ data, edit, formData }: { data: any; edit: Function; formData: Function }) {
-  const { data: session } = useSession()
-  const token = session?.user.accessToken || ''
+  const { data: session }: any = useSession()
+  const token = session?.accessToken || ''
 
   const structure = [
     {

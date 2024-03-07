@@ -1,11 +1,14 @@
-// import FileDashboard from '@/app/shared/file/dashboard'
-import { metaObject } from '@/config/site.config'
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'
+import { routes } from '@/config/routes'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 
-export const metadata = {
-  ...metaObject(),
-}
-
-export default function Page() {
-  return <></>
-  // return <FileDashboard />;
+export default async function Page() {
+  const session = await getServerSession(authOptions)
+  if (session) {
+    redirect(routes.dashboard)
+  } else {
+    redirect(routes.adminLogin)
+  }
+  return <div></div>
 }

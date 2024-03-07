@@ -1,31 +1,30 @@
-import withAuth from 'next-auth/middleware'
+import { withAuth } from 'next-auth/middleware'
 import { NextResponse } from 'next/server'
-import { routes } from './config/routes'
 
 export default withAuth(
   function middleware(req) {
-    const userRole = req.nextauth.token?.role
+    const { pathname } = req.nextUrl
+    const { token }: any = req.nextauth
 
-    if (userRole === 'user' && req.nextUrl.pathname.includes('admin')) {
-      return NextResponse.redirect(new URL('/', req.url))
+    if (token && token.accessToken && token.role) {
+      if (token.role === 'admin') {
+        if (pathname.startsWith('/auth') || pathname.startsWith('/app') || pathname === '/admin/login')
+          return NextResponse.redirect(new URL('/admin/dashboard', req.url))
+      } else if (token.role === 'user') {
+        if (pathname.startsWith('/admin') || pathname.startsWith('/auth')) return NextResponse.redirect(new URL('/app', req.url))
+      }
     } else {
-      return NextResponse.next()
+      if (pathname.startsWith('/admin') && pathname !== '/admin/login') return NextResponse.redirect(new URL('/admin/login', req.url))
+      else if (pathname.startsWith('/app')) return NextResponse.redirect(new URL('/auth/signin', req.url))
     }
   },
   {
     callbacks: {
-      authorized: ({ req, token }) => token?.role === 'user' || token?.role === 'admin', // If there is a token, the user is authenticated
-    },
-    pages: {
-      signIn: routes.signIn,
-      error: routes.signIn,
+      authorized: ({ token }) => true,
     },
   },
 )
 
 export const config = {
-  matcher: [
-    '/((?!api|_next/static|_next/image|images|icons|favicon.ico|register|signin|home|history|refer|settings|about-us|terms-and-conditions|privacy-policy|verification|signup|user|test|admin/login|$).*)',
-  ],
-  // matcher: ['/admin/:path*'],
+  matcher: ['/app/:path*', '/auth/:path*', '/admin/:path*'],
 }

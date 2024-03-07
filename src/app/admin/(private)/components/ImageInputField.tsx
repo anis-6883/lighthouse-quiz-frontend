@@ -56,7 +56,7 @@ export default function ImageInputField({ label, name }: { label: string; name: 
                 <RxCross2 size={40} className="m-7 text-white opacity-100" />
               </div>
 
-              <Cropper ref={cropperRef} src={preview} style={{ height: 'auto', width: '100%' }} dragMode="none" aspectRatio={1} cropmove={debouncedHandleCrop} />
+              <Cropper ref={cropperRef} src={preview} style={{ height: 'auto', width: '100%' }} dragMode="none" cropmove={debouncedHandleCrop} />
             </div>
           </>
         )}

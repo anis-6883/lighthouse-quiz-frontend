@@ -13,7 +13,16 @@ interface QuillEditorProps extends ReactQuillProps {
   toolbarPosition?: 'top' | 'bottom'
 }
 
-export default function QuillEditor({ id, label, error, className, labelClassName, errorClassName, toolbarPosition = 'top', ...props }: QuillEditorProps) {
+export default function QuillEditor({
+  id,
+  label,
+  error,
+  className,
+  labelClassName,
+  errorClassName,
+  toolbarPosition = 'top',
+  ...props
+}: QuillEditorProps) {
   const quillModules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],

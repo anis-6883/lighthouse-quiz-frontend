@@ -1,24 +1,23 @@
 'use client'
 
 import getStatusBadge from '@/components/get-status-badge'
-
 import SimpleBar from '@/components/ui/simplebar'
-
+import { routes } from '@/config/routes'
 import cn from '@/utils/class-names'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Fragment } from 'react'
 import { PiCaretDownBold } from 'react-icons/pi'
-import { menuItems } from './menu-items'
 import { Collapse, Title } from 'rizzui'
+import { menuItems } from './menu-items'
 
 export default function Sidebar({ className }: { className?: string }) {
   const pathname = usePathname()
   return (
     <aside className={cn('fixed bottom-0 start-0 z-50 h-full w-[270px] border-e-2 border-gray-100 bg-white 2xl:w-72 dark:bg-gray-100/50', className)}>
       <div className="sticky top-0 z-40 bg-gray-0/10 px-6 pb-2 pt-2 2xl:px-6 2xl:pt-2 dark:bg-gray-100/5">
-        <Link href={'/'} aria-label="Site Logo">
-          <img className="m-auto" src="/images/logo.png" width={80} alt="logo" />
+        <Link href={routes.dashboard} aria-label="Site Logo">
+          <img src="/images/logo.png" alt="logo" className="m-auto w-20" />
         </Link>
       </div>
 
@@ -47,11 +46,26 @@ export default function Sidebar({ className }: { className?: string }) {
                             )}
                           >
                             <span className="flex items-center">
-                              {item?.icon && <span className={cn('me-2 inline-flex h-5 w-5 items-center justify-center rounded-md [&>svg]:h-[20px] [&>svg]:w-[20px]', isDropdownOpen ? 'text-primary' : 'text-gray-800 dark:text-gray-500 dark:group-hover:text-gray-700')}>{item?.icon}</span>}
+                              {item?.icon && (
+                                <span
+                                  className={cn(
+                                    'me-2 inline-flex h-5 w-5 items-center justify-center rounded-md [&>svg]:h-[20px] [&>svg]:w-[20px]',
+                                    isDropdownOpen ? 'text-primary' : 'text-gray-800 dark:text-gray-500 dark:group-hover:text-gray-700',
+                                  )}
+                                >
+                                  {item?.icon}
+                                </span>
+                              )}
                               {item.name}
                             </span>
 
-                            <PiCaretDownBold strokeWidth={3} className={cn('h-3.5 w-3.5 -rotate-90 text-gray-500 transition-transform duration-200 rtl:rotate-90', open && 'rotate-0 rtl:rotate-0')} />
+                            <PiCaretDownBold
+                              strokeWidth={3}
+                              className={cn(
+                                'h-3.5 w-3.5 -rotate-90 text-gray-500 transition-transform duration-200 rtl:rotate-90',
+                                open && 'rotate-0 rtl:rotate-0',
+                              )}
+                            />
                           </div>
                         )}
                       >
@@ -68,7 +82,13 @@ export default function Sidebar({ className }: { className?: string }) {
                               )}
                             >
                               <div className="flex items-center truncate">
-                                <span className={cn('me-[18px] ms-1 inline-flex h-1 w-1 rounded-full bg-current transition-all duration-200', isChildActive ? 'bg-primary ring-[1px] ring-primary' : 'opacity-40')} /> <span className="truncate">{dropdownItem?.name}</span>
+                                <span
+                                  className={cn(
+                                    'me-[18px] ms-1 inline-flex h-1 w-1 rounded-full bg-current transition-all duration-200',
+                                    isChildActive ? 'bg-primary ring-[1px] ring-primary' : 'opacity-40',
+                                  )}
+                                />{' '}
+                                <span className="truncate">{dropdownItem?.name}</span>
                               </div>
                               {dropdownItem?.badge?.length ? getStatusBadge(dropdownItem?.badge) : null}
                             </Link>
@@ -86,7 +106,16 @@ export default function Sidebar({ className }: { className?: string }) {
                         )}
                       >
                         <div className="flex items-center truncate">
-                          {item?.icon && <span className={cn('me-2 inline-flex h-5 w-5 items-center justify-center rounded-md [&>svg]:h-[20px] [&>svg]:w-[20px]', isActive ? 'text-primary' : 'text-gray-800 dark:text-gray-500 dark:group-hover:text-gray-700')}>{item?.icon}</span>}
+                          {item?.icon && (
+                            <span
+                              className={cn(
+                                'me-2 inline-flex h-5 w-5 items-center justify-center rounded-md [&>svg]:h-[20px] [&>svg]:w-[20px]',
+                                isActive ? 'text-primary' : 'text-gray-800 dark:text-gray-500 dark:group-hover:text-gray-700',
+                              )}
+                            >
+                              {item?.icon}
+                            </span>
+                          )}
                           <span className="truncate">{item.name}</span>
                         </div>
                         {item?.badge?.length ? getStatusBadge(item?.badge) : null}
@@ -94,7 +123,13 @@ export default function Sidebar({ className }: { className?: string }) {
                     )}
                   </>
                 ) : (
-                  <Title as="h6" className={cn('mb-2 truncate px-6 text-xs font-normal uppercase tracking-widest text-gray-500 2xl:px-8', index !== 0 && 'mt-6 3xl:mt-7')}>
+                  <Title
+                    as="h6"
+                    className={cn(
+                      'mb-2 truncate px-6 text-xs font-normal uppercase tracking-widest text-gray-500 2xl:px-8',
+                      index !== 0 && 'mt-6 3xl:mt-7',
+                    )}
+                  >
                     {item.name}
                   </Title>
                 )}
