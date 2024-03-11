@@ -10,6 +10,8 @@ import Button from '../../components/Button'
 import InputPhone from '../../components/InputPhone'
 import TextInput from '../../components/TextInput'
 import InputCountry from './CountryInput'
+import toast from 'react-hot-toast'
+import { routes } from '@/config/routes'
 
 const userSchema = Yup.object().shape({
   name: Yup.string().required('Your name is required'),
@@ -18,7 +20,11 @@ const userSchema = Yup.object().shape({
     .required('Phone number is required'),
   country: Yup.string().required('Country is required'),
   gender: Yup.string().required('Gender is required'),
-  age: Yup.number().min(0, 'Age must be a positive number').max(150, 'Age must be less than or equal to 150').required('Age is required'),
+  age: Yup.number()
+    .integer('Must be a whole number')
+    .min(0, 'Age must be a positive number')
+    .max(150, 'Age must be less than or equal to 150')
+    .required('Age is required'),
   language: Yup.string().required('Language is required'),
   email: Yup.string().email('Invalid email address'),
   conditions: Yup.boolean().oneOf([true], 'Agree to terms and conditions to sign up').required('Agree to terms and conditions to sign up'),
@@ -33,6 +39,8 @@ export default function SignUpForm({ setToken }: { setToken: React.Dispatch<Reac
 
     if (response.status) {
       setToken(response.data)
+    } else {
+      toast.error(response.message)
     }
   }
 
@@ -159,7 +167,7 @@ export default function SignUpForm({ setToken }: { setToken: React.Dispatch<Reac
 
                     <span className="label-text ml-2 text-base">
                       I agree with the
-                      <Link className="ml-1 underline" href="/login">
+                      <Link className="ml-1 underline" href={routes.tramsAndConditions}>
                         Terms & Condition
                       </Link>
                     </span>

@@ -61,7 +61,7 @@ export default function TopBar({
           <h2 className="flex items-center gap-2 text-2xl font-semibold capitalize text-[var(--text-color)]">{progress}</h2>
         </span>
 
-        <button type="button" onClick={() => setAudio((current) => !current)}>
+        <button type="button" onClick={() => setAudio((current: Boolean) => !current)}>
           {audio ? <IoMdMusicalNote className="text-2xl font-semibold sm:text-4xl" /> : <MdMusicOff className="text-2xl font-semibold sm:text-4xl" />}
         </button>
       </div>

@@ -15,7 +15,7 @@ export default withAuth(
       }
     } else {
       if (pathname.startsWith('/admin') && pathname !== '/admin/login') return NextResponse.redirect(new URL('/admin/login', req.url))
-      else if (pathname.startsWith('/app')) return NextResponse.redirect(new URL('/auth/signin', req.url))
+      else if (pathname.startsWith('/app')) return NextResponse.redirect(new URL('/auth/login', req.url))
     }
   },
   {

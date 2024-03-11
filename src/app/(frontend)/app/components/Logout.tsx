@@ -39,10 +39,7 @@ export default function Logout() {
             <div className="w-full max-w-48 sm:max-w-80">
               <button
                 type="button"
-                onClick={async () => {
-                  signOut({ redirect: false })
-                  router.push('/')
-                }}
+                onClick={() => signOut()}
                 className="h-14 w-full rounded-full border-b-[5px] border-b-[#543ACC] bg-[var(--primary-color)] text-sm capitalize text-white shadow-md  hover:bg-[var(--btn-hover-color)]  sm:h-16 sm:text-lg"
               >
                 Yes, Logout

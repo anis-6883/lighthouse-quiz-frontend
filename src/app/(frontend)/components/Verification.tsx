@@ -13,7 +13,7 @@ export const metadata = {
   ...metaObject('Verification OTP'),
 }
 
-export default function Verification({ token }: { token: string }) {
+export default function Verification({ token, trusted }: { token: string; trusted?: boolean }) {
   const [timer, setTimer] = useState(Date.now() + 60 * 1000)
   const [OTP, setOTP] = useState('')
   const router = useRouter()
@@ -26,6 +26,7 @@ export default function Verification({ token }: { token: string }) {
         userId: response.data._id,
         accessToken: response.data.accessToken,
         role: 'user',
+        trusted: trusted,
         redirect: false,
       }).then((callback) => {
         if (callback?.error) {
