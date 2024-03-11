@@ -17,9 +17,8 @@ import { RiCheckboxFill } from 'react-icons/ri'
 import { RxCross2 } from 'react-icons/rx'
 import { Button, Modal, Select } from 'rizzui'
 import * as Yup from 'yup'
-import Tiptap from '../../components/Tiptap'
 import FillInTheBlankQuestion from './FillInTheBlankQuestion'
-import MCQanswer from './MCQanswer'
+import MCQAnswer from './MCQAnswer'
 import Question from './Question'
 import TabButton from './TabButton'
 
@@ -90,13 +89,21 @@ export default function QuestionForm({ formData, modalState, setModalState }: pr
   ]
 
   const initialValues = {
-    type: 'Multiple Choice',
+    type: 'multiple-choice',
     question: '',
     questionImage: '',
     option1: '',
+    option1type: '',
+    option1image: '',
     option2: '',
+    option2type: '',
+    option2image: '',
     option3: '',
+    option3type: '',
+    option3image: '',
     option4: '',
+    option4type: '',
+    option4image: '',
     answer: [],
     duration: '',
   }
@@ -156,40 +163,29 @@ export default function QuestionForm({ formData, modalState, setModalState }: pr
                   </div>
                 </div>
 
-                <div>
+                {/* <div>
                   <Tiptap />
-                </div>
+                </div> */}
 
                 <div className="overflow-hidden rounded-xl bg-[#461A42] p-6">
-                  <Question />
+                  <Question setFieldValue={setFieldValue} />
 
-                  <div hidden={currentTab === 0 ? false : true}>
+                  <div hidden={currentTab === 0 || currentTab === 1 || currentTab === 4 ? false : true}>
                     <div className="flex gap-5">
-                      <MCQanswer rounded />
-                      <MCQanswer rounded />
-                      <MCQanswer rounded />
-                      <MCQanswer rounded />
-                    </div>
-                  </div>
+                      {[0, 1, 2, 3].map((number, index) => {
+                        if (values.type === 'true-false' && index < 2) {
+                          return <MCQAnswer key={number} index={number} rounded />
+                        }
 
-                  <div hidden={currentTab === 1 ? false : true}>
-                    <div className="flex gap-5">
-                      <MCQanswer />
-                      <MCQanswer />
-                      <MCQanswer />
-                      <MCQanswer />
+                        if (values.type !== 'true-false') {
+                          return <MCQAnswer key={number} index={number} rounded={values.type === 'multiple-choice'} />
+                        }
+                      })}
                     </div>
                   </div>
 
                   <div hidden={currentTab === 3 ? false : true}>
                     <FillInTheBlankQuestion />
-                  </div>
-
-                  <div hidden={currentTab === 4 ? false : true}>
-                    <div className="flex gap-5">
-                      <MCQanswer rounded />
-                      <MCQanswer rounded />
-                    </div>
                   </div>
                 </div>
 
