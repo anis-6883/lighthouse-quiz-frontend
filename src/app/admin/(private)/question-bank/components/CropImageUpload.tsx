@@ -4,9 +4,9 @@ import { useRef, useState } from 'react'
 import Cropper, { ReactCropperElement } from 'react-cropper'
 import Dropzone from 'react-dropzone'
 import toast from 'react-hot-toast'
-import { RxCross2 } from 'react-icons/rx'
+import { IoCloseCircle } from 'react-icons/io5'
 
-export default function ImageInputField({ label, name }: { label: string; name: string }) {
+export default function CropImageUpload({ name }: { name: string }) {
   const maxSize = 10 //MB
   const { values, setFieldValue }: any = useFormikContext()
   const [preview, setPreview] = useState<string | null>(values[name])
@@ -27,40 +27,53 @@ export default function ImageInputField({ label, name }: { label: string; name: 
     if (file.size < MBToBytes(maxSize)) {
       const reader = new FileReader()
       reader.readAsDataURL(file)
-      reader.onloadend = () => setPreview(reader.result as string) // Converted selected image to base64 string
+
+      reader.onloadend = () => {
+        setPreview(reader.result as string) // Converted selected image to base64 string
+        setFieldValue(name, reader.result as string)
+      }
     } else {
       toast.error(`File size exceeds ${maxSize}MB limit`)
     }
   }
 
   return (
-    <div className="flex flex-col">
-      <fieldset className="rounded-md border-2 border-gray-300 p-3">
-        <legend className="font-semibold">{label}</legend>
-
+    <div className="h-40 rounded-md border border-dashed border-gray-300 md:h-full">
+      {!preview && (
         <Dropzone onDrop={handleDrop} accept={{ 'image/*': [] }} multiple={false}>
           {({ getRootProps }) => {
             return (
-              <div {...getRootProps()} className="cursor-pointer py-3">
+              <div {...getRootProps()} className="flex h-full cursor-pointer items-center justify-center p-3">
                 <Zone image={preview} />
               </div>
             )
           }}
         </Dropzone>
+      )}
 
-        {/* preview window */}
-        {preview && (
-          <>
-            <div className="relative">
-              <div className="absolute inset-0 flex cursor-pointer items-center justify-center bg-gray-500 bg-opacity-50 opacity-0 transition-opacity duration-300 hover:opacity-100 ">
-                <RxCross2 size={40} className="m-7 text-white opacity-100" />
-              </div>
+      {/* preview window */}
+      {preview && (
+        <div className="relative">
+          <div
+            className="absolute right-2 top-2.5 z-50 cursor-pointer"
+            onClick={() => {
+              setPreview(null)
+              setFieldValue(name, '')
+            }}
+          >
+            <IoCloseCircle className="text-2xl text-white hover:text-error" />
+          </div>
 
-              <Cropper ref={cropperRef} src={preview} style={{ height: 'auto', width: '100%' }} dragMode="none" cropmove={debouncedHandleCrop} />
-            </div>
-          </>
-        )}
-      </fieldset>
+          <Cropper
+            ref={cropperRef}
+            src={preview}
+            style={{ height: 'auto', width: '100%' }}
+            dragMode="none"
+            cropmove={debouncedHandleCrop}
+            autoCropArea={1}
+          />
+        </div>
+      )}
     </div>
   )
 }
@@ -70,14 +83,11 @@ type props = { name?: string; image: string | null; setValue?: Function }
 function Zone({ image }: props) {
   if (!image) {
     return (
-      <div className="flex items-center justify-center gap-3">
+      <div className="flex flex-col items-center justify-center gap-2">
         <img src="/images/upload.png" height={40} width={40} alt="upload" />
-
         <h3 className="mt-2 text-sm font-medium text-gray-900 ">
-          <label htmlFor="file-upload" className="relative cursor-pointer">
-            <span>Drag and drop or</span>
-            <span className="text-primary"> browse</span>
-            <span> to upload!</span>
+          <label htmlFor="file-upload" className="relative cursor-pointer text-white">
+            <span>Drag and drop or browse to upload!</span>
           </label>
         </h3>
       </div>
