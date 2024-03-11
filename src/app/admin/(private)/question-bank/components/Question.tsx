@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { FcAddImage, FcRemoveImage } from 'react-icons/fc'
 import CropImageUpload from './CropImageUpload'
 
-export default function Question() {
+export default function Question({ setFieldValue }: { setFieldValue: any }) {
   const [showImageUpload, setShowImageUpload] = useState(false)
   return (
     <div className="question-part grid grid-cols-12 gap-4 pb-8">
@@ -20,7 +20,11 @@ export default function Question() {
           className="absolute left-2 top-2 block rounded-md bg-[#e7e6e677] p-[4px] hover:bg-[#938A91]"
           onClick={() => setShowImageUpload(!showImageUpload)}
         >
-          {showImageUpload ? <FcRemoveImage className="block text-lg text-white" /> : <FcAddImage className="block text-lg text-white" />}
+          {showImageUpload ? (
+            <FcRemoveImage className="block text-lg text-white" onClick={() => setFieldValue('questionImage', '')} />
+          ) : (
+            <FcAddImage className="block text-lg text-white" />
+          )}
         </button>
         <div className="editor-container flex h-full w-full items-center justify-center overflow-hidden rounded-xl focus-within:bg-[#281226]">
           <div
@@ -30,6 +34,7 @@ export default function Question() {
             onInput={function (e) {
               const target = e.target as HTMLDivElement
               console.log(target.innerText)
+              setFieldValue('question', target.innerText)
             }}
           ></div>
         </div>
